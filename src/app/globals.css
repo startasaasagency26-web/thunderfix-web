@@ -1,0 +1,350 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  
+  --color-accent: #000000;
+  --color-surface-low: #FFFFFF;
+  --color-surface-mid: #F8F7F4;
+  --color-surface-high: #F2F0EB;
+  --color-glass: rgba(255, 255, 255, 0.9);
+  --color-glass-border: rgba(0, 0, 0, 0.08);
+
+  --font-sans: "Inter", var(--font-geist-sans);
+  --font-editorial: "Plus Jakarta Sans", "Inter", sans-serif;
+
+  --shadow-premium: 0 40px 100px -20px rgba(0, 0, 0, 0.08);
+  --shadow-subtle: 0 10px 30px -10px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 2px 20px -4px rgba(0, 0, 0, 0.06);
+  --shadow-elevated: 0 20px 60px -12px rgba(0, 0, 0, 0.12);
+  
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-3xl: 2.5rem;
+}
+
+:root {
+  --background: #f5f3ef;
+  --foreground: #000000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0d0d0d;
+    --foreground: #f2f0eb;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-black/8;
+  }
+  body {
+    @apply bg-background text-foreground antialiased selection:bg-black selection:text-white;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02";
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-editorial tracking-tight text-balance;
+  }
+}
+
+/* ── Container & Section Utilities ── */
+.section-padding {
+  @apply py-20 md:py-28 lg:py-36;
+}
+
+.container-width {
+  @apply mx-auto max-w-[1200px] px-6 md:px-8 lg:px-10;
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   LIQUID GLASS SYSTEM — Apple iOS 26
+   
+   Three self-contained variants:
+   
+   .liquid-glass       → Light translucent glass (white tint)
+   .liquid-glass-dark  → Dark tinted translucent glass (dark tint on light bg)
+   .liquid-glass-invert→ Light translucent glass on dark backgrounds
+   
+   Each variant is SELF-CONTAINED — no need to combine classes.
+   The background MUST bleed through (low opacity + high blur).
+   ══════════════════════════════════════════════════════════ */
+
+
+/* ────────────────────────────────────────────────
+   SHARED BASE — applied to all three variants
+   ──────────────────────────────────────────────── */
+
+.liquid-glass,
+.liquid-glass-dark,
+.liquid-glass-invert {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.75rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  letter-spacing: 0.005em;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+
+  /* Heavy backdrop blur — THIS is what makes it "glass" */
+  backdrop-filter: blur(40px) saturate(200%) brightness(1.1);
+  -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(1.1);
+
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+
+/* Specular sweep — shared pseudo on all variants */
+.liquid-glass::before,
+.liquid-glass-dark::before,
+.liquid-glass-invert::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    105deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 62%
+  );
+  opacity: 0;
+  transform: translateX(-130%);
+  transition:
+    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Inner specular arc (top edge light catch) */
+.liquid-glass::after,
+.liquid-glass-dark::after,
+.liquid-glass-invert::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 12%;
+  right: 12%;
+  height: 45%;
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Shared hover behavior */
+.liquid-glass:hover,
+.liquid-glass-dark:hover,
+.liquid-glass-invert:hover {
+  transform: translateY(-1.5px);
+}
+
+.liquid-glass:hover::before,
+.liquid-glass-dark:hover::before,
+.liquid-glass-invert:hover::before {
+  opacity: 1;
+  transform: translateX(130%);
+}
+
+/* Shared active behavior */
+.liquid-glass:active,
+.liquid-glass-dark:active,
+.liquid-glass-invert:active {
+  transform: translateY(0.5px) scale(0.97);
+}
+
+/* Shared disabled */
+.liquid-glass:disabled,
+.liquid-glass-dark:disabled,
+.liquid-glass-invert:disabled,
+.liquid-glass[aria-disabled="true"],
+.liquid-glass-dark[aria-disabled="true"],
+.liquid-glass-invert[aria-disabled="true"] {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none !important;
+  pointer-events: none;
+}
+
+
+/* ────────────────────────────────────────────────
+   VARIANT 1: LIGHT GLASS (white tint)
+   Use on colored or image backgrounds.
+   ──────────────────────────────────────────────── */
+
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: rgba(0, 0, 0, 0.85);
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.04),
+    0 2px 12px -3px rgba(0, 0, 0, 0.06),
+    0 0.5px 2px 0 rgba(0, 0, 0, 0.03);
+}
+
+.liquid-glass::after {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, transparent 100%);
+  opacity: 0.6;
+}
+
+.liquid-glass:hover {
+  background: rgba(255, 255, 255, 0.32);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.04),
+    0 6px 20px -4px rgba(0, 0, 0, 0.1),
+    0 1px 4px 0 rgba(0, 0, 0, 0.04);
+}
+
+.liquid-glass:hover::after { opacity: 0.85; }
+
+.liquid-glass:active {
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.06),
+    0 1px 4px -1px rgba(0, 0, 0, 0.08);
+}
+
+.liquid-glass:focus-visible {
+  outline: 2px solid rgba(0, 120, 255, 0.6);
+  outline-offset: 3px;
+}
+
+
+/* ────────────────────────────────────────────────
+   VARIANT 2: DARK TINTED GLASS
+   Use on light page backgrounds (#f5f3ef).
+   Still translucent — background bleeds through.
+   ──────────────────────────────────────────────── */
+
+.liquid-glass-dark {
+  background: rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  color: rgba(0, 0, 0, 0.8);
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.03),
+    0 2px 12px -3px rgba(0, 0, 0, 0.06),
+    0 0.5px 2px 0 rgba(0, 0, 0, 0.02);
+}
+
+.liquid-glass-dark::after {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, transparent 100%);
+  opacity: 0.5;
+}
+
+.liquid-glass-dark:hover {
+  background: rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.04),
+    0 6px 20px -4px rgba(0, 0, 0, 0.1),
+    0 1px 4px 0 rgba(0, 0, 0, 0.04);
+}
+
+.liquid-glass-dark:hover::after { opacity: 0.7; }
+
+.liquid-glass-dark:active {
+  background: rgba(0, 0, 0, 0.04);
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.05),
+    0 1px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.liquid-glass-dark:focus-visible {
+  outline: 2px solid rgba(0, 0, 0, 0.5);
+  outline-offset: 3px;
+}
+
+
+/* ────────────────────────────────────────────────
+   VARIANT 3: INVERTED GLASS
+   Use on dark backgrounds (testimonial section).
+   Bright translucent glass on dark surfaces.
+   ──────────────────────────────────────────────── */
+
+.liquid-glass-invert {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.95);
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.15),
+    0 2px 16px -4px rgba(0, 0, 0, 0.2),
+    0 0.5px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.liquid-glass-invert::after {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, transparent 100%);
+  opacity: 0.4;
+}
+
+.liquid-glass-invert:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.12),
+    0 8px 24px -4px rgba(0, 0, 0, 0.25),
+    0 1px 4px 0 rgba(0, 0, 0, 0.12);
+}
+
+.liquid-glass-invert:hover::after { opacity: 0.6; }
+
+.liquid-glass-invert:active {
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.2),
+    0 1px 4px -1px rgba(0, 0, 0, 0.15);
+}
+
+.liquid-glass-invert:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 3px;
+}
+
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .liquid-glass,
+  .liquid-glass-dark,
+  .liquid-glass-invert {
+    transition: none;
+  }
+  .liquid-glass::before,
+  .liquid-glass-dark::before,
+  .liquid-glass-invert::before {
+    display: none;
+  }
+  .liquid-glass:hover,
+  .liquid-glass-dark:hover,
+  .liquid-glass-invert:hover {
+    transform: none;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

@@ -144,7 +144,7 @@ export default function ContactSection() {
       <footer className="container-width relative z-10 mt-24 pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8 pb-12">
         <div className="flex flex-col items-center md:items-start gap-2">
           <span className="text-[12px] font-black uppercase tracking-[0.2em] text-white">Thunderfix</span>
-          <p className="text-[10px] font-medium text-white/20 uppercase tracking-[0.1em]">© 2025 All Rights Reserved.</p>
+          <p className="text-[10px] font-medium text-white/20 uppercase tracking-[0.1em]">© 2026 Thunderfix.my · Powered by Infinita Tech Solutions Sdn Bhd</p>
         </div>
         
         <div className="flex items-center gap-8">
@@ -157,7 +157,7 @@ export default function ContactSection() {
 
         <div className="flex items-center gap-4">
           <div className="h-1 w-1 rounded-full bg-white/20" />
-          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/20">Malaysia</span>
+          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/20">Shah Alam, Malaysia</span>
         </div>
       </footer>
     </section>

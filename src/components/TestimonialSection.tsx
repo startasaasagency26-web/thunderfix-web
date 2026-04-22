@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { Quote, Star } from "lucide-react";
+import { Star } from "lucide-react";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -31,66 +31,62 @@ function FadeUp({
 
 export default function TestimonialSection() {
   return (
-    <section id="testimonials" className="bg-surface-low py-24 md:py-32 lg:py-48 relative overflow-hidden border-t border-black/5">
+    <section id="testimonials" className="bg-white py-24 md:py-32 lg:py-48 relative overflow-hidden border-t border-black/5">
       <div className="container-width relative z-10">
-        <div className="grid gap-24 lg:grid-cols-2 lg:items-center">
-          
-          <div>
-            <FadeUp>
-              <span className="badge-pill mb-12">Social Proof</span>
-              <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-black leading-[1.05] tracking-[-0.03em] text-black mb-12">
-                Trusted by those who <br />
-                <span className="text-black/30">demand excellence.</span>
-              </h2>
-            </FadeUp>
-
-            <FadeUp delay={0.1}>
-              <div className="relative">
-                <Quote size={80} className="absolute -top-12 -left-8 text-black/5 -z-10" />
-                <blockquote className="text-[20px] leading-relaxed text-black/70 font-medium italic mb-10">
-                  The precision of the repair was invisible to the
-                  naked eye. Thunderfix is truly the gold standard
-                  in device restoration.
-                </blockquote>
-                <div className="flex items-center gap-5">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full border border-black/10 bg-black text-white text-[12px] font-black uppercase">
-                    AP
-                  </div>
-                  <div>
-                    <p className="text-[14px] font-black uppercase tracking-widest text-black">
-                      Aidil P.
-                    </p>
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-black/30">
-                      Verified Client
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </FadeUp>
-          </div>
-
-          <FadeUp delay={0.2}>
-            <div className="relative group">
-              <div className="floating-card flex flex-col items-center justify-center !p-16 lg:!p-24 text-center">
-                <span className="text-[clamp(4rem,10vw,8rem)] font-black leading-none tracking-[-0.05em] text-black mb-6">
-                  99.8
-                  <span className="text-black/20">%</span>
-                </span>
-                <div className="flex items-center justify-center gap-1 mb-8 text-accent">
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <Star key={i} size={18} className="fill-current" />
-                  ))}
-                </div>
-                <span className="text-[11px] font-black uppercase tracking-[0.3em] text-black/40 mb-4">
-                  Successful Repair Rate
-                </span>
-                <p className="max-w-[280px] text-[13px] leading-relaxed text-black/20 font-medium group-hover:text-black/40 transition-colors">
-                  Based on verified outcomes across premium device categories in 2024–2025.
-                </p>
-              </div>
-            </div>
+        <div className="flex flex-col items-center text-center mb-24">
+          <FadeUp>
+            <span className="badge-pill mb-8">Testimonials</span>
+            <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[1.1] tracking-tight text-black">
+              What Our <span className="text-black/30">Customers Say</span>
+            </h2>
           </FadeUp>
         </div>
+
+        <FadeUp delay={0.2}>
+          <div className="max-w-5xl mx-auto">
+            {/* Pill-shaped Testimonial Card */}
+            <div className="relative rounded-[4rem] border border-black/5 bg-surface-low p-6 lg:p-8 flex flex-col md:flex-row items-center gap-8 lg:gap-12 shadow-soft">
+              
+              {/* Left: Round-rect Visual */}
+              <div className="w-full md:w-[35%] aspect-video md:aspect-[4/3] rounded-[3rem] overflow-hidden border border-black/5 bg-zinc-200 shrink-0">
+                <div className="h-full w-full bg-zinc-100 flex items-center justify-center">
+                  <span className="text-black/10 font-black uppercase tracking-widest text-[10px]">Client Video</span>
+                </div>
+              </div>
+
+              {/* Center: Content */}
+              <div className="flex-grow text-center md:text-left space-y-4">
+                <div className="flex items-center justify-center md:justify-start gap-4 mb-2">
+                  <span className="text-[16px] font-black tracking-tight text-black">Mark Doe</span>
+                  <div className="flex items-center gap-0.5 text-accent">
+                    {[1, 2, 3, 4, 5].map((i) => (
+                      <Star key={i} size={14} className="fill-current" />
+                    ))}
+                  </div>
+                </div>
+                <p className="text-[18px] lg:text-[22px] font-bold leading-snug tracking-tight text-black/70 italic">
+                  "Thunderfix is incredible. My sleek iPhone was restored to perfection. 
+                  They fit snugly into my premium lifestyle without any discomfort."
+                </p>
+              </div>
+
+              {/* Right: Avatar */}
+              <div className="hidden lg:block shrink-0">
+                <div className="h-32 w-32 rounded-full border-4 border-white shadow-premium overflow-hidden bg-zinc-200">
+                  <img src="https://i.pravatar.cc/200?img=12" alt="Reviewer" className="h-full w-full object-cover" />
+                </div>
+              </div>
+
+            </div>
+
+            {/* Pagination / Dots mirroring Podly */}
+            <div className="mt-12 flex justify-center gap-2">
+              <div className="h-1.5 w-12 rounded-full bg-black" />
+              <div className="h-1.5 w-4 rounded-full bg-black/10" />
+              <div className="h-1.5 w-4 rounded-full bg-black/10" />
+            </div>
+          </div>
+        </FadeUp>
       </div>
     </section>
   );

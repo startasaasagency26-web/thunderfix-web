@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, Star, ShieldCheck, Zap } from "lucide-react";
+import { ArrowRight, Star, Zap } from "lucide-react";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -50,16 +50,16 @@ export default function HeroSection() {
 
         {/* Main Headline */}
         <FadeUp delay={0.1}>
-          <h1 className="text-[clamp(2.5rem,7vw,5.5rem)] font-black leading-[1.05] tracking-[-0.04em] text-black max-w-5xl mx-auto">
-            Experience Surgery-Grade <br />
-            <span className="text-black/30">Smartphone Restoration</span>
+          <h1 className="text-[clamp(2.5rem,8vw,6rem)] font-black leading-[1] tracking-[-0.05em] text-black max-w-5xl mx-auto">
+            Surgical Precision <br />
+            <span className="text-black/30">For Your Premium Tech</span>
           </h1>
         </FadeUp>
 
         <FadeUp delay={0.2} className="mt-8 max-w-2xl">
-          <p className="text-[17px] leading-relaxed text-black/50 font-medium">
-            We don't just fix phones; we restore them to their trusted performance. 
-            Obsessive attention to detail meets laboratory precision.
+          <p className="text-[18px] leading-relaxed text-black/50 font-medium">
+            We don't just fix devices; we restore them to factory standards. 
+            Experience the gold standard in laboratory-grade hardware restoration.
           </p>
         </FadeUp>
 
@@ -71,17 +71,17 @@ export default function HeroSection() {
               <ArrowRight size={16} />
             </a>
             <a href="#services" className="btn-premium btn-outline">
-              Our Process
+              View Services
             </a>
           </div>
         </FadeUp>
 
         {/* Focal Point & Floating Cards */}
-        <div className="relative mt-24 w-full max-w-4xl mx-auto">
+        <div className="relative mt-24 w-full max-w-5xl mx-auto px-4">
           
           {/* Main Video Frame */}
           <FadeUp delay={0.3}>
-            <div className="hero-focal-wrap aspect-[16/10] w-full">
+            <div className="hero-focal-wrap aspect-[16/10] w-full rounded-[3rem] overflow-hidden shadow-premium border border-black/5 bg-white">
               <video
                 src="/hf_20260331_113227_6113d12f-39d5-4f75-952d-fba94b0b6bda.mp4"
                 poster="/hero-monochrome.png"
@@ -97,9 +97,10 @@ export default function HeroSection() {
           {/* Floating Callout 1: Reviews */}
           <motion.div
             initial={{ opacity: 0, x: -50, y: 20 }}
-            animate={{ opacity: 1, x: 0, y: 0 }}
+            whileInView={{ opacity: 1, x: 0, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 1, delay: 0.5, ease }}
-            className="absolute -left-4 top-[15%] hidden lg:block z-20"
+            className="absolute -left-8 top-[15%] hidden xl:block z-20"
           >
             <div className="floating-card !p-6 flex items-center gap-4">
               <div className="flex -space-x-3">
@@ -111,7 +112,7 @@ export default function HeroSection() {
               </div>
               <div>
                 <p className="text-[16px] font-black leading-none">5000+</p>
-                <p className="text-[10px] font-bold text-black/40 uppercase tracking-widest mt-1">Clients Reviews</p>
+                <p className="text-[10px] font-bold text-black/40 uppercase tracking-widest mt-1">Lab Successes</p>
               </div>
             </div>
           </motion.div>
@@ -119,13 +120,14 @@ export default function HeroSection() {
           {/* Floating Callout 2: Offer */}
           <motion.div
             initial={{ opacity: 0, x: 50, y: -20 }}
-            animate={{ opacity: 1, x: 0, y: 0 }}
+            whileInView={{ opacity: 1, x: 0, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 1, delay: 0.6, ease }}
-            className="absolute -right-8 top-[40%] hidden lg:block z-20"
+            className="absolute -right-8 top-[40%] hidden xl:block z-20"
           >
             <div className="floating-card !p-7 group">
-              <p className="text-[42px] font-black leading-none tracking-tighter">30<span className="text-[20px] ml-1 opacity-40">%</span></p>
-              <p className="text-[11px] font-bold text-black/40 uppercase tracking-widest mt-2">New Client Discount</p>
+              <p className="text-[42px] font-black leading-none tracking-tighter">10<span className="text-[20px] ml-1 opacity-40">%</span></p>
+              <p className="text-[11px] font-bold text-black/40 uppercase tracking-widest mt-2">New Client Offer</p>
               <div className="mt-6 flex h-10 w-10 items-center justify-center rounded-full bg-accent transition-transform group-hover:scale-110">
                 <ArrowRight size={16} />
               </div>
@@ -135,37 +137,20 @@ export default function HeroSection() {
           {/* Floating Callout 3: Performance */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 1, delay: 0.7, ease }}
-            className="absolute -bottom-8 left-[30%] hidden lg:block z-20"
+            className="absolute -bottom-8 left-[10%] hidden xl:block z-20"
           >
             <div className="floating-card !p-4 !px-6 flex items-center gap-3">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-black text-white">
                 <Zap size={14} className="fill-current" />
               </div>
-              <span className="text-[11px] font-black uppercase tracking-widest">Surgical Precision</span>
+              <span className="text-[11px] font-black uppercase tracking-widest">Master Engineering</span>
             </div>
           </motion.div>
 
         </div>
-
-        {/* Feature Grid Sub-row */}
-        <div className="mt-32 grid grid-cols-1 gap-12 sm:grid-cols-3 w-full">
-          {[
-            { icon: Zap, title: "24h Restoration", desc: "Same-day service for most premium device repairs." },
-            { icon: ShieldCheck, title: "Lifetime Warranty", desc: "Every service is backed by our uncompromising guarantee." },
-            { icon: Star, title: "OEM Parts", desc: "We use only the highest-grade original components." },
-          ].map((feature, i) => (
-            <FadeUp key={feature.title} delay={0.8 + i * 0.1} className="flex flex-col items-center">
-              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-soft border border-black/5">
-                <feature.icon size={24} className="text-black" />
-              </div>
-              <h3 className="text-[14px] font-black uppercase tracking-widest mb-3">{feature.title}</h3>
-              <p className="text-[13px] leading-relaxed text-black/40 font-medium max-w-[200px]">{feature.desc}</p>
-            </FadeUp>
-          ))}
-        </div>
-
       </div>
     </section>
   );

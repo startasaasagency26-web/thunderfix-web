@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowRight } from "lucide-react";
 
@@ -9,7 +8,7 @@ const navLinks = [
   { name: "Services", href: "#services" },
   { name: "Why Us", href: "#why-us" },
   { name: "Testimonials", href: "#testimonials" },
-  { name: "Contact", href: "#contact" },
+  { name: "FAQ", href: "#faq" },
 ];
 
 export default function Navbar() {
@@ -30,7 +29,7 @@ export default function Navbar() {
     }`}>
       <div className="container-width flex items-center justify-between">
         
-        {/* Logo */}
+        {/* Logo (Left) */}
         <a
           href="#home"
           className="flex items-center gap-2 group transition-all duration-300"
@@ -43,29 +42,29 @@ export default function Navbar() {
           </span>
         </a>
 
-        {/* Desktop Navigation */}
+        {/* Navigation (Center) */}
         <nav
           aria-label="Primary navigation"
-          className="hidden items-center gap-10 lg:flex"
+          className="hidden items-center gap-10 lg:flex absolute left-1/2 -translate-x-1/2"
         >
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className="text-[10px] font-black tracking-[0.2em] uppercase text-black/40 transition-all duration-300 hover:text-black"
+              className="text-[11px] font-black tracking-[0.2em] uppercase text-black/30 transition-all duration-300 hover:text-black hover:tracking-[0.25em]"
             >
               {link.name}
             </a>
           ))}
         </nav>
 
-        {/* Action Area */}
+        {/* Action Area (Right) */}
         <div className="flex items-center gap-4">
           <a
             href="https://wa.me/60144008052"
             target="_blank"
             rel="noreferrer"
-            className="btn-premium btn-primary !px-8 !py-3.5 !text-[10px]"
+            className="hidden sm:flex btn-premium btn-primary !px-8 !py-3.5 !text-[10px]"
           >
             Start Repair
           </a>
@@ -100,6 +99,12 @@ export default function Navbar() {
                     <ArrowRight size={14} className="opacity-40" />
                   </a>
                 ))}
+                <a
+                  href="https://wa.me/60144008052"
+                  className="flex items-center justify-center rounded-2xl bg-black px-6 py-5 text-[12px] font-black tracking-[0.1em] uppercase text-white mt-4"
+                >
+                  Start Repair
+                </a>
               </nav>
             </motion.div>
           )}

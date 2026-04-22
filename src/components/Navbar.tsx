@@ -1,40 +1,44 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowRight } from "lucide-react";
 
-export default function Navbar() {
-  const [isOpen, setIsOpen] = React.useState(false);
+const navLinks = [
+  { name: "Services", href: "#services" },
+  { name: "Why Us", href: "#why-us" },
+  { name: "Testimonials", href: "#testimonials" },
+  { name: "Contact", href: "#contact" },
+];
 
-  const navLinks = [
-    { name: "Services", href: "#services" },
-    { name: "Why Us", href: "#why-us" },
-    { name: "Testimonials", href: "#testimonials" },
-    { name: "Contact", href: "#contact" },
-  ];
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header className="fixed top-6 left-0 right-0 z-[100] px-6 sm:px-10 flex justify-center pointer-events-none transition-all duration-500">
-      <div className="pointer-events-auto relative flex w-full max-w-[1200px] items-center justify-between rounded-full bg-black/40 px-6 py-4 shadow-premium backdrop-blur-3xl border border-white/10">
+    <header className={`fixed inset-x-0 top-0 z-[100] transition-all duration-500 ${
+      isScrolled ? "bg-white/80 py-4 shadow-soft backdrop-blur-xl border-b border-black/5" : "bg-transparent py-8"
+    }`}>
+      <div className="container-width flex items-center justify-between">
         
         {/* Logo */}
         <a
           href="#home"
-          className="flex items-center gap-3 transition-all duration-300 hover:opacity-80 z-10"
+          className="flex items-center gap-2 group transition-all duration-300"
         >
-          <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 backdrop-blur-md">
-            <Image
-              src="/logo.png"
-              alt="Thunderfix"
-              width={22}
-              height={22}
-              className="object-contain invert brightness-200"
-              priority
-            />
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-black text-white transition-transform group-hover:scale-110">
+            <span className="text-[18px] font-black italic">T</span>
           </div>
-          <span className="text-[14px] font-black tracking-[-0.02em] text-white uppercase sm:flex hidden">
+          <span className="text-[14px] font-black tracking-[0.1em] text-black uppercase hidden sm:block">
             Thunderfix
           </span>
         </a>
@@ -42,13 +46,13 @@ export default function Navbar() {
         {/* Desktop Navigation */}
         <nav
           aria-label="Primary navigation"
-          className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-10 lg:flex"
+          className="hidden items-center gap-10 lg:flex"
         >
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className="text-[10px] font-extrabold tracking-[0.2em] uppercase text-white/40 transition-all duration-300 hover:text-white hover:tracking-[0.25em]"
+              className="text-[10px] font-black tracking-[0.2em] uppercase text-black/40 transition-all duration-300 hover:text-black"
             >
               {link.name}
             </a>
@@ -56,32 +60,22 @@ export default function Navbar() {
         </nav>
 
         {/* Action Area */}
-        <div className="flex items-center gap-4 z-10">
+        <div className="flex items-center gap-4">
           <a
             href="https://wa.me/60144008052"
             target="_blank"
             rel="noreferrer"
-            className="hidden sm:inline-flex rounded-full bg-white px-8 py-3 text-[10px] font-black uppercase tracking-[0.15em] text-black transition-all duration-500 hover:bg-zinc-200 hover:scale-105 active:scale-95 shadow-lg shadow-white/5"
+            className="btn-premium btn-primary !px-8 !py-3.5 !text-[10px]"
           >
-            Get a Quote
-          </a>
-          
-          <a
-            href="https://wa.me/60144008052"
-            target="_blank"
-            rel="noreferrer"
-            className="sm:hidden rounded-full bg-white px-5 py-2.5 text-[10px] font-black uppercase tracking-[0.1em] text-black"
-          >
-            Quote
+            Start Repair
           </a>
 
           {/* Mobile Toggle */}
           <button
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 text-white border border-white/10 transition-all hover:bg-white/10 lg:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-black/5 text-black transition-all hover:bg-black/10 lg:hidden"
             onClick={() => setIsOpen(!isOpen)}
-            aria-label={isOpen ? "Close menu" : "Open menu"}
           >
-            {isOpen ? <X size={18} /> : <Menu size={18} />}
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
 
@@ -89,11 +83,10 @@ export default function Navbar() {
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              initial={{ opacity: 0, y: -15, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -15, scale: 0.95 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute left-0 top-[calc(100%+16px)] w-full overflow-hidden rounded-[2.5rem] border border-white/10 bg-black/80 p-6 shadow-elevated backdrop-blur-3xl lg:hidden origin-top"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="absolute left-0 top-full w-full border-t border-black/5 bg-white p-6 shadow-premium lg:hidden"
             >
               <nav className="flex flex-col gap-2">
                 {navLinks.map((link) => (
@@ -101,7 +94,7 @@ export default function Navbar() {
                     key={link.name}
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className="flex items-center justify-between rounded-2xl px-6 py-5 text-[12px] font-black tracking-[0.1em] uppercase text-white/60 transition-all hover:bg-white/5 hover:text-white"
+                    className="flex items-center justify-between rounded-2xl px-6 py-5 text-[12px] font-black tracking-[0.1em] uppercase text-black/60 transition-all hover:bg-black/5 hover:text-black"
                   >
                     {link.name}
                     <ArrowRight size={14} className="opacity-40" />

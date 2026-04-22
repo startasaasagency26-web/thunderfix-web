@@ -31,20 +31,18 @@ function FadeUp({
 
 export default function ContactSection() {
   return (
-    <section id="contact" className="relative bg-black py-24 md:py-32 lg:py-48 overflow-hidden border-t border-white/5">
+    <section id="contact" className="relative bg-white py-24 md:py-32 lg:py-48 overflow-hidden border-t border-black/5">
       <div className="container-width relative z-10">
         <div className="grid gap-24 lg:grid-cols-2 lg:items-start">
           
           <div className="flex flex-col gap-12">
             <FadeUp>
-              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30 mb-8 block">
-                Get Your Quote
-              </span>
-              <h2 className="text-[clamp(2.5rem,5vw,5rem)] font-black leading-[1] tracking-[-0.04em] text-white mb-10">
+              <span className="badge-pill mb-8">Get Your Quote</span>
+              <h2 className="text-[clamp(2.5rem,5vw,5rem)] font-black leading-[1] tracking-[-0.04em] text-black mb-10">
                 Ready to restore <br />
-                <span className="text-white/40">perfection?</span>
+                <span className="text-black/30">perfection?</span>
               </h2>
-              <p className="max-w-md text-[17px] leading-relaxed text-white/50 font-medium">
+              <p className="max-w-md text-[17px] leading-relaxed text-black/50 font-medium">
                 Join the hundreds of clients who trust Thunderfix with their most valuable
                 technology. Our experts are ready to diagnose and resolve your device's
                 issues with unmatched precision.
@@ -55,82 +53,79 @@ export default function ContactSection() {
               <div className="grid gap-6 sm:grid-cols-2">
                 <a
                   href="https://wa.me/60144008052"
-                  className="group relative flex flex-col items-center justify-center rounded-3xl border border-white/5 bg-white/[0.03] p-8 text-center backdrop-blur-3xl transition-all duration-500 hover:bg-white/[0.06] hover:border-white/10"
+                  className="floating-card !p-8 text-center group"
                 >
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-white/30 transition-all group-hover:bg-white group-hover:text-black">
-                    <MessageSquare size={18} strokeWidth={1.5} />
+                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-black/5 text-black/30 transition-all group-hover:bg-black group-hover:text-white mx-auto">
+                    <MessageSquare size={20} strokeWidth={1.5} />
                   </div>
-                  <span className="text-[11px] font-black uppercase tracking-[0.2em] text-white">WhatsApp</span>
+                  <span className="text-[11px] font-black uppercase tracking-[0.2em] text-black">WhatsApp</span>
                 </a>
                 <a
                   href="https://maps.google.com/?q=No.+19-G,+Jalan+Pinang+B+18/B,+Seksyen+18,+40200+Shah+Alam"
                   target="_blank"
                   rel="noreferrer"
-                  className="group relative flex flex-col items-center justify-center rounded-3xl border border-white/5 bg-white/[0.03] p-8 text-center backdrop-blur-3xl transition-all duration-500 hover:bg-white/[0.06] hover:border-white/10"
+                  className="floating-card !p-8 text-center group"
                 >
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-white/30 transition-all group-hover:bg-white group-hover:text-black">
-                    <MapPin size={18} strokeWidth={1.5} />
+                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-black/5 text-black/30 transition-all group-hover:bg-black group-hover:text-white mx-auto">
+                    <MapPin size={20} strokeWidth={1.5} />
                   </div>
-                  <span className="text-[11px] font-black uppercase tracking-[0.2em] text-white">Our Lab</span>
+                  <span className="text-[11px] font-black uppercase tracking-[0.2em] text-black">Our Lab</span>
                 </a>
               </div>
             </FadeUp>
           </div>
 
           <FadeUp delay={0.2}>
-            <div className="relative group">
-              <div className="absolute inset-0 bg-white/[0.01] blur-[80px] rounded-full" />
-              <div className="relative rounded-[3rem] border border-white/10 bg-white/[0.02] p-10 backdrop-blur-3xl lg:p-12">
-                <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
-                  <div className="grid gap-8 sm:grid-cols-2">
-                    <div className="space-y-3">
-                      <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 px-1">Full Name</label>
-                      <input 
-                        type="text" 
-                        placeholder="e.g. John Doe"
-                        className="w-full rounded-2xl border border-white/5 bg-white/5 px-6 py-4 text-[14px] font-medium text-white outline-none transition-all focus:border-white/20 focus:bg-white/[0.08]"
-                      />
-                    </div>
-                    <div className="space-y-3">
-                      <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 px-1">Email Address</label>
-                      <input 
-                        type="email" 
-                        placeholder="john@example.com"
-                        className="w-full rounded-2xl border border-white/5 bg-white/5 px-6 py-4 text-[14px] font-medium text-white outline-none transition-all focus:border-white/20 focus:bg-white/[0.08]"
-                      />
-                    </div>
-                  </div>
-
+            <div className="floating-card !p-10 lg:!p-16">
+              <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
+                <div className="grid gap-8 sm:grid-cols-2">
                   <div className="space-y-3">
-                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 px-1">Device Type</label>
-                    <select 
-                      className="w-full rounded-2xl border border-white/5 bg-white/5 px-6 py-4 text-[14px] font-medium text-white outline-none transition-all focus:border-white/20 focus:bg-white/[0.08] appearance-none"
-                    >
-                      <option className="bg-zinc-900">iPhone (All Models)</option>
-                      <option className="bg-zinc-900">Samsung Galaxy</option>
-                      <option className="bg-zinc-900">iPad / Tablet</option>
-                      <option className="bg-zinc-900">MacBook / Laptop</option>
-                      <option className="bg-zinc-900">Other Smartphone</option>
-                    </select>
+                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-black/30 px-1">Full Name</label>
+                    <input 
+                      type="text" 
+                      placeholder="e.g. John Doe"
+                      className="w-full rounded-2xl border border-black/5 bg-surface-low px-6 py-4 text-[14px] font-medium text-black outline-none transition-all focus:border-black/20 focus:bg-surface-mid"
+                    />
                   </div>
-
                   <div className="space-y-3">
-                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 px-1">Issue Description</label>
-                    <textarea 
-                      rows={4}
-                      placeholder="Tell us what's wrong..."
-                      className="w-full rounded-2xl border border-white/5 bg-white/5 px-6 py-4 text-[14px] font-medium text-white outline-none transition-all focus:border-white/20 focus:bg-white/[0.08] resize-none"
-                    ></textarea>
+                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-black/30 px-1">Email Address</label>
+                    <input 
+                      type="email" 
+                      placeholder="john@example.com"
+                      className="w-full rounded-2xl border border-black/5 bg-surface-low px-6 py-4 text-[14px] font-medium text-black outline-none transition-all focus:border-black/20 focus:bg-surface-mid"
+                    />
                   </div>
+                </div>
 
-                  <button 
-                    type="submit"
-                    className="liquid-glass w-full !py-5 !text-[11px]"
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black uppercase tracking-[0.3em] text-black/30 px-1">Device Type</label>
+                  <select 
+                    className="w-full rounded-2xl border border-black/5 bg-surface-low px-6 py-4 text-[14px] font-medium text-black outline-none transition-all focus:border-black/20 focus:bg-surface-mid appearance-none"
                   >
-                    Send Inquiry
-                  </button>
-                </form>
-              </div>
+                    <option>iPhone (All Models)</option>
+                    <option>Samsung Galaxy</option>
+                    <option>iPad / Tablet</option>
+                    <option>MacBook / Laptop</option>
+                    <option>Other Smartphone</option>
+                  </select>
+                </div>
+
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black uppercase tracking-[0.3em] text-black/30 px-1">Issue Description</label>
+                  <textarea 
+                    rows={4}
+                    placeholder="Tell us what's wrong..."
+                    className="w-full rounded-2xl border border-black/5 bg-surface-low px-6 py-4 text-[14px] font-medium text-black outline-none transition-all focus:border-black/20 focus:bg-surface-mid resize-none"
+                  ></textarea>
+                </div>
+
+                <button 
+                  type="submit"
+                  className="btn-premium btn-primary w-full !py-5"
+                >
+                  Send Inquiry
+                </button>
+              </form>
             </div>
           </FadeUp>
 
@@ -138,26 +133,26 @@ export default function ContactSection() {
       </div>
       
       {/* Absolute Glow */}
-      <div className="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] bg-white/[0.02] blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] bg-accent/5 blur-[120px] rounded-full pointer-events-none" />
 
       {/* Minimalist Footer */}
-      <footer className="container-width relative z-10 mt-24 pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8 pb-12">
+      <footer className="container-width relative z-10 mt-24 pt-12 border-t border-black/5 flex flex-col md:flex-row items-center justify-between gap-8 pb-12">
         <div className="flex flex-col items-center md:items-start gap-2">
-          <span className="text-[12px] font-black uppercase tracking-[0.2em] text-white">Thunderfix</span>
-          <p className="text-[10px] font-medium text-white/20 uppercase tracking-[0.1em]">© 2026 Thunderfix.my · Powered by Infinita Tech Solutions Sdn Bhd</p>
+          <span className="text-[12px] font-black uppercase tracking-[0.2em] text-black">Thunderfix</span>
+          <p className="text-[10px] font-medium text-black/20 uppercase tracking-[0.1em]">© 2026 Thunderfix.my · Powered by Infinita Tech Solutions Sdn Bhd</p>
         </div>
         
         <div className="flex items-center gap-8">
           {["Privacy", "Terms", "Support"].map((item) => (
-            <a key={item} href="#" className="text-[10px] font-black uppercase tracking-[0.2em] text-white/30 hover:text-white transition-colors">
+            <a key={item} href="#" className="text-[10px] font-black uppercase tracking-[0.2em] text-black/30 hover:text-black transition-colors">
               {item}
             </a>
           ))}
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="h-1 w-1 rounded-full bg-white/20" />
-          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/20">Shah Alam, Malaysia</span>
+          <div className="h-1 w-1 rounded-full bg-black/20" />
+          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-black/20">Shah Alam, Malaysia</span>
         </div>
       </footer>
     </section>

@@ -18,10 +18,10 @@ function FadeUp({
   const reducedMotion = useReducedMotion();
   return (
     <motion.div
-      initial={reducedMotion ? {} : { opacity: 0, y: 20 }}
+      initial={reducedMotion ? {} : { opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.7, ease, delay }}
+      transition={{ duration: 0.8, ease, delay }}
       className={className}
     >
       {children}
@@ -42,54 +42,62 @@ const features = [
   },
   {
     title: "Rapid Restoration",
-    desc: "Most repairs are completed within the same day, minimizing downtime without compromising on our strict quality protocols.",
+    desc: "Most repairs are completed within the same day, minimizing downtime without compromising on our strict protocols.",
     icon: Zap,
   },
   {
     title: "Elite Certification",
-    desc: "Thunderfix engineers are among the most highly trained in the region, specializing in complex logic-board diagnostics.",
+    desc: "Thunderfix engineers are among the most highly trained in the region, specializing in complex diagnostics.",
     icon: Award,
   },
 ];
 
 export default function WhyUsSection() {
   return (
-    <section id="why-us" className="relative overflow-hidden bg-[#F8F7F4] py-24 md:py-32 lg:py-40">
+    <section id="why-us" className="relative overflow-hidden bg-black py-24 md:py-32 lg:py-48 border-t border-white/5">
       <div className="container-width relative z-10">
-        <div className="mb-16 max-w-2xl text-center mx-auto">
-          <FadeUp>
-            <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-black/30 mb-4">
-              The Thunderfix Standard
-            </p>
-            <h2 className="text-4xl font-extrabold tracking-[-0.03em] text-black sm:text-5xl lg:text-[3.2rem]">
-              Why the elite choose
-              <br />
-              surgical-grade repair.
-            </h2>
-          </FadeUp>
-        </div>
-
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {features.map((feature, i) => (
-            <FadeUp key={feature.title} delay={i * 0.1}>
-              <div className="group relative flex h-full flex-col rounded-3xl border border-black/[0.03] bg-white/40 p-8 transition-all duration-300 hover:bg-white hover:shadow-premium hover:border-black/[0.08]">
-                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-black text-white shadow-lg transition-transform duration-500 group-hover:scale-110">
-                  <feature.icon size={20} />
-                </div>
-                <h3 className="text-lg font-extrabold tracking-tight text-black">
-                  {feature.title}
-                </h3>
-                <p className="mt-3 text-[13px] leading-[1.65] text-black/45 font-medium">
-                  {feature.desc}
-                </p>
-              </div>
+        <div className="grid lg:grid-cols-2 gap-24 items-start">
+          
+          <div className="max-w-xl sticky top-32">
+            <FadeUp>
+              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30 mb-8 block">
+                The Thunderfix Standard
+              </span>
+              <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-black leading-[1.05] tracking-[-0.03em] text-white mb-10">
+                Why the elite choose <br />
+                <span className="text-white/40">surgical-grade</span> <br />
+                repair.
+              </h2>
+              <p className="text-[17px] leading-relaxed text-white/50 font-medium max-w-md">
+                We've built a reputation on obsessive attention to detail. Every device that enters our laboratory is treated with the same precision as a scientific instrument.
+              </p>
             </FadeUp>
-          ))}
+          </div>
+
+          <div className="grid gap-12">
+            {features.map((feature, i) => (
+              <FadeUp key={feature.title} delay={i * 0.1}>
+                <div className="group flex gap-8 items-start">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/5 text-white/30 transition-all duration-500 group-hover:bg-white group-hover:text-black group-hover:scale-110">
+                    <feature.icon size={22} strokeWidth={1.5} />
+                  </div>
+                  <div>
+                    <h3 className="text-[14px] font-black uppercase tracking-[0.1em] text-white mb-4 group-hover:text-white transition-colors">
+                      {feature.title}
+                    </h3>
+                    <p className="text-[15px] leading-relaxed text-white/40 font-medium group-hover:text-white/60 transition-colors">
+                      {feature.desc}
+                    </p>
+                  </div>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
         </div>
       </div>
       
       {/* Absolute decorative element */}
-      <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 h-96 w-96 rounded-full bg-black/[0.02] blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[60%] h-[60%] bg-white/[0.02] blur-[150px] rounded-full pointer-events-none" />
     </section>
   );
 }

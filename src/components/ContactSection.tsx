@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MapPin, MessageSquare } from "lucide-react";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -18,10 +18,10 @@ function FadeUp({
   const reducedMotion = useReducedMotion();
   return (
     <motion.div
-      initial={reducedMotion ? {} : { opacity: 0, y: 20 }}
+      initial={reducedMotion ? {} : { opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.7, ease, delay }}
+      transition={{ duration: 0.8, ease, delay }}
       className={className}
     >
       {children}
@@ -31,22 +31,20 @@ function FadeUp({
 
 export default function ContactSection() {
   return (
-    <section id="contact" className="section-padding !pb-48 bg-white">
-      <div className="container-width">
-        <div className="grid gap-16 lg:grid-cols-2 lg:items-start lg:gap-24">
+    <section id="contact" className="relative bg-black py-24 md:py-32 lg:py-48 overflow-hidden border-t border-white/5">
+      <div className="container-width relative z-10">
+        <div className="grid gap-24 lg:grid-cols-2 lg:items-start">
           
-          {/* Left — Hook + Direct Contact */}
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-12">
             <FadeUp>
-              <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-black/30 mb-4">
+              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30 mb-8 block">
                 Get Your Quote
-              </p>
-              <h2 className="text-4xl font-extrabold tracking-[-0.03em] text-black sm:text-5xl lg:text-7xl leading-[0.95]">
-                Ready to restore
-                <br />
-                perfection?
+              </span>
+              <h2 className="text-[clamp(2.5rem,5vw,5rem)] font-black leading-[1] tracking-[-0.04em] text-white mb-10">
+                Ready to restore <br />
+                <span className="text-white/40">perfection?</span>
               </h2>
-              <p className="mt-8 max-w-md text-[15px] leading-[1.7] text-black/45 font-medium">
+              <p className="max-w-md text-[17px] leading-relaxed text-white/50 font-medium">
                 Join the hundreds of clients who trust Thunderfix with their most valuable
                 technology. Our experts are ready to diagnose and resolve your device's
                 issues with unmatched precision.
@@ -54,86 +52,114 @@ export default function ContactSection() {
             </FadeUp>
 
             <FadeUp delay={0.1}>
-              <div className="flex flex-col gap-4 mt-4">
+              <div className="grid gap-6 sm:grid-cols-2">
                 <a
                   href="https://wa.me/60144008052"
-                  className="liquid-glass-dark !px-8 !py-4 !text-[13px] !font-extrabold !gap-4 justify-between w-full sm:max-w-xs"
+                  className="group relative flex flex-col items-center justify-center rounded-3xl border border-white/5 bg-white/[0.03] p-8 text-center backdrop-blur-3xl transition-all duration-500 hover:bg-white/[0.06] hover:border-white/10"
                 >
-                  Message on WhatsApp
-                  <ArrowRight size={15} />
+                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-white/30 transition-all group-hover:bg-white group-hover:text-black">
+                    <MessageSquare size={18} strokeWidth={1.5} />
+                  </div>
+                  <span className="text-[11px] font-black uppercase tracking-[0.2em] text-white">WhatsApp</span>
                 </a>
                 <a
                   href="https://maps.google.com/?q=No.+19-G,+Jalan+Pinang+B+18/B,+Seksyen+18,+40200+Shah+Alam"
                   target="_blank"
                   rel="noreferrer"
-                  className="liquid-glass !px-8 !py-4 !text-[13px] !font-extrabold w-full sm:max-w-xs"
+                  className="group relative flex flex-col items-center justify-center rounded-3xl border border-white/5 bg-white/[0.03] p-8 text-center backdrop-blur-3xl transition-all duration-500 hover:bg-white/[0.06] hover:border-white/10"
                 >
-                  Visit our Lab in Shah Alam
+                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-white/30 transition-all group-hover:bg-white group-hover:text-black">
+                    <MapPin size={18} strokeWidth={1.5} />
+                  </div>
+                  <span className="text-[11px] font-black uppercase tracking-[0.2em] text-white">Our Lab</span>
                 </a>
               </div>
             </FadeUp>
           </div>
 
-          {/* Right — Formal Contact Form */}
-          <FadeUp delay={0.2} className="relative">
-            <div className="rounded-[2.5rem] border border-black/[0.05] bg-[#F8F7F4]/50 p-8 shadow-premium backdrop-blur-sm lg:p-10">
-              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-                <div className="grid gap-6 sm:grid-cols-2">
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-extrabold uppercase tracking-widest text-black/40 px-1">Full Name</label>
-                    <input 
-                      type="text" 
-                      placeholder="e.g. John Doe"
-                      className="w-full rounded-2xl border border-black/[0.05] bg-white px-5 py-4 text-[13px] font-medium outline-none transition-all focus:border-black/20 focus:ring-4 focus:ring-black/5"
-                    />
+          <FadeUp delay={0.2}>
+            <div className="relative group">
+              <div className="absolute inset-0 bg-white/[0.01] blur-[80px] rounded-full" />
+              <div className="relative rounded-[3rem] border border-white/10 bg-white/[0.02] p-10 backdrop-blur-3xl lg:p-12">
+                <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
+                  <div className="grid gap-8 sm:grid-cols-2">
+                    <div className="space-y-3">
+                      <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 px-1">Full Name</label>
+                      <input 
+                        type="text" 
+                        placeholder="e.g. John Doe"
+                        className="w-full rounded-2xl border border-white/5 bg-white/5 px-6 py-4 text-[14px] font-medium text-white outline-none transition-all focus:border-white/20 focus:bg-white/[0.08]"
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 px-1">Email Address</label>
+                      <input 
+                        type="email" 
+                        placeholder="john@example.com"
+                        className="w-full rounded-2xl border border-white/5 bg-white/5 px-6 py-4 text-[14px] font-medium text-white outline-none transition-all focus:border-white/20 focus:bg-white/[0.08]"
+                      />
+                    </div>
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-extrabold uppercase tracking-widest text-black/40 px-1">Email Address</label>
-                    <input 
-                      type="email" 
-                      placeholder="john@example.com"
-                      className="w-full rounded-2xl border border-black/[0.05] bg-white px-5 py-4 text-[13px] font-medium outline-none transition-all focus:border-black/20 focus:ring-4 focus:ring-black/5"
-                    />
-                  </div>
-                </div>
 
-                <div className="space-y-2">
-                  <label className="text-[10px] font-extrabold uppercase tracking-widest text-black/40 px-1">Device Type</label>
-                  <select 
-                    className="w-full rounded-2xl border border-black/[0.05] bg-white px-5 py-4 text-[13px] font-medium outline-none transition-all focus:border-black/20 focus:ring-4 focus:ring-black/5 appearance-none"
+                  <div className="space-y-3">
+                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 px-1">Device Type</label>
+                    <select 
+                      className="w-full rounded-2xl border border-white/5 bg-white/5 px-6 py-4 text-[14px] font-medium text-white outline-none transition-all focus:border-white/20 focus:bg-white/[0.08] appearance-none"
+                    >
+                      <option className="bg-zinc-900">iPhone (All Models)</option>
+                      <option className="bg-zinc-900">Samsung Galaxy</option>
+                      <option className="bg-zinc-900">iPad / Tablet</option>
+                      <option className="bg-zinc-900">MacBook / Laptop</option>
+                      <option className="bg-zinc-900">Other Smartphone</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-3">
+                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 px-1">Issue Description</label>
+                    <textarea 
+                      rows={4}
+                      placeholder="Tell us what's wrong..."
+                      className="w-full rounded-2xl border border-white/5 bg-white/5 px-6 py-4 text-[14px] font-medium text-white outline-none transition-all focus:border-white/20 focus:bg-white/[0.08] resize-none"
+                    ></textarea>
+                  </div>
+
+                  <button 
+                    type="submit"
+                    className="liquid-glass w-full !py-5 !text-[11px]"
                   >
-                    <option>iPhone (All Models)</option>
-                    <option>Samsung Galaxy</option>
-                    <option>iPad / Tablet</option>
-                    <option>MacBook / Laptop</option>
-                    <option>Other Smartphone</option>
-                  </select>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-[10px] font-extrabold uppercase tracking-widest text-black/40 px-1">Issue Description</label>
-                  <textarea 
-                    rows={4}
-                    placeholder="Tell us what's wrong with your device..."
-                    className="w-full rounded-2xl border border-black/[0.05] bg-white px-5 py-4 text-[13px] font-medium outline-none transition-all focus:border-black/20 focus:ring-4 focus:ring-black/5 resize-none"
-                  ></textarea>
-                </div>
-
-                <button 
-                  type="submit"
-                  className="w-full rounded-full bg-black py-5 text-[13px] font-[900] uppercase tracking-[0.1em] text-white shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl active:scale-95"
-                >
-                  Send Inquiry
-                </button>
-              </form>
+                    Send Inquiry
+                  </button>
+                </form>
+              </div>
             </div>
-            
-            {/* Background decorative blob */}
-            <div className="absolute -right-8 -top-8 -z-10 h-64 w-64 rounded-full bg-black/[0.02] blur-3xl" />
           </FadeUp>
 
         </div>
       </div>
+      
+      {/* Absolute Glow */}
+      <div className="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] bg-white/[0.02] blur-[120px] rounded-full pointer-events-none" />
+
+      {/* Minimalist Footer */}
+      <footer className="container-width relative z-10 mt-24 pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8 pb-12">
+        <div className="flex flex-col items-center md:items-start gap-2">
+          <span className="text-[12px] font-black uppercase tracking-[0.2em] text-white">Thunderfix</span>
+          <p className="text-[10px] font-medium text-white/20 uppercase tracking-[0.1em]">© 2025 All Rights Reserved.</p>
+        </div>
+        
+        <div className="flex items-center gap-8">
+          {["Privacy", "Terms", "Support"].map((item) => (
+            <a key={item} href="#" className="text-[10px] font-black uppercase tracking-[0.2em] text-white/30 hover:text-white transition-colors">
+              {item}
+            </a>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-4">
+          <div className="h-1 w-1 rounded-full bg-white/20" />
+          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/20">Malaysia</span>
+        </div>
+      </footer>
     </section>
   );
 }

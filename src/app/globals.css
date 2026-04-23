@@ -4,20 +4,28 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   
-  --color-accent: #FFD645;
-  --color-accent-foreground: #000000;
+  --color-primary: #0A0A0A;
+  --color-secondary: #F3F1EC;
+  --color-accent: #D9B36A;
+  --color-accent-foreground: #FFFFFF;
   
-  --color-surface-low: #F9F9F9;
-  --color-surface-mid: #F2F2F2;
-  --color-surface-high: #EBEBEB;
+  --color-surface: #FFFFFF;
+  --color-surface-low: #F7F6F2;
+  --color-surface-mid: #F3F1EC;
+  --color-surface-high: #E8E5DE;
   
-  --font-sans: "Inter", var(--font-geist-sans);
-  --font-editorial: "Plus Jakarta Sans", "Inter", sans-serif;
+  --color-text: #111111;
+  --color-text-muted: #8A8A8A;
+  --color-border: #E8E5DE;
+  
+  --font-sans: "Inter", "system-ui", sans-serif;
+  --font-editorial: "Sora", "Inter", "system-ui", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
-  --shadow-premium: 0 40px 100px -20px rgba(0, 0, 0, 0.08);
-  --shadow-soft: 0 20px 40px -10px rgba(0, 0, 0, 0.04);
-  --shadow-card: 0 4px 20px -4px rgba(0, 0, 0, 0.05);
-  --shadow-elevated: 0 30px 60px -12px rgba(0, 0, 0, 0.08);
+  --shadow-premium: 0 40px 100px -20px rgba(10, 10, 10, 0.06);
+  --shadow-soft: 0 20px 40px -10px rgba(10, 10, 10, 0.04);
+  --shadow-card: 0 4px 20px -4px rgba(10, 10, 10, 0.05);
+  --shadow-elevated: 0 30px 60px -12px rgba(10, 10, 10, 0.08);
   
   --radius-xl: 1.5rem;
   --radius-2xl: 2rem;
@@ -26,8 +34,8 @@
 }
 
 :root {
-  --background: #FFFFFF;
-  --foreground: #000000;
+  --background: #F7F6F2;
+  --foreground: #111111;
 }
 
 @layer base {

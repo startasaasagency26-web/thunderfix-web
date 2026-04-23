@@ -1,5 +1,6 @@
 import React from "react";
 import HeroSection from "@/components/HeroSection";
+import TrustMetricsSection from "@/components/TrustMetricsSection";
 import ServiceGrid from "@/components/ServiceGrid";
 import WhyUsSection from "@/components/WhyUsSection";
 import TestimonialSection from "@/components/TestimonialSection";
@@ -13,6 +14,8 @@ export default function Home() {
     <div className="flex flex-col selection:bg-black selection:text-white">
       <HeroSection />
       
+      <TrustMetricsSection />
+
       {/* Intro / Secondary Feature Grid */}
       <ServiceGrid />
 

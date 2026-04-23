@@ -2,7 +2,38 @@
 
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { Instagram } from "lucide-react";
+
+/**
+ * Local SVG replacement for the Instagram icon to resolve lucide-react import failures
+ * in specific package versions.
+ */
+const InstagramIcon = ({ 
+  size = 24, 
+  className = "", 
+  strokeWidth = 2 
+}: { 
+  size?: number; 
+  className?: string; 
+  strokeWidth?: number; 
+}) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    aria-hidden="true"
+  >
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+  </svg>
+);
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -54,10 +85,10 @@ export default function SocialGrid() {
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-8">
           {items.map((item, i) => (
             <FadeUp key={item.id} delay={0.1 * i}>
-              <div className="relative aspect-square rounded-[2rem] overflow-hidden border border-black/5 bg-surface-low group cursor-pointer">
+              <div className="relative aspect-square rounded-2xl overflow-hidden border border-black/5 bg-surface-low group cursor-pointer">
                 {item.type === "social" ? (
                   <div className="h-full w-full bg-surface-mid flex flex-col items-center justify-center gap-4 transition-colors group-hover:bg-black group-hover:text-white">
-                    <Instagram size={32} strokeWidth={1.5} className="text-black/20 group-hover:text-white/50" />
+                    <InstagramIcon size={32} strokeWidth={1.5} className="text-black/20 group-hover:text-white/50" />
                     <span className="text-[10px] font-black uppercase tracking-[0.2em]">@thunderfix.my</span>
                   </div>
                 ) : (
@@ -66,7 +97,7 @@ export default function SocialGrid() {
                       <span className="text-black/5 font-black uppercase tracking-widest text-[10px]">Lifestyle {item.id}</span>
                     </div>
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                      <Instagram size={24} className="text-white" />
+                      <InstagramIcon size={24} className="text-white" />
                     </div>
                   </>
                 )}

@@ -34,6 +34,10 @@ const LOCATIONS = [
     dotColor: "bg-black",
     bandClass: "from-zinc-200 via-zinc-100 to-white",
     index: "01",
+    whatsappUrl: {
+      en: "https://wa.me/60177005497?text=Hi%20Thunderfix%20Seri%20Kembangan%2C%20I%20would%20like%20to%20inquire%20about%20a%20device%20repair.",
+      ms: "https://wa.me/60177005497?text=Hi%20Thunderfix%20Seri%20Kembangan%2C%20saya%20ingin%20bertanya%20tentang%20servis%20baiki%20peranti."
+    }
   },
   {
     name: "Thunderfix Shah Alam Seksyen 7",
@@ -52,6 +56,10 @@ const LOCATIONS = [
     dotColor: "bg-amber-400",
     bandClass: "from-amber-200 via-amber-100/60 to-white",
     index: "02",
+    whatsappUrl: {
+      en: "https://wa.me/60144008052?text=Hi%20Thunderfix%20Shah%20Alam%20Seksyen%207%2C%20I%20would%20like%20to%20inquire%20about%20a%20device%20repair.",
+      ms: "https://wa.me/60144008052?text=Hi%20Thunderfix%20Shah%20Alam%20Seksyen%207%2C%20saya%20ingin%20bertanya%20tentang%20servis%20baiki%20peranti."
+    }
   },
 ] as const;
 
@@ -209,9 +217,9 @@ function LocationCard({
   onGetDirections: () => void;
   triggerRef: (el: HTMLButtonElement | null) => void;
 }) {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
   return (
-    <FadeUp delay={delay} className="flex">
+    <FadeUp delay={delay} className="flex h-full">
       <article
         className="group relative flex flex-col w-full bg-white rounded-3xl border border-black/[0.07] shadow-card transition-all duration-700 hover:-translate-y-2 hover:shadow-elevated hover:border-black/12 overflow-hidden focus-within:-translate-y-1 focus-within:shadow-elevated motion-reduce:transform-none motion-reduce:transition-none"
         aria-label={`Thunderfix branch at ${loc.area}`}
@@ -237,7 +245,7 @@ function LocationCard({
         </div>
 
         {/* ── Card body ── */}
-        <div className="flex flex-col flex-1 px-6 pt-4 pb-6 lg:px-7 lg:pb-7">
+        <div className="flex flex-col flex-1 px-6 pt-4 pb-6 lg:px-7 lg:pb-7 h-full">
 
           {/* Meta row */}
           <div className="flex items-center justify-between mb-4">
@@ -266,11 +274,8 @@ function LocationCard({
             {t.locationCards.descriptions[loc.descKey]}
           </p>
 
-          {/* Divider */}
-          <div className="h-px w-full bg-black/5 mb-5" />
-
-          {/* CTA row */}
-          <div className="flex flex-col sm:flex-row gap-2">
+          {/* CTA grid */}
+          <div className="mt-auto pt-5 border-t border-black/5 flex flex-col gap-3 sm:grid sm:grid-cols-2">
             {/* Get Directions */}
             <button
               ref={triggerRef}
@@ -295,9 +300,18 @@ function LocationCard({
             {/* Start Repair — correct branch phone */}
             <a href={loc.telHref}
               aria-label={`Call ${loc.name}`}
-              className="flex flex-1 items-center justify-center gap-2 px-4 py-3.5 rounded-2xl border-2 border-black/10 text-black text-[10px] font-black uppercase tracking-[0.18em] transition-all duration-300 hover:border-black/25 hover:bg-surface-mid hover:-translate-y-0.5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 motion-reduce:transform-none min-h-[44px]">
-              <Phone size={12} />
+              className="group flex items-center justify-center gap-2 px-4 py-3.5 rounded-2xl border-2 border-black/10 text-black text-[10px] font-black uppercase tracking-[0.18em] transition-all duration-300 hover:border-black/25 hover:bg-surface-mid hover:-translate-y-0.5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 motion-reduce:transform-none min-h-[44px]">
+              <Phone size={12} className="text-black/40 group-hover:text-black transition-colors" />
               {t.locationCards.startRepair}
+            </a>
+
+            {/* WhatsApp Inquiry */}
+            <a href={loc.whatsappUrl[locale]} target="_blank" rel="noopener noreferrer"
+              aria-label={`${t.locationCards.sendWhatsappInquiry} ${loc.name}`}
+              className="group flex items-center justify-center gap-2 px-4 py-3.5 rounded-2xl border-2 border-[#25D366]/35 bg-[#fdfdfd] text-black text-[10px] font-black uppercase tracking-[0.18em] transition-all duration-300 hover:border-[#25D366] hover:bg-[#25D366]/5 hover:-translate-y-0.5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 motion-reduce:transform-none min-h-[44px]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-[#25D366]/70 group-hover:text-[#25D366] transition-colors"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <span className="sm:hidden">{t.locationCards.whatsapp}</span>
+              <span className="hidden sm:inline">{t.locationCards.whatsappInquiry}</span>
             </a>
           </div>
         </div>

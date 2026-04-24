@@ -28,7 +28,7 @@ const CTA_HREF = "/locations";
 function LanguageToggle({ mobile = false }: { mobile?: boolean }) {
   const { locale, setLocale } = useLanguage();
   return (
-    <div className={`flex items-center rounded-full bg-black/5 p-1 shrink-0 ${mobile ? "mx-auto mb-6 w-max" : "hidden sm:flex"}`}>
+    <div className={`flex items-center rounded-full bg-black/5 p-1 shrink-0 ${mobile ? "mx-auto mb-6 w-max" : "hidden md:flex"}`}>
       <button 
         onClick={() => setLocale("en")}
         aria-pressed={locale === "en"}
@@ -249,7 +249,7 @@ function HamburgerButton({
       onClick={onClick}
       aria-label="Toggle menu"
       aria-expanded={isOpen}
-      className="flex h-10 w-10 items-center justify-center rounded-full bg-black/5 text-black transition-all hover:bg-black/10 lg:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
+      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-black/5 text-black transition-all hover:bg-black/10 xl:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
     >
       <span className="relative flex h-4 w-5 flex-col justify-between">
         <span
@@ -275,7 +275,7 @@ function HamburgerButton({
 
 // ─── Navbar ────────────────────────────────────────────────────────────────────
 export default function Navbar() {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
   const reducedMotion = useReducedMotion();
   const [isOpen,     setIsOpen]     = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -298,24 +298,24 @@ export default function Navbar() {
   // ── Scroll-driven pill styles ────────────────────────────────────────────────
   const pillStyle: React.CSSProperties = isScrolled
     ? {
-        maxWidth: "960px",
+        maxWidth: "1120px",
         background: "rgba(255,255,255,0.82)",
         backdropFilter: "blur(24px)",
         WebkitBackdropFilter: "blur(24px)",
         border: "1px solid rgba(0,0,0,0.08)",
         borderRadius: "9999px",
         boxShadow: "0 20px 60px rgba(0,0,0,0.08)",
-        padding: "8px 20px",
+        padding: "8px 18px",
       }
     : {
-        maxWidth: "1200px",
+        maxWidth: "1240px",
         background: "rgba(255,255,255,0.70)",
         backdropFilter: "blur(0px)",
         WebkitBackdropFilter: "blur(0px)",
         border: "1px solid transparent",
         borderRadius: "0px",
         boxShadow: "none",
-        padding: "16px 20px",
+        padding: "12px 24px",
       };
 
   return (
@@ -337,7 +337,7 @@ export default function Navbar() {
               : "all 600ms cubic-bezier(0.16,1,0.3,1)",
           }}
         >
-          <div className="grid grid-cols-[44px_1fr_44px] items-center sm:flex sm:justify-between w-full">
+          <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4 w-full">
 
             {/* Logo */}
             <a
@@ -401,13 +401,15 @@ export default function Navbar() {
             {/* Desktop nav */}
             <nav
               aria-label={t.nav.menu}
-              className="hidden lg:flex items-center gap-6 absolute left-1/2 -translate-x-1/2 whitespace-nowrap"
+              className="hidden xl:flex items-center justify-center whitespace-nowrap"
+              style={{ gap: "clamp(16px, 2vw, 32px)" }}
             >
               {navKeys.map((link) => (
                 <a
                   key={link.key}
                   href={link.href}
-                  className="relative text-[11px] font-black tracking-[0.2em] uppercase text-black/35 transition-colors duration-300 hover:text-black group focus-visible:outline-none focus-visible:text-black"
+                  className="relative text-[11px] font-black uppercase text-black/35 transition-colors duration-300 hover:text-black group focus-visible:outline-none focus-visible:text-black"
+                  style={{ letterSpacing: "0.15em" }}
                 >
                   {t.nav[link.key]}
                   {/* Hover underline dot */}
@@ -417,7 +419,7 @@ export default function Navbar() {
             </nav>
 
             {/* Right: CTA + hamburger */}
-            <div className="flex items-center gap-2 sm:gap-3 shrink-0 justify-self-end">
+            <div className="flex items-center gap-3 sm:gap-3.5 shrink-0 justify-self-end">
               <LanguageToggle />
               <a
                 href={CTA_HREF}
@@ -429,6 +431,8 @@ export default function Navbar() {
                   borderRadius: "9999px",
                   padding:       isScrolled ? "8px 20px" : "11px 28px",
                   transition:    "all 500ms cubic-bezier(0.16,1,0.3,1)",
+                  minWidth:      locale === "ms" ? "124px" : "130px",
+                  justifyContent: "center",
                 }}
               >
                 {t.nav.startRepair}

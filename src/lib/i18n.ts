@@ -169,6 +169,9 @@ export const translations = {
       chooseApp: "Choose navigation app",
       opensInNewTab: "Opens in a new tab",
       directionsTo: "Directions to",
+      whatsappInquiry: "WhatsApp Inquiry",
+      whatsapp: "WhatsApp",
+      sendWhatsappInquiry: "Send WhatsApp inquiry to",
       descriptions: {
         seriKembangan: "Smartphone repair services for customers around Seri Kembangan and nearby areas. Fast, reliable repairs with transparent pricing.",
         shahAlam: "Smartphone repair services for customers around Shah Alam Seksyen 7 and nearby areas. Trusted by local customers for quality repairs."
@@ -343,6 +346,9 @@ export const translations = {
       chooseApp: "Pilih aplikasi navigasi",
       opensInNewTab: "Buka di tab baharu",
       directionsTo: "Arah ke",
+      whatsappInquiry: "Pertanyaan WhatsApp",
+      whatsapp: "WhatsApp",
+      sendWhatsappInquiry: "Hantar pertanyaan WhatsApp kepada",
       descriptions: {
         seriKembangan: "Servis pembaikan telefon pintar untuk pelanggan di sekitar Seri Kembangan dan kawasan berhampiran. Pembaikan pantas, boleh dipercayai dengan harga telus.",
         shahAlam: "Servis pembaikan telefon pintar untuk pelanggan di sekitar Shah Alam Seksyen 7 dan kawasan berhampiran. Dipercayai oleh pelanggan tempatan untuk pembaikan berkualiti."

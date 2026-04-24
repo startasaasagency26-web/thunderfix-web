@@ -202,7 +202,7 @@ export default function TestimonialSection() {
                 href={GOOGLE_REVIEWS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="View this customer review source on Google in a new tab"
+                aria-label={t.testimonials.viewReviewSource}
                 className="group block rounded-2xl border border-black/5 bg-white p-6 shadow-soft transition-all duration-500 hover:-translate-y-1 hover:border-black/10 hover:shadow-elevated focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4 motion-reduce:transform-none motion-reduce:transition-none sm:p-8"
               >
                 <div className="flex items-center justify-between gap-4">
@@ -220,7 +220,7 @@ export default function TestimonialSection() {
                   <div className="flex flex-col">
                     <span className="font-bold text-black">{t.testimonials.name}</span>
                     <span className="text-[13px] font-medium text-black/40">
-                      Verified Customer
+                      {t.testimonials.verifiedCustomer}
                     </span>
                   </div>
                 </div>

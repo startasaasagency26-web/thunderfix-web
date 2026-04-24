@@ -76,7 +76,7 @@ function FadeUp({
 
 function ServiceImage({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="relative mb-8 aspect-[4/3] w-full overflow-hidden rounded-[1.75rem] border border-black/5 bg-surface-low shadow-card">
+    <div className="relative mb-8 aspect-4/3 w-full overflow-hidden rounded-[1.75rem] border border-black/5 bg-surface-low shadow-card">
       <Image
         src={src}
         alt={alt}
@@ -113,7 +113,7 @@ export default function ServiceGrid() {
         <div className="grid gap-6 md:grid-cols-[1.2fr_0.8fr] lg:gap-12">
           {/* Top Left — Large */}
           <FadeUp delay={0.1}>
-            <div className="floating-card group flex h-full min-h-[520px] flex-col !p-6 sm:!p-8 lg:!p-10">
+            <div className="floating-card group flex h-full min-h-[520px] flex-col p-6! sm:p-8! lg:p-10!">
               <ServiceImage
                 src={services[0].imageSrc}
                 alt={services[0].imageAlt}
@@ -131,7 +131,7 @@ export default function ServiceGrid() {
 
           {/* Top Right — Small */}
           <FadeUp delay={0.2}>
-            <div className="floating-card group flex h-full min-h-[520px] flex-col !p-6 sm:!p-8 lg:!p-10">
+            <div className="floating-card group flex h-full min-h-[520px] flex-col p-6! sm:p-8! lg:p-10!">
               <ServiceImage
                 src={services[1].imageSrc}
                 alt={services[1].imageAlt}
@@ -149,7 +149,7 @@ export default function ServiceGrid() {
 
           {/* Bottom Left — Small */}
           <FadeUp delay={0.3}>
-            <div className="floating-card group flex h-full min-h-[520px] flex-col !p-6 sm:!p-8 lg:!p-10">
+            <div className="floating-card group flex h-full min-h-[520px] flex-col p-6! sm:p-8! lg:p-10!">
               <ServiceImage
                 src={services[2].imageSrc}
                 alt={services[2].imageAlt}
@@ -167,7 +167,7 @@ export default function ServiceGrid() {
 
           {/* Bottom Right — Large */}
           <FadeUp delay={0.4}>
-            <div className="floating-card group flex h-full min-h-[520px] flex-col !p-6 sm:!p-8 lg:!p-10">
+            <div className="floating-card group flex h-full min-h-[520px] flex-col p-6! sm:p-8! lg:p-10!">
               <ServiceImage
                 src={services[3].imageSrc}
                 alt={services[3].imageAlt}
@@ -180,7 +180,7 @@ export default function ServiceGrid() {
                   {services[3].description}
                 </p>
                 <div className="flex items-center gap-6">
-                  <button className="btn-premium btn-primary !px-10 !py-4">
+                  <button className="btn-premium btn-primary px-10! py-4!">
                     Inquire Now
                   </button>
                   <ArrowRight size={20} className="text-black/20" />

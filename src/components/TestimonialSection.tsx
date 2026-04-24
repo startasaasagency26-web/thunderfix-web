@@ -59,43 +59,34 @@ function StarRating({ className = "" }: { className?: string }) {
 export default function TestimonialSection() {
   const reducedMotion = useReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
-  const userPausedRef = useRef(false);
-  const observerPausedRef = useRef(false);
 
   useEffect(() => {
     const video = videoRef.current;
 
+    // If reduced motion is preferred, leave the video paused at first frame.
     if (!video || reducedMotion) {
       return;
     }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        const isVisible = entry.isIntersecting && entry.intersectionRatio >= 0.35;
+        const isVisible =
+          entry.isIntersecting && entry.intersectionRatio >= 0.35;
 
         if (isVisible) {
+          // Guarantee muted + loop in case of SSR hydration drift
           video.muted = true;
           video.loop = true;
-          observerPausedRef.current = false;
 
-          if (!userPausedRef.current && video.paused) {
-            const playAttempt = video.play();
-
-            if (playAttempt !== undefined) {
-              playAttempt.catch(() => {
-                // Browser autoplay can still be blocked; native controls remain available.
-              });
-            }
+          if (video.paused) {
+            video.play().catch(() => {
+              // Autoplay may still be blocked by the browser; fail silently.
+            });
           }
-
-          return;
-        }
-
-        userPausedRef.current = false;
-
-        if (!video.paused) {
-          observerPausedRef.current = true;
-          video.pause();
+        } else {
+          if (!video.paused) {
+            video.pause();
+          }
         }
       },
       { threshold: [0, 0.35, 0.75] },
@@ -105,37 +96,6 @@ export default function TestimonialSection() {
 
     return () => observer.disconnect();
   }, [reducedMotion]);
-
-  const handleVideoPlay = () => {
-    userPausedRef.current = false;
-    observerPausedRef.current = false;
-  };
-
-  const handleVideoPause = () => {
-    if (observerPausedRef.current) {
-      observerPausedRef.current = false;
-      return;
-    }
-
-    userPausedRef.current = true;
-  };
-
-  const handleVideoEnded = () => {
-    const video = videoRef.current;
-
-    if (!video || reducedMotion || userPausedRef.current) {
-      return;
-    }
-
-    video.currentTime = 0;
-    const playAttempt = video.play();
-
-    if (playAttempt !== undefined) {
-      playAttempt.catch(() => {
-        // Native controls are still visible if the browser blocks replay.
-      });
-    }
-  };
 
   return (
     <section
@@ -160,26 +120,27 @@ export default function TestimonialSection() {
           <FadeUp delay={0.1} className="h-full">
             <article className="flex h-full flex-col items-center justify-center py-2 sm:py-4 lg:py-6">
               <div className="mb-5 inline-flex items-center rounded-full border border-black/[0.08] bg-[#F4F1EA] px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-black shadow-card">
-                Before & After Repair
+                Before &amp; After Repair
               </div>
 
               <div className="w-full max-w-[360px] overflow-hidden rounded-[28px] bg-transparent shadow-[0_28px_80px_rgba(10,10,10,0.16)] ring-1 ring-black/[0.06] sm:w-[clamp(280px,30vw,400px)] sm:max-w-[400px]">
+                {/*
+                  Decorative proof asset — controls intentionally omitted.
+                  The surrounding caption and section heading describe the content.
+                */}
                 <video
                   ref={videoRef}
                   src="/before-after-repair.mp4"
                   title="Before and after Thunderfix repair result"
                   aria-label="Before and after repair video showing a real customer device restored by Thunderfix"
                   aria-describedby="before-after-caption"
-                  autoPlay={reducedMotion === false}
+                  autoPlay={!reducedMotion}
                   muted
-                  loop={reducedMotion === false}
+                  loop={!reducedMotion}
                   playsInline
-                  controls
                   preload="metadata"
-                  onPlay={handleVideoPlay}
-                  onPause={handleVideoPause}
-                  onEnded={handleVideoEnded}
-                  className="aspect-[9/16] w-full rounded-[28px] bg-transparent object-contain focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4"
+                  className="aspect-[9/16] w-full rounded-[28px] bg-transparent object-contain focus:outline-none"
+                  style={{ display: "block" }}
                 />
               </div>
 

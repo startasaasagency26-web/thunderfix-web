@@ -40,26 +40,15 @@ export default function TestimonialSection() {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        const isVisible =
-          entry.isIntersecting && entry.intersectionRatio >= 0.35;
+        const isVisible = entry.isIntersecting && entry.intersectionRatio >= 0.15;
 
         if (isVisible) {
-          // Guarantee muted + loop in case of SSR hydration drift
-          video.muted = true;
-          video.loop = true;
-
-          if (video.paused) {
-            video.play().catch(() => {
-              // Autoplay may still be blocked by the browser; fail silently.
-            });
-          }
+          video.play().catch(() => {});
         } else {
-          if (!video.paused) {
-            video.pause();
-          }
+          video.pause();
         }
       },
-      { threshold: [0, 0.35, 0.75] },
+      { threshold: [0, 0.15, 0.75], rootMargin: "100px" },
     );
 
     observer.observe(video);
@@ -102,11 +91,11 @@ export default function TestimonialSection() {
                   title="Before and after Thunderfix repair result"
                   aria-label="Before and after repair video showing a real customer device restored by Thunderfix"
                   aria-describedby="before-after-caption"
-                  autoPlay={!reducedMotion}
+                  autoPlay
                   muted
-                  loop={!reducedMotion}
+                  loop
                   playsInline
-                  preload="none"
+                  preload="auto"
                   className="aspect-9/16 w-full rounded-[28px] bg-[#111] object-contain focus:outline-none"
                   style={{ display: "block" }}
                 >

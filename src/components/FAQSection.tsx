@@ -69,7 +69,7 @@ export default function FAQSection() {
           <div className="order-1 lg:order-2">
             <Reveal delay={0.2}>
               <div className="relative group">
-                <div className="absolute -inset-10 bg-accent/10 blur-[80px] rounded-full opacity-50" />
+                <div className="absolute -inset-10 bg-accent/10 blur-[40px] md:blur-[80px] rounded-full opacity-50" />
                 <div className="relative rounded-[3rem] overflow-hidden border border-black/6 aspect-4/3 bg-white"
                      style={{ boxShadow: "0 24px 80px rgba(0,0,0,0.06)" }}>
                   <Image

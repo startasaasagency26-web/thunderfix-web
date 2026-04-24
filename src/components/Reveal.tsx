@@ -13,6 +13,29 @@ interface RevealProps {
   once?: boolean;
 }
 
+// Singleton observer to reduce mobile overhead
+let sharedObserver: IntersectionObserver | null = null;
+const revealCallbacks = new Map<Element, (isVisible: boolean) => void>();
+
+const getSharedObserver = () => {
+  if (typeof window === "undefined") return null;
+  
+  if (!sharedObserver) {
+    sharedObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const callback = revealCallbacks.get(entry.target);
+          if (callback) {
+            callback(entry.isIntersecting);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+  }
+  return sharedObserver;
+};
+
 export default function Reveal({
   children,
   delay = 0,
@@ -20,33 +43,38 @@ export default function Reveal({
   duration = 600,
   distance = 20,
   direction = "up",
-  threshold = 0.1,
   once = true,
 }: RevealProps) {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          if (once && ref.current) {
-            observer.unobserve(ref.current);
-          }
-        } else if (!once) {
-          setIsVisible(false);
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = getSharedObserver();
+    if (!observer) return;
+
+    const callback = (intersecting: boolean) => {
+      if (intersecting) {
+        setIsVisible(true);
+        if (once) {
+          observer.unobserve(el);
+          revealCallbacks.delete(el);
         }
-      },
-      { threshold, rootMargin: "0px 0px -50px 0px" }
-    );
+      } else if (!once) {
+        setIsVisible(false);
+      }
+    };
 
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
+    revealCallbacks.set(el, callback);
+    observer.observe(el);
 
-    return () => observer.disconnect();
-  }, [once, threshold]);
+    return () => {
+      observer.unobserve(el);
+      revealCallbacks.delete(el);
+    };
+  }, [once]);
 
   const getTransform = () => {
     if (isVisible) return "none";

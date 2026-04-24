@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import Reveal from "./Reveal";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -88,11 +89,7 @@ function DirectionsModal({
     return () => document.removeEventListener("keydown", onKey);
   }, [onClose]);
 
-  useEffect(() => {
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = prev; };
-  }, []);
+  useBodyScrollLock(true);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key !== "Tab") return;
@@ -125,7 +122,11 @@ function DirectionsModal({
         exit={{ opacity: 0 }}
         transition={{ duration: reducedMotion ? 0 : 0.2 }}
         className="fixed inset-0 z-200 flex items-center justify-center p-4"
-        style={{ backgroundColor: "rgba(0,0,0,0.45)", backdropFilter: "blur(6px)" }}
+        style={{ 
+          backgroundColor: "rgba(0,0,0,0.45)", 
+          backdropFilter: "none",
+          WebkitBackdropFilter: "none"
+        }}
         onClick={(e) => { if (e.target === overlayRef.current) onClose(); }}
         aria-hidden="true"
       />
@@ -137,10 +138,10 @@ function DirectionsModal({
         aria-labelledby="directions-modal-title"
         aria-describedby="directions-modal-desc"
         onKeyDown={handleKeyDown}
-        initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.97 }}
+        initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 16, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 12, scale: 0.98 }}
-        transition={{ duration: reducedMotion ? 0 : 0.3, ease }}
+        exit={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 8, scale: 0.99 }}
+        transition={{ duration: reducedMotion ? 0 : 0.25, ease }}
         className="fixed inset-0 z-201 flex items-center justify-center p-4 pointer-events-none"
       >
         <div className="pointer-events-auto w-full max-w-sm bg-white rounded-3xl border border-black/8 shadow-[0_32px_80px_-12px_rgba(0,0,0,0.18)] overflow-hidden">
@@ -215,7 +216,6 @@ function LocationCard({
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 600px"
             className="object-cover object-center"
-            priority={loc.index === "01"}
           />
           {/* Subtle bottom fade into card */}
           <div className="absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-white/30 to-transparent pointer-events-none" />

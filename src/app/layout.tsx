@@ -3,6 +3,7 @@ import { Sora, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { LanguageProvider } from "@/context/LanguageContext";
+import DebugDiagnostics from "@/components/DebugDiagnostics";
 
 const sora = Sora({
   variable: "--font-editorial",
@@ -36,6 +37,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <LanguageProvider>
+          <DebugDiagnostics />
           <Navbar />
           <main className="flex-1">{children}</main>
         </LanguageProvider>

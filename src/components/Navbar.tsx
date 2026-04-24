@@ -12,6 +12,7 @@ import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const navKeys = [
@@ -55,9 +56,11 @@ function LanguageToggle({ mobile = false }: { mobile?: boolean }) {
 function MobileDrawer({
   isOpen,
   onClose,
+  onNavClose,
 }: {
   isOpen: boolean;
   onClose: () => void;
+  onNavClose: () => void;
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -84,13 +87,7 @@ function MobileDrawer({
   }, [isOpen, onClose]);
 
   // Scroll lock
-  useEffect(() => {
-    if (isOpen) {
-      const prev = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      return () => { document.body.style.overflow = prev; };
-    }
-  }, [isOpen]);
+  useBodyScrollLock(isOpen);
 
   // Focus trap
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
@@ -109,8 +106,8 @@ function MobileDrawer({
   }, []);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    // Immediate close without waiting for exit animation
-    onClose();
+    // Immediate close without waiting for exit animation or focus return
+    onNavClose();
 
     if (href.startsWith("/#")) {
       const targetId = href.split("#")[1];
@@ -122,23 +119,19 @@ function MobileDrawer({
           e.preventDefault();
           element.scrollIntoView({ behavior: "smooth", block: "start" });
         }
-      } else {
-        // Different page to home hash
-        // Next.js Link handles this, but we want to ensure it's fast
-        // router.push("/#" + targetId) is handled by Link
       }
     }
   };
 
   const overlayVariants = {
-    hidden:  { opacity: 0 },
-    visible: { opacity: 1 },
+    hidden:  { opacity: 0, x: 0 },
+    visible: { opacity: 1, x: 0 },
   };
 
   const drawerVariants = {
-    hidden:  { x: "100%" },
-    visible: { x: 0 },
-    exit:    { x: "100%" },
+    hidden:  { x: "100%", opacity: 1 },
+    visible: { x: 0, opacity: 1 },
+    exit:    { x: "100%", opacity: 1 },
   };
 
   const itemVariants = {
@@ -181,11 +174,11 @@ function MobileDrawer({
             aria-modal="true"
             aria-label="Navigation menu"
             onKeyDown={handleKeyDown}
-            variants={reducedMotion ? overlayVariants : drawerVariants}
+            variants={(reducedMotion ? overlayVariants : drawerVariants) as any}
             initial="hidden"
             animate="visible"
             exit={reducedMotion ? "hidden" : "exit"}
-            transition={{ duration: reducedMotion ? 0.15 : 0.32, ease: premiumEase }}
+            transition={{ duration: reducedMotion ? 0.15 : 0.28, ease: premiumEase }}
             className="fixed right-0 top-0 z-999 h-full w-full max-w-[420px] bg-white shadow-[−32px_0_80px_rgba(0,0,0,0.12)] flex flex-col overflow-y-auto"
           >
             {/* Drawer Header */}
@@ -517,7 +510,11 @@ export default function Navbar() {
       </motion.header>
 
       {/* Mobile drawer — rendered outside header to avoid stacking context issues */}
-      <MobileDrawer isOpen={isOpen} onClose={handleNavClose} />
+      <MobileDrawer 
+        isOpen={isOpen} 
+        onClose={handleClose} 
+        onNavClose={handleNavClose} 
+      />
     </>
   );
 }

@@ -5,10 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowRight } from "lucide-react";
 
 const navLinks = [
-  { name: "Services", href: "#services" },
-  { name: "Why Us", href: "#why-us" },
-  { name: "Testimonials", href: "#testimonials" },
-  { name: "FAQ", href: "#faq" },
+  { name: "Services", href: "/#services" },
+  { name: "Why Us", href: "/#why-us" },
+  { name: "Testimonials", href: "/#testimonials" },
+  { name: "FAQ", href: "/#faq" },
+  { name: "Locations", href: "/locations" },
 ];
 
 export default function Navbar() {
@@ -31,7 +32,7 @@ export default function Navbar() {
         
         {/* Logo (Left) */}
         <a
-          href="#home"
+          href="/"
           className="flex items-center gap-2 group transition-all duration-300"
         >
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-black text-white transition-transform group-hover:scale-110">

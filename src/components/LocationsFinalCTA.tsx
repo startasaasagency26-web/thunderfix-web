@@ -1,0 +1,99 @@
+"use client";
+
+import React from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, Navigation } from "lucide-react";
+
+const ease = [0.16, 1, 0.3, 1] as const;
+
+function FadeUp({
+  children,
+  delay = 0,
+  className = "",
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+}) {
+  const reducedMotion = useReducedMotion();
+  return (
+    <motion.div
+      initial={reducedMotion ? {} : { opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.8, ease, delay }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export default function LocationsFinalCTA() {
+  return (
+    <section
+      aria-labelledby="locations-cta-heading"
+      className="bg-surface-low py-24 md:py-32 lg:py-40 border-t border-black/5"
+    >
+      <div className="container-width">
+        <FadeUp>
+          <div className="relative rounded-[2.5rem] overflow-hidden bg-black p-12 lg:p-20 text-center">
+            {/* Subtle radial highlight */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.08)_0%,transparent_65%)] pointer-events-none" />
+
+            {/* Decorative grain overlay */}
+            <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
+              style={{
+                backgroundImage:
+                  "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
+              }}
+            />
+
+            <div className="relative z-10 flex flex-col items-center">
+              <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 border border-white/10 text-[10px] font-black uppercase tracking-[0.22em] text-white/50 mb-10">
+                Ready to Repair
+              </span>
+
+              <h2
+                id="locations-cta-heading"
+                className="text-[clamp(2.2rem,5vw,4rem)] font-black leading-[1.05] tracking-[-0.04em] text-white max-w-2xl mx-auto mb-6"
+              >
+                Ready to repair your device?
+              </h2>
+
+              <p className="text-[16px] leading-relaxed text-white/45 font-medium max-w-md mb-12">
+                Pick your nearest Thunderfix branch and let our team handle the
+                rest.
+              </p>
+
+              <div className="flex flex-wrap items-center justify-center gap-5">
+                <a
+                  href="https://wa.me/60144008052"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Start a repair inquiry with Thunderfix via WhatsApp"
+                  className="group flex items-center gap-3 px-10 py-5 rounded-full bg-white text-black text-[11px] font-black uppercase tracking-[0.2em] transition-all duration-400 hover:bg-zinc-100 hover:-translate-y-1 hover:shadow-elevated active:scale-95 motion-reduce:transform-none"
+                >
+                  Start Repair
+                  <ArrowRight
+                    size={16}
+                    className="transition-transform duration-300 group-hover:translate-x-0.5"
+                  />
+                </a>
+
+                <a
+                  href="#location-cards"
+                  aria-label="Go back to view Thunderfix branch locations"
+                  className="flex items-center gap-3 px-10 py-5 rounded-full border-2 border-white/15 text-white text-[11px] font-black uppercase tracking-[0.2em] transition-all duration-400 hover:border-white/40 hover:bg-white/5 hover:-translate-y-1 active:scale-95 motion-reduce:transform-none"
+                >
+                  <Navigation size={16} />
+                  Get Directions
+                </a>
+              </div>
+            </div>
+          </div>
+        </FadeUp>
+      </div>
+    </section>
+  );
+}

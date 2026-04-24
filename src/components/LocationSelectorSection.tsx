@@ -76,7 +76,7 @@ export default function LocationSelectorSection() {
           {BRANCHES.map((branch, i) => (
             <FadeUp key={branch.area} delay={0.1 + i * 0.1}>
               <article
-                className="group flex flex-col rounded-[2rem] border border-black/[0.07] bg-surface-low p-8 transition-all duration-500 hover:-translate-y-2 hover:shadow-elevated hover:border-black/[0.12] hover:bg-white motion-reduce:transform-none motion-reduce:transition-none"
+                className="group flex flex-col rounded-2xl border border-black/[0.07] bg-surface-low p-8 transition-all duration-500 hover:-translate-y-2 hover:shadow-elevated hover:border-black/12 hover:bg-white motion-reduce:transform-none motion-reduce:transition-none"
                 aria-label={`Select ${branch.fullName}`}
               >
                 {/* Top row */}

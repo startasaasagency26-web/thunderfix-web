@@ -25,7 +25,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className={`fixed inset-x-0 top-0 z-[100] transition-all duration-500 ${
+    <header className={`fixed inset-x-0 top-0 z-100 transition-all duration-500 ${
       isScrolled ? "bg-white/80 py-4 shadow-soft backdrop-blur-xl border-b border-black/5" : "bg-transparent py-8"
     }`}>
       <div className="container-width flex items-center justify-between">
@@ -38,7 +38,7 @@ export default function Navbar() {
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-black text-white transition-transform group-hover:scale-110">
             <span className="text-[18px] font-black italic">T</span>
           </div>
-          <span className="text-[14px] font-black tracking-[0.1em] text-black uppercase hidden sm:block">
+          <span className="text-[14px] font-black tracking-widest text-black uppercase hidden sm:block">
             Thunderfix
           </span>
         </a>
@@ -65,7 +65,7 @@ export default function Navbar() {
             href="https://wa.me/60144008052"
             target="_blank"
             rel="noreferrer"
-            className="hidden sm:flex btn-premium btn-primary !px-8 !py-3.5 !text-[10px]"
+            className="hidden sm:flex btn-premium btn-primary px-8! py-3.5! text-[10px]!"
           >
             Start Repair
           </a>
@@ -94,7 +94,7 @@ export default function Navbar() {
                     key={link.name}
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className="flex items-center justify-between rounded-2xl px-6 py-5 text-[12px] font-black tracking-[0.1em] uppercase text-black/60 transition-all hover:bg-black/5 hover:text-black"
+                    className="flex items-center justify-between rounded-2xl px-6 py-5 text-[12px] font-black tracking-widest uppercase text-black/60 transition-all hover:bg-black/5 hover:text-black"
                   >
                     {link.name}
                     <ArrowRight size={14} className="opacity-40" />
@@ -102,7 +102,7 @@ export default function Navbar() {
                 ))}
                 <a
                   href="https://wa.me/60144008052"
-                  className="flex items-center justify-center rounded-2xl bg-black px-6 py-5 text-[12px] font-black tracking-[0.1em] uppercase text-white mt-4"
+                  className="flex items-center justify-center rounded-2xl bg-black px-6 py-5 text-[12px] font-black tracking-widest uppercase text-white mt-4"
                 >
                   Start Repair
                 </a>

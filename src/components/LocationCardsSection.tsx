@@ -64,12 +64,12 @@ function LocationCard({
   return (
     <FadeUp delay={delay}>
       <article
-        className="group relative flex flex-col bg-white rounded-[2.5rem] border border-black/[0.07] shadow-card transition-all duration-700 hover:-translate-y-3 hover:shadow-elevated hover:border-black/[0.12] overflow-hidden focus-within:-translate-y-2 focus-within:shadow-elevated motion-reduce:transform-none motion-reduce:transition-none"
+        className="group relative flex flex-col bg-white rounded-3xl border border-black/[0.07] shadow-card transition-all duration-700 hover:-translate-y-3 hover:shadow-elevated hover:border-black/12 overflow-hidden focus-within:-translate-y-2 focus-within:shadow-elevated motion-reduce:transform-none motion-reduce:transition-none"
         aria-label={`Thunderfix branch at ${loc.area}`}
       >
         {/* Top gradient band */}
         <div
-          className={`h-2 w-full bg-gradient-to-r ${
+          className={`h-2 w-full bg-linear-to-r ${
             loc.index === "01"
               ? "from-zinc-200 via-zinc-100 to-white"
               : "from-amber-200 via-amber-100/60 to-white"
@@ -186,9 +186,9 @@ export default function LocationCardsSection() {
 
         {/* Visual map section */}
         <FadeUp delay={0.3} className="mt-16">
-          <div className="relative rounded-[2.5rem] overflow-hidden border border-black/[0.07] bg-white shadow-card">
+          <div className="relative rounded-3xl overflow-hidden border border-black/[0.07] bg-white shadow-card">
             {/* Map visual — stylized location display */}
-            <div className="relative flex flex-col items-center justify-center py-20 px-8 bg-gradient-to-br from-surface-low via-white to-surface-mid overflow-hidden">
+            <div className="relative flex flex-col items-center justify-center py-20 px-8 bg-linear-to-br from-surface-low via-white to-surface-mid overflow-hidden">
               {/* Decorative radial rings */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                 {[280, 420, 560].map((size, i) => (

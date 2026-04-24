@@ -37,7 +37,7 @@ export default function LocationsFinalCTA() {
     >
       <div className="container-width">
         <FadeUp>
-          <div className="relative rounded-[2.5rem] overflow-hidden bg-black p-12 lg:p-20 text-center">
+          <div className="relative rounded-3xl overflow-hidden bg-black p-12 lg:p-20 text-center">
             {/* Subtle radial highlight */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.08)_0%,transparent_65%)] pointer-events-none" />
 

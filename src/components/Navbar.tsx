@@ -7,6 +7,7 @@ import React, {
   useCallback,
 } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import Image from "next/image";
 import { Menu, X, ArrowRight } from "lucide-react";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
@@ -131,13 +132,30 @@ function MobileDrawer({
           >
             {/* Drawer Header */}
             <div className="flex items-center justify-between px-6 py-5 border-b border-black/5">
-              <a href="/" onClick={onClose} className="flex items-center gap-2.5 group">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-black text-white transition-transform group-hover:scale-105">
-                  <span className="text-[16px] font-black italic">T</span>
+              <a href="/" onClick={onClose} aria-label="Go to Thunderfix homepage" className="flex items-center gap-3">
+                <div className="relative shrink-0 overflow-hidden" style={{ width: 30, height: 30 }}>
+                  <Image
+                    src="/brand-icon.png"
+                    alt="Thunderfix logo"
+                    fill
+                    sizes="30px"
+                    priority
+                    className="object-contain"
+                    style={{ mixBlendMode: "multiply" }}
+                  />
                 </div>
-                <span className="text-[13px] font-black tracking-widest text-black uppercase">
-                  Thunderfix
-                </span>
+                <div className="relative shrink-0 overflow-hidden" style={{ width: 110, height: 22 }}>
+                  <Image
+                    src="/brand-wordmark.jpg"
+                    alt="Thunderfix"
+                    fill
+                    sizes="110px"
+                    priority
+                    aria-hidden="true"
+                    className="object-contain object-left"
+                    style={{ mixBlendMode: "multiply" }}
+                  />
+                </div>
               </a>
               <button
                 ref={closeButtonRef}
@@ -299,29 +317,46 @@ export default function Navbar() {
             {/* Logo */}
             <a
               href="/"
-              className="flex items-center gap-2.5 group shrink-0"
-              aria-label="Thunderfix — home"
+              className="flex items-center gap-3 group shrink-0"
+              aria-label="Go to Thunderfix homepage"
             >
+              {/* TF monogram icon */}
               <div
-                className="flex items-center justify-center rounded-xl bg-black text-white transition-all duration-500"
+                className="relative shrink-0 overflow-hidden transition-all duration-500"
                 style={{
-                  width:  isScrolled ? "34px" : "40px",
-                  height: isScrolled ? "34px" : "40px",
+                  width:  isScrolled ? "28px" : "34px",
+                  height: isScrolled ? "28px" : "34px",
                 }}
               >
-                <span
-                  className="font-black italic transition-all duration-500"
-                  style={{ fontSize: isScrolled ? "14px" : "18px" }}
-                >
-                  T
-                </span>
+                <Image
+                  src="/brand-icon.png"
+                  alt="Thunderfix logo"
+                  fill
+                  sizes="34px"
+                  priority
+                  className="object-contain"
+                  style={{ mixBlendMode: "multiply" }}
+                />
               </div>
-              <span
-                className="font-black tracking-widest text-black uppercase hidden sm:block transition-all duration-500"
-                style={{ fontSize: isScrolled ? "11px" : "13px" }}
+              {/* Wordmark */}
+              <div
+                className="relative shrink-0 overflow-hidden hidden sm:block transition-all duration-500"
+                style={{
+                  width:  isScrolled ? "110px" : "130px",
+                  height: isScrolled ? "22px"  : "26px",
+                }}
               >
-                Thunderfix
-              </span>
+                <Image
+                  src="/brand-wordmark.jpg"
+                  alt="Thunderfix"
+                  fill
+                  sizes="130px"
+                  priority
+                  aria-hidden="true"
+                  className="object-contain object-left"
+                  style={{ mixBlendMode: "multiply" }}
+                />
+              </div>
             </a>
 
             {/* Desktop nav */}

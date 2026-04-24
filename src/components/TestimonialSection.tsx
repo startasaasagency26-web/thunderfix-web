@@ -119,11 +119,11 @@ export default function TestimonialSection() {
         <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-stretch">
           <FadeUp delay={0.1} className="h-full">
             <article className="flex h-full flex-col items-center justify-center py-2 sm:py-4 lg:py-6">
-              <div className="mb-5 inline-flex items-center rounded-full border border-black/[0.08] bg-[#F4F1EA] px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-black shadow-card">
+              <div className="mb-5 inline-flex items-center rounded-full border border-black/8 bg-[#F4F1EA] px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-black shadow-card">
                 Before &amp; After Repair
               </div>
 
-              <div className="w-full max-w-[360px] overflow-hidden rounded-[28px] bg-transparent shadow-[0_28px_80px_rgba(10,10,10,0.16)] ring-1 ring-black/[0.06] sm:w-[clamp(280px,30vw,400px)] sm:max-w-[400px]">
+              <div className="w-full max-w-[360px] overflow-hidden rounded-[28px] bg-transparent shadow-[0_28px_80px_rgba(10,10,10,0.16)] ring-1 ring-black/6 sm:w-[clamp(280px,30vw,400px)] sm:max-w-[400px]">
                 {/*
                   Decorative proof asset — controls intentionally omitted.
                   The surrounding caption and section heading describe the content.
@@ -139,12 +139,12 @@ export default function TestimonialSection() {
                   loop={!reducedMotion}
                   playsInline
                   preload="metadata"
-                  className="aspect-[9/16] w-full rounded-[28px] bg-transparent object-contain focus:outline-none"
+                  className="aspect-9/16 w-full rounded-[28px] bg-transparent object-contain focus:outline-none"
                   style={{ display: "block" }}
                 />
               </div>
 
-              <div className="mt-5 w-full max-w-[360px] rounded-2xl border border-black/[0.08] bg-[#F7F5F0] px-5 py-3 text-center shadow-card sm:mt-6 sm:max-w-[400px] sm:rounded-full">
+              <div className="mt-5 w-full max-w-[360px] rounded-2xl border border-black/8 bg-[#F7F5F0] px-5 py-3 text-center shadow-card sm:mt-6 sm:max-w-[400px] sm:rounded-full">
                 <p
                   id="before-after-caption"
                   className="mx-auto text-[14px] font-medium leading-6 text-[#333333]"
@@ -162,7 +162,7 @@ export default function TestimonialSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Read verified Google reviews for Thunderfix Seri Kembangan in a new tab"
-                className="group block h-full rounded-[2rem] border border-black/5 bg-surface-low p-6 shadow-soft transition-all duration-500 hover:-translate-y-1 hover:border-black/10 hover:shadow-elevated focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4 motion-reduce:transform-none motion-reduce:transition-none sm:p-8"
+                className="group block h-full rounded-2xl border border-black/5 bg-surface-low p-6 shadow-soft transition-all duration-500 hover:-translate-y-1 hover:border-black/10 hover:shadow-elevated focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4 motion-reduce:transform-none motion-reduce:transition-none sm:p-8"
               >
                 <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
                   <div>
@@ -227,7 +227,7 @@ export default function TestimonialSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="View this customer review source on Google in a new tab"
-                className="group block rounded-[2rem] border border-black/5 bg-white p-6 shadow-soft transition-all duration-500 hover:-translate-y-1 hover:border-black/10 hover:shadow-elevated focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4 motion-reduce:transform-none motion-reduce:transition-none sm:p-8"
+                className="group block rounded-2xl border border-black/5 bg-white p-6 shadow-soft transition-all duration-500 hover:-translate-y-1 hover:border-black/10 hover:shadow-elevated focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4 motion-reduce:transform-none motion-reduce:transition-none sm:p-8"
               >
                 <div className="flex items-center justify-between gap-4">
                   <div>

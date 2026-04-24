@@ -139,7 +139,7 @@ function DirectionsModal({
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: reducedMotion ? 0 : 0.2 }}
-        className="fixed inset-0 z-[200] flex items-center justify-center p-4"
+        className="fixed inset-0 z-200 flex items-center justify-center p-4"
         style={{ backgroundColor: "rgba(0,0,0,0.45)", backdropFilter: "blur(6px)" }}
         onClick={(e) => { if (e.target === overlayRef.current) onClose(); }}
         aria-hidden="true"
@@ -156,7 +156,7 @@ function DirectionsModal({
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 12, scale: 0.98 }}
         transition={{ duration: reducedMotion ? 0 : 0.3, ease }}
-        className="fixed inset-0 z-[201] flex items-center justify-center p-4 pointer-events-none"
+        className="fixed inset-0 z-201 flex items-center justify-center p-4 pointer-events-none"
       >
         <div className="pointer-events-auto w-full max-w-sm bg-white rounded-3xl border border-black/8 shadow-[0_32px_80px_-12px_rgba(0,0,0,0.18)] overflow-hidden">
           <div className="flex items-start justify-between p-6 pb-4">
@@ -165,7 +165,7 @@ function DirectionsModal({
               <p id="directions-modal-desc" className="mt-1 text-[12px] text-black/40 font-medium leading-relaxed">Directions to {loc.name}</p>
             </div>
             <button ref={closeButtonRef} onClick={onClose} aria-label="Close directions chooser"
-              className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-black/5 text-black/50 transition-all hover:bg-black/10 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20">
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-black/5 text-black/50 transition-all hover:bg-black/10 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20">
               <X size={14} />
             </button>
           </div>
@@ -176,14 +176,14 @@ function DirectionsModal({
               return (
                 <a key={opt.label} href={opt.href} target="_blank" rel="noopener noreferrer" aria-label={opt.ariaLabel}
                   className="group flex items-center gap-4 rounded-2xl px-4 py-4 transition-all duration-200 hover:bg-surface-low focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20">
-                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-surface-low border border-black/5 text-black/50 transition-all duration-200 group-hover:bg-black group-hover:text-white">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-surface-low border border-black/5 text-black/50 transition-all duration-200 group-hover:bg-black group-hover:text-white">
                     <Icon size={16} strokeWidth={1.5} />
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-[13px] font-black text-black">{opt.label}</p>
                     <p className="text-[11px] text-black/40 font-medium mt-0.5">{opt.description}</p>
                   </div>
-                  <ArrowRight size={14} className="text-black/25 group-hover:text-black/50 transition-colors flex-shrink-0" />
+                  <ArrowRight size={14} className="text-black/25 group-hover:text-black/50 transition-colors shrink-0" />
                 </a>
               );
             })}
@@ -216,11 +216,11 @@ function LocationCard({
         aria-label={`Thunderfix branch at ${loc.area}`}
       >
         {/* Top accent band */}
-        <div className={`h-1.5 w-full flex-shrink-0 bg-linear-to-r ${loc.bandClass} opacity-90`} />
+        <div className={`h-1.5 w-full shrink-0 bg-linear-to-r ${loc.bandClass} opacity-90`} />
 
         {/* ── Storefront image — flush to card top, portrait ratio ── */}
         <div
-          className="relative w-full overflow-hidden flex-shrink-0"
+          className="relative w-full overflow-hidden shrink-0"
           style={{ aspectRatio: "4 / 5" }}
         >
           <Image

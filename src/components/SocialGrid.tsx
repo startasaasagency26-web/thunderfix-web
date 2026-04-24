@@ -2,36 +2,29 @@
 
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { FACEBOOK_URL } from "@/lib/constants";
 
 /**
- * Local SVG replacement for the Instagram icon to resolve lucide-react import failures
+ * Local SVG replacement for the Facebook icon to avoid brand-icon package drift
  * in specific package versions.
  */
-const InstagramIcon = ({ 
+const FacebookIcon = ({
   size = 24, 
-  className = "", 
-  strokeWidth = 2 
+  className = "",
 }: { 
   size?: number; 
   className?: string; 
-  strokeWidth?: number; 
 }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
     viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={strokeWidth}
-    strokeLinecap="round"
-    strokeLinejoin="round"
+    fill="currentColor"
     className={className}
     aria-hidden="true"
   >
-    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    <path d="M14 8.5h2.2V5h-2.9C10.4 5 9 6.7 9 9.1V11H6v3.6h3V21h3.8v-6.4h2.8l.5-3.6h-3.3V9.4c0-.6.3-.9 1.2-.9z" />
   </svg>
 );
 
@@ -77,7 +70,7 @@ export default function SocialGrid() {
           <FadeUp>
             <span className="badge-pill mb-8">Stay Connected</span>
             <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[1.1] tracking-tight text-black">
-              Follow Us On <span className="text-black/30">Instagram</span>
+              Follow Us On <span className="text-black/30">Facebook</span>
             </h2>
           </FadeUp>
         </div>
@@ -85,11 +78,23 @@ export default function SocialGrid() {
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-8">
           {items.map((item, i) => (
             <FadeUp key={item.id} delay={0.1 * i}>
-              <div className="relative aspect-square rounded-2xl overflow-hidden border border-black/5 bg-surface-low group cursor-pointer">
+              <a
+                href={FACEBOOK_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={
+                  item.type === "social"
+                    ? "Visit Thunderfix on Facebook"
+                    : "Open Thunderfix Facebook page in a new tab"
+                }
+                className="group relative block aspect-square overflow-hidden rounded-2xl border border-black/5 bg-surface-low focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4"
+              >
                 {item.type === "social" ? (
                   <div className="h-full w-full bg-surface-mid flex flex-col items-center justify-center gap-4 transition-colors group-hover:bg-black group-hover:text-white">
-                    <InstagramIcon size={32} strokeWidth={1.5} className="text-black/20 group-hover:text-white/50" />
-                    <span className="text-[10px] font-black uppercase tracking-[0.2em]">@thunderfix.my</span>
+                    <FacebookIcon size={32} className="text-black/20 group-hover:text-white/50" />
+                    <span className="max-w-[18ch] text-center text-[10px] font-black uppercase tracking-[0.16em]">
+                      Visit Thunderfix on Facebook
+                    </span>
                   </div>
                 ) : (
                   <>
@@ -97,11 +102,11 @@ export default function SocialGrid() {
                       <span className="text-black/5 font-black uppercase tracking-widest text-[10px]">Lifestyle {item.id}</span>
                     </div>
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                      <InstagramIcon size={24} className="text-white" />
+                      <FacebookIcon size={24} className="text-white" />
                     </div>
                   </>
                 )}
-              </div>
+              </a>
             </FadeUp>
           ))}
         </div>

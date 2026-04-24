@@ -61,7 +61,6 @@ export default function TestimonialSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const userPausedRef = useRef(false);
   const observerPausedRef = useRef(false);
-  const hasAutoPlayedRef = useRef(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -72,34 +71,34 @@ export default function TestimonialSection() {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        const isVisible = entry.isIntersecting && entry.intersectionRatio >= 0.45;
+        const isVisible = entry.isIntersecting && entry.intersectionRatio >= 0.35;
 
         if (isVisible) {
-          if (!userPausedRef.current && !video.ended) {
-            video.muted = true;
+          video.muted = true;
+          video.loop = true;
+          observerPausedRef.current = false;
 
-            if (!hasAutoPlayedRef.current || observerPausedRef.current) {
-              const playAttempt = video.play();
-              hasAutoPlayedRef.current = true;
-              observerPausedRef.current = false;
+          if (!userPausedRef.current && video.paused) {
+            const playAttempt = video.play();
 
-              if (playAttempt !== undefined) {
-                playAttempt.catch(() => {
-                  // Browser autoplay can still be blocked; native controls remain available.
-                });
-              }
+            if (playAttempt !== undefined) {
+              playAttempt.catch(() => {
+                // Browser autoplay can still be blocked; native controls remain available.
+              });
             }
           }
 
           return;
         }
 
+        userPausedRef.current = false;
+
         if (!video.paused) {
           observerPausedRef.current = true;
           video.pause();
         }
       },
-      { threshold: [0, 0.45, 0.75] },
+      { threshold: [0, 0.35, 0.75] },
     );
 
     observer.observe(video);
@@ -113,9 +112,8 @@ export default function TestimonialSection() {
   };
 
   const handleVideoPause = () => {
-    const video = videoRef.current;
-
-    if (observerPausedRef.current || video?.ended) {
+    if (observerPausedRef.current) {
+      observerPausedRef.current = false;
       return;
     }
 
@@ -123,7 +121,20 @@ export default function TestimonialSection() {
   };
 
   const handleVideoEnded = () => {
-    userPausedRef.current = true;
+    const video = videoRef.current;
+
+    if (!video || reducedMotion || userPausedRef.current) {
+      return;
+    }
+
+    video.currentTime = 0;
+    const playAttempt = video.play();
+
+    if (playAttempt !== undefined) {
+      playAttempt.catch(() => {
+        // Native controls are still visible if the browser blocks replay.
+      });
+    }
   };
 
   return (
@@ -161,6 +172,7 @@ export default function TestimonialSection() {
                   aria-describedby="before-after-caption"
                   autoPlay={reducedMotion === false}
                   muted
+                  loop={reducedMotion === false}
                   playsInline
                   controls
                   preload="metadata"

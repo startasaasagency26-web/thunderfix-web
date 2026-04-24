@@ -111,7 +111,7 @@ export default function FAQSection() {
                 <div className="relative rounded-[3rem] overflow-hidden border border-black/6 aspect-[4/3] bg-white"
                      style={{ boxShadow: "0 24px 80px rgba(0,0,0,0.06)" }}>
                   <Image
-                    src="/faq-visual.png"
+                    src="/faq-visual.webp"
                     alt="Thunderfix repair tools and brand visual"
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"

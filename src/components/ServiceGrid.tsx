@@ -12,7 +12,7 @@ const services = [
     title: "Display Calibration",
     description:
       "Surgical precision screen replacement with authentic color-accurate calibration for premium display fidelity.",
-    imageSrc: "/services/display-calibration.png",
+    imageSrc: "/services/display-calibration.webp",
     imageAlt:
       "Smartphone display calibration on a clean repair bench with color bars and precision tools",
     titleClassName: "text-3xl",
@@ -22,7 +22,7 @@ const services = [
     title: "Power Systems",
     description:
       "Advanced battery diagnostics, OEM replacement, and charging systems.",
-    imageSrc: "/services/power-systems.png",
+    imageSrc: "/services/power-systems.webp",
     imageAlt:
       "Open smartphone battery and charging system diagnostics with precision tools on a clean bench",
     titleClassName: "text-2xl",
@@ -32,7 +32,7 @@ const services = [
     title: "Liquid Recovery",
     description:
       "Chemical ultrasonic cleaning to resolve water damage at micro-board levels.",
-    imageSrc: "/services/liquid-recovery.png",
+    imageSrc: "/services/liquid-recovery.webp",
     imageAlt:
       "Smartphone logic board liquid recovery process with tweezers and ultrasonic cleaning setup",
     titleClassName: "text-2xl",
@@ -42,7 +42,7 @@ const services = [
     title: "Custom Works",
     description:
       "Specialized device engineering for complex hardware failures others can't resolve.",
-    imageSrc: "/services/custom-works.png",
+    imageSrc: "/services/custom-works.webp",
     imageAlt:
       "Board-level smartphone repair under a microscope with precision soldering tools",
     titleClassName: "text-3xl",

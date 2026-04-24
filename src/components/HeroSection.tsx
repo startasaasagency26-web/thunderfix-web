@@ -84,7 +84,7 @@ export default function HeroSection() {
             <div className="hero-focal-wrap aspect-[16/10] w-full rounded-[3rem] overflow-hidden shadow-premium border border-black/5 bg-white">
               <video
                 src="/hf_20260331_113227_6113d12f-39d5-4f75-952d-fba94b0b6bda.mp4"
-                poster="/hero-monochrome.png"
+                poster="/hero-monochrome.webp"
                 autoPlay
                 muted
                 loop

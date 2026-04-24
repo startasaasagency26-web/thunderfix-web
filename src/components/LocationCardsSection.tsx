@@ -29,7 +29,7 @@ const LOCATIONS = [
     wazeUrl: "https://waze.com/ul?q=Thunderfix%20Seri%20Kembangan",
     description:
       "Smartphone repair services for customers around Seri Kembangan and nearby areas. Fast, reliable repairs with transparent pricing.",
-    image: "/branch-seri-kembangan.jpg",
+    image: "/branch-seri-kembangan.webp",
     imageAlt: "Thunderfix Seri Kembangan storefront",
     dotColor: "bg-black",
     bandClass: "from-zinc-200 via-zinc-100 to-white",
@@ -48,7 +48,7 @@ const LOCATIONS = [
       "https://waze.com/ul?q=Thunderfix%20Shah%20Alam%20Seksyen%207",
     description:
       "Smartphone repair services for customers around Shah Alam Seksyen 7 and nearby areas. Trusted by local customers for quality repairs.",
-    image: "/branch-shah-alam.jpg",
+    image: "/branch-shah-alam.webp",
     imageAlt: "Thunderfix Shah Alam Seksyen 7 storefront",
     dotColor: "bg-amber-400",
     bandClass: "from-amber-200 via-amber-100/60 to-white",

@@ -50,7 +50,7 @@ export default function HeroSection() {
 
         {/* Main Headline */}
         <FadeUp delay={0.1}>
-          <h1 className="text-[clamp(2.5rem,8vw,6rem)] font-black leading-[1] tracking-[-0.05em] text-black max-w-5xl mx-auto">
+          <h1 className="text-[clamp(2.5rem,8vw,6rem)] font-black leading-none tracking-[-0.05em] text-black max-w-5xl mx-auto">
             Surgical Precision <br />
             <span className="text-black/30">For Your Premium Tech</span>
           </h1>
@@ -81,7 +81,7 @@ export default function HeroSection() {
           
           {/* Main Video Frame */}
           <FadeUp delay={0.3}>
-            <div className="hero-focal-wrap aspect-[16/10] w-full rounded-[3rem] overflow-hidden shadow-premium border border-black/5 bg-white">
+            <div className="hero-focal-wrap aspect-16/10 w-full rounded-[3rem] overflow-hidden shadow-premium border border-black/5 bg-white">
               <video
                 src="/hf_20260331_113227_6113d12f-39d5-4f75-952d-fba94b0b6bda.mp4"
                 poster="/hero-monochrome.webp"
@@ -102,7 +102,7 @@ export default function HeroSection() {
             transition={{ duration: 1, delay: 0.5, ease }}
             className="absolute -left-8 top-[15%] hidden xl:block z-20"
           >
-            <div className="floating-card !p-6 flex items-center gap-4">
+            <div className="floating-card p-6! flex items-center gap-4">
               <div className="flex -space-x-3">
                 {[1, 2, 3].map((i) => (
                   <div key={i} className="h-10 w-10 rounded-full border-2 border-white bg-zinc-200 overflow-hidden">
@@ -125,7 +125,7 @@ export default function HeroSection() {
             transition={{ duration: 1, delay: 0.6, ease }}
             className="absolute -right-8 top-[40%] hidden xl:block z-20"
           >
-            <div className="floating-card !p-7 group">
+            <div className="floating-card p-7! group">
               <p className="text-[42px] font-black leading-none tracking-tighter">10<span className="text-[20px] ml-1 opacity-40">%</span></p>
               <p className="text-[11px] font-bold text-black/40 uppercase tracking-widest mt-2">New Client Offer</p>
               <div className="mt-6 flex h-10 w-10 items-center justify-center rounded-full bg-accent transition-transform group-hover:scale-110">
@@ -142,7 +142,7 @@ export default function HeroSection() {
             transition={{ duration: 1, delay: 0.7, ease }}
             className="absolute -bottom-8 left-[10%] hidden xl:block z-20"
           >
-            <div className="floating-card !p-4 !px-6 flex items-center gap-3">
+            <div className="floating-card p-4! px-6! flex items-center gap-3">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-black text-white">
                 <Zap size={14} className="fill-current" />
               </div>

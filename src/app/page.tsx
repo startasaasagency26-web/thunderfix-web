@@ -47,6 +47,8 @@ export default function Home() {
           "Haptic Touch calibration",
           "Dust-free cleanroom assembly"
         ]}
+        imageSrc="/display-science.webp"
+        imageAlt="Premium smartphone display repair tools and components"
         reverse
         ctaText="Get a Quote"
         ctaSecondaryText="See Repair Gallery"

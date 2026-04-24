@@ -218,23 +218,25 @@ function LocationCard({
         {/* Top accent band */}
         <div className={`h-1.5 w-full flex-shrink-0 bg-linear-to-r ${loc.bandClass} opacity-90`} />
 
-        {/* ── Storefront image ── */}
-        <div className="relative mx-5 mt-5 rounded-[1.4rem] overflow-hidden border border-black/[0.06] shadow-[0_4px_16px_-4px_rgba(0,0,0,0.10)] flex-shrink-0"
-          style={{ aspectRatio: "16 / 10" }}>
+        {/* ── Storefront image — flush to card top, portrait ratio ── */}
+        <div
+          className="relative w-full overflow-hidden flex-shrink-0"
+          style={{ aspectRatio: "4 / 5" }}
+        >
           <Image
             src={loc.image}
             alt={loc.imageAlt}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 600px"
-            className="object-cover object-top"
+            className="object-cover object-center"
             priority={loc.index === "01"}
           />
-          {/* Subtle bottom gradient for polish */}
-          <div className="absolute inset-x-0 bottom-0 h-1/4 bg-linear-to-t from-black/10 to-transparent pointer-events-none" />
+          {/* Subtle bottom fade into card */}
+          <div className="absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-white/30 to-transparent pointer-events-none" />
         </div>
 
         {/* ── Card body ── */}
-        <div className="flex flex-col flex-1 px-6 pt-5 pb-6 lg:px-7 lg:pb-7">
+        <div className="flex flex-col flex-1 px-6 pt-4 pb-6 lg:px-7 lg:pb-7">
 
           {/* Meta row */}
           <div className="flex items-center justify-between mb-4">

@@ -8,6 +8,8 @@ import React, {
 } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -57,6 +59,8 @@ function MobileDrawer({
   isOpen: boolean;
   onClose: () => void;
 }) {
+  const router = useRouter();
+  const pathname = usePathname();
   const reducedMotion = useReducedMotion();
   const { t } = useLanguage();
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -104,6 +108,28 @@ function MobileDrawer({
     }
   }, []);
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    // Immediate close without waiting for exit animation
+    onClose();
+
+    if (href.startsWith("/#")) {
+      const targetId = href.split("#")[1];
+      const element = document.getElementById(targetId);
+
+      if (pathname === "/") {
+        // Same page scroll
+        if (element) {
+          e.preventDefault();
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      } else {
+        // Different page to home hash
+        // Next.js Link handles this, but we want to ensure it's fast
+        // router.push("/#" + targetId) is handled by Link
+      }
+    }
+  };
+
   const overlayVariants = {
     hidden:  { opacity: 0 },
     visible: { opacity: 1 },
@@ -120,7 +146,7 @@ function MobileDrawer({
     visible: (i: number) => ({
       opacity: 1,
       x: 0,
-      transition: { delay: 0.08 + i * 0.055, duration: 0.45, ease: premiumEase },
+      transition: { delay: 0.05 + i * 0.04, duration: 0.35, ease: premiumEase },
     }),
   };
 
@@ -135,9 +161,14 @@ function MobileDrawer({
             initial="hidden"
             animate="visible"
             exit="hidden"
-            transition={{ duration: reducedMotion ? 0 : 0.3 }}
+            transition={{ duration: reducedMotion ? 0 : 0.22 }}
             className="fixed inset-0 z-998"
-            style={{ backgroundColor: "rgba(0,0,0,0.45)", backdropFilter: "blur(6px)" }}
+            style={{ 
+              backgroundColor: "rgba(0,0,0,0.5)", 
+              // Removed blur on mobile for better performance
+              backdropFilter: "none",
+              WebkitBackdropFilter: "none"
+            }}
             onClick={onClose}
             aria-hidden="true"
           />
@@ -154,19 +185,18 @@ function MobileDrawer({
             initial="hidden"
             animate="visible"
             exit={reducedMotion ? "hidden" : "exit"}
-            transition={{ duration: reducedMotion ? 0.15 : 0.5, ease: premiumEase }}
+            transition={{ duration: reducedMotion ? 0.15 : 0.32, ease: premiumEase }}
             className="fixed right-0 top-0 z-999 h-full w-full max-w-[420px] bg-white shadow-[−32px_0_80px_rgba(0,0,0,0.12)] flex flex-col overflow-y-auto"
           >
             {/* Drawer Header */}
             <div className="flex items-center justify-between px-6 py-5 border-b border-black/5">
-              <a href="/" onClick={onClose} aria-label="Go to Thunderfix homepage" className="flex items-center gap-3.5">
+              <Link href="/" onClick={(e) => handleNavClick(e, "/")} aria-label="Go to Thunderfix homepage" className="flex items-center gap-3.5">
                 <div className="relative shrink-0 overflow-hidden" style={{ width: 36, height: 36 }}>
                   <Image
                     src="/brand/thunderfix-symbol-transparent.png"
                     alt=""
                     fill
                     sizes="36px"
-                    priority
                     className="object-contain"
                   />
                 </div>
@@ -176,11 +206,10 @@ function MobileDrawer({
                     alt="Thunderfix"
                     fill
                     sizes="130px"
-                    priority
                     className="object-contain object-left"
                   />
                 </div>
-              </a>
+              </Link>
               <button
                 ref={closeButtonRef}
                 onClick={onClose}
@@ -194,37 +223,40 @@ function MobileDrawer({
             {/* Nav Links */}
             <nav aria-label={t.nav.menu} className="flex flex-col px-3 py-4 flex-1">
               {navKeys.map((link, i) => (
-                <motion.a
+                <motion.div
                   key={link.key}
-                  href={link.href}
                   custom={i}
                   variants={reducedMotion ? {} : itemVariants}
                   initial="hidden"
                   animate="visible"
-                  onClick={onClose}
-                  className="group flex items-center justify-between rounded-2xl px-5 py-5 text-[13px] font-black tracking-[0.18em] uppercase text-black/50 transition-all duration-300 hover:bg-black/4 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
                 >
-                  {t.nav[link.key]}
-                  <ArrowRight
-                    size={14}
-                    className="opacity-0 -translate-x-1 transition-all duration-300 group-hover:opacity-50 group-hover:translate-x-0"
-                  />
-                </motion.a>
+                  <Link
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className="group flex items-center justify-between rounded-2xl px-5 py-5 text-[13px] font-black tracking-[0.18em] uppercase text-black/50 transition-all duration-300 hover:bg-black/4 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
+                  >
+                    {t.nav[link.key]}
+                    <ArrowRight
+                      size={14}
+                      className="opacity-0 -translate-x-1 transition-all duration-300 group-hover:opacity-50 group-hover:translate-x-0"
+                    />
+                  </Link>
+                </motion.div>
               ))}
             </nav>
 
             {/* Drawer CTA & Language Toggle */}
             <div className="px-6 pb-8 pt-2 flex flex-col items-center">
               <LanguageToggle mobile />
-              <a
+              <Link
                 href={CTA_HREF}
-                onClick={onClose}
+                onClick={(e) => handleNavClick(e, CTA_HREF)}
                 aria-label={t.common.selectBranch}
                 className="flex w-full items-center justify-center gap-2 rounded-full bg-black px-6 py-4 text-[11px] font-black uppercase tracking-[0.2em] text-white transition-all duration-300 hover:bg-zinc-800 hover:-translate-y-0.5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
               >
                 {t.nav.startRepair}
                 <ArrowRight size={12} />
-              </a>
+              </Link>
             </div>
           </motion.div>
         </>
@@ -276,6 +308,8 @@ function HamburgerButton({
 // ─── Navbar ────────────────────────────────────────────────────────────────────
 export default function Navbar() {
   const { t, locale } = useLanguage();
+  const router = useRouter();
+  const pathname = usePathname();
   const reducedMotion = useReducedMotion();
   const [isOpen,     setIsOpen]     = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -300,11 +334,32 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Return focus to hamburger when drawer closes
+  // Normal close handler (e.g. clicking X or overlay)
   const handleClose = useCallback(() => {
     setIsOpen(false);
+    // Return focus to hamburger for accessibility
     setTimeout(() => hamburgerRef.current?.focus(), 50);
   }, []);
+
+  // Navigation close handler (closes instantly, no focus return needed)
+  const handleNavClose = useCallback(() => {
+    setIsOpen(false);
+  }, []);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith("/#")) {
+      const targetId = href.split("#")[1];
+      const element = document.getElementById(targetId);
+
+      if (pathname === "/") {
+        // Same page scroll
+        if (element) {
+          e.preventDefault();
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    }
+  };
 
   // ── Scroll-driven pill styles ────────────────────────────────────────────────
   const pillStyle: React.CSSProperties = isScrolled
@@ -351,8 +406,9 @@ export default function Navbar() {
           <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4 w-full">
 
             {/* Logo */}
-            <a
+            <Link
               href="/"
+              onClick={(e) => handleNavClick(e, "/")}
               className="flex items-center gap-3.5 group shrink-0"
               aria-label="Go to Thunderfix homepage"
             >
@@ -390,11 +446,12 @@ export default function Navbar() {
                   className="object-contain object-left"
                 />
               </div>
-            </a>
+            </Link>
 
             {/* Mobile Center Wordmark */}
-            <a 
+            <Link 
               href="/" 
+              onClick={(e) => handleNavClick(e, "/")}
               className="sm:hidden justify-self-center relative overflow-hidden" 
               style={{ width: "clamp(110px, 32vw, 150px)", height: "24px" }}
               aria-label="Go to Thunderfix homepage"
@@ -407,7 +464,7 @@ export default function Navbar() {
                 priority
                 className="object-contain"
               />
-            </a>
+            </Link>
 
             {/* Desktop nav */}
             <nav
@@ -416,26 +473,27 @@ export default function Navbar() {
               style={{ gap: "clamp(16px, 2vw, 32px)" }}
             >
               {navKeys.map((link) => (
-                <a
+                <Link
                   key={link.key}
                   href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   className="relative text-[11px] font-black uppercase text-black/35 transition-colors duration-300 hover:text-black group focus-visible:outline-none focus-visible:text-black"
                   style={{ letterSpacing: "0.15em" }}
                 >
                   {t.nav[link.key]}
                   {/* Hover underline dot */}
                   <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-px w-0 rounded-full bg-black transition-all duration-300 group-hover:w-full" />
-                </a>
+                </Link>
               ))}
             </nav>
 
             {/* Right: CTA + hamburger */}
             <div className="flex items-center gap-3 sm:gap-3.5 shrink-0 justify-self-end">
               <LanguageToggle />
-              <a
+              <Link
                 href={CTA_HREF}
                 aria-label={t.common.selectBranch}
-                className="hidden sm:flex items-center gap-1.5 font-black uppercase text-white bg-black transition-all duration-500 hover:bg-zinc-800 hover:-translate-y-0.5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
+                className="hidden sm:flex items-center justify-center gap-1.5 font-black uppercase text-white bg-black transition-all duration-500 hover:bg-zinc-800 hover:-translate-y-0.5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
                 style={{
                   fontSize:     "10px",
                   letterSpacing:"0.18em",
@@ -443,11 +501,10 @@ export default function Navbar() {
                   padding:       isScrolled ? "8px 20px" : "11px 28px",
                   transition:    "all 500ms cubic-bezier(0.16,1,0.3,1)",
                   minWidth:      locale === "ms" ? "124px" : "130px",
-                  justifyContent: "center",
                 }}
               >
                 {t.nav.startRepair}
-              </a>
+              </Link>
 
               <HamburgerButton
                 isOpen={isOpen}
@@ -460,7 +517,7 @@ export default function Navbar() {
       </motion.header>
 
       {/* Mobile drawer — rendered outside header to avoid stacking context issues */}
-      <MobileDrawer isOpen={isOpen} onClose={handleClose} />
+      <MobileDrawer isOpen={isOpen} onClose={handleNavClose} />
     </>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 
@@ -35,6 +36,7 @@ interface HighlightProps {
   description: string;
   benefits: string[];
   imageSrc?: string;
+  imageAlt?: string;
   videoSrc?: string;
   reverse?: boolean;
   ctaText?: string;
@@ -47,6 +49,7 @@ export default function ProductHighlight({
   description,
   benefits,
   imageSrc,
+  imageAlt = "",
   videoSrc,
   reverse = false,
   ctaText = "Get Started",
@@ -109,6 +112,16 @@ export default function ProductHighlight({
                     >
                       <source src={videoSrc} type="video/mp4" />
                     </video>
+                  ) : imageSrc ? (
+                    <Image
+                      src={imageSrc}
+                      alt={imageAlt}
+                      fill
+                      loading="lazy"
+                      quality={90}
+                      sizes="(min-width: 1024px) 50vw, 100vw"
+                      className="object-cover"
+                    />
                   ) : (
                     <div className="h-full w-full bg-zinc-100 flex items-center justify-center">
                       <span className="text-black/10 font-black uppercase tracking-widest">Visual Asset</span>

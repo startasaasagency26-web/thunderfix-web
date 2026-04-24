@@ -29,6 +29,8 @@ export default function Home() {
           "OEM internal components",
           "Surgical-grade soldering"
         ]}
+        imageSrc="/product/sound-restoration.jpg"
+        imageAlt="Premium headphones and earbuds prepared for sound restoration service"
         ctaText="Book Restoration"
         ctaSecondaryText="View Lab Process"
       />

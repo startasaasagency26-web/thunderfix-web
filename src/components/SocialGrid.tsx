@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { FACEBOOK_URL } from "@/lib/constants";
 
@@ -30,6 +31,18 @@ const FacebookIcon = ({
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
+type SocialItem =
+  | {
+      id: number;
+      type: "image";
+      imageSrc: string;
+      imageAlt: string;
+    }
+  | {
+      id: number;
+      type: "social";
+    };
+
 function FadeUp({
   children,
   delay = 0,
@@ -54,13 +67,38 @@ function FadeUp({
 }
 
 const items = [
-  { id: 1, type: "image" },
-  { id: 2, type: "image" },
-  { id: 3, type: "image" },
-  { id: 4, type: "image" },
-  { id: 5, type: "image" },
+  {
+    id: 1,
+    type: "image",
+    imageSrc: "/social/facebook-1.jpg",
+    imageAlt: "Thunderfix repair work from Facebook showing a device diagnostic result",
+  },
+  {
+    id: 2,
+    type: "image",
+    imageSrc: "/social/facebook-2.jpg",
+    imageAlt: "Thunderfix repaired device showcase from Facebook",
+  },
+  {
+    id: 3,
+    type: "image",
+    imageSrc: "/social/facebook-3.jpg",
+    imageAlt: "Thunderfix device repair post showing a phone charging test",
+  },
+  {
+    id: 4,
+    type: "image",
+    imageSrc: "/social/facebook-4.jpg",
+    imageAlt: "Thunderfix repair work from Facebook showing a phone motherboard check",
+  },
+  {
+    id: 5,
+    type: "image",
+    imageSrc: "/social/facebook-5.jpg",
+    imageAlt: "Thunderfix device repair post showing a battery replacement",
+  },
   { id: 6, type: "social" },
-];
+] satisfies SocialItem[];
 
 export default function SocialGrid() {
   return (
@@ -98,12 +136,27 @@ export default function SocialGrid() {
                   </div>
                 ) : (
                   <>
-                    <div className="h-full w-full bg-zinc-100 flex items-center justify-center">
-                      <span className="text-black/5 font-black uppercase tracking-widest text-[10px]">Lifestyle {item.id}</span>
-                    </div>
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <Image
+                      src={item.imageSrc}
+                      alt={item.imageAlt}
+                      fill
+                      loading="lazy"
+                      quality={90}
+                      sizes="(min-width: 1024px) 360px, (min-width: 768px) 30vw, 50vw"
+                      className="object-cover transition duration-700 ease-out group-hover:scale-[1.03] group-hover:brightness-105 motion-reduce:transform-none motion-reduce:transition-none"
+                    />
+                    <div
+                      aria-hidden="true"
+                      className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-white/5 opacity-60 transition-opacity duration-500 group-hover:opacity-80"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-500 group-hover:bg-black/10 group-hover:opacity-100">
                       <FacebookIcon size={24} className="text-white" />
                     </div>
+                    <span className="absolute bottom-5 left-1/2 -translate-x-1/2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-white opacity-0 shadow-soft backdrop-blur-sm transition-opacity duration-500 group-hover:opacity-100">
+                      View on Facebook
+                    </span>
+                    <span className="sr-only">View Thunderfix repair post on Facebook</span>
+                    <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10" />
                   </>
                 )}
               </a>

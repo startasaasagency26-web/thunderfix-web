@@ -132,28 +132,25 @@ function MobileDrawer({
           >
             {/* Drawer Header */}
             <div className="flex items-center justify-between px-6 py-5 border-b border-black/5">
-              <a href="/" onClick={onClose} aria-label="Go to Thunderfix homepage" className="flex items-center gap-3">
-                <div className="relative shrink-0 overflow-hidden" style={{ width: 30, height: 30 }}>
+              <a href="/" onClick={onClose} aria-label="Go to Thunderfix homepage" className="flex items-center gap-3.5">
+                <div className="relative shrink-0 overflow-hidden" style={{ width: 36, height: 36 }}>
                   <Image
-                    src="/brand-icon.png"
-                    alt="Thunderfix logo"
+                    src="/brand/thunderfix-symbol-transparent.png"
+                    alt=""
                     fill
-                    sizes="30px"
+                    sizes="36px"
                     priority
                     className="object-contain"
-                    style={{ mixBlendMode: "multiply" }}
                   />
                 </div>
-                <div className="relative shrink-0 overflow-hidden" style={{ width: 110, height: 22 }}>
+                <div className="relative shrink-0 overflow-hidden" style={{ width: 130, height: 28 }}>
                   <Image
-                    src="/brand-wordmark.jpg"
+                    src="/brand/thunderfix-wordmark-transparent.png"
                     alt="Thunderfix"
                     fill
-                    sizes="110px"
+                    sizes="130px"
                     priority
-                    aria-hidden="true"
                     className="object-contain object-left"
-                    style={{ mixBlendMode: "multiply" }}
                   />
                 </div>
               </a>
@@ -317,44 +314,41 @@ export default function Navbar() {
             {/* Logo */}
             <a
               href="/"
-              className="flex items-center gap-3 group shrink-0"
+              className="flex items-center gap-3.5 group shrink-0"
               aria-label="Go to Thunderfix homepage"
             >
               {/* TF monogram icon */}
               <div
                 className="relative shrink-0 overflow-hidden transition-all duration-500"
                 style={{
-                  width:  isScrolled ? "28px" : "34px",
-                  height: isScrolled ? "28px" : "34px",
+                  width:  isScrolled ? "34px" : "44px",
+                  height: isScrolled ? "34px" : "44px",
                 }}
               >
                 <Image
-                  src="/brand-icon.png"
-                  alt="Thunderfix logo"
+                  src="/brand/thunderfix-symbol-transparent.png"
+                  alt=""
                   fill
-                  sizes="34px"
+                  sizes="44px"
                   priority
                   className="object-contain"
-                  style={{ mixBlendMode: "multiply" }}
                 />
               </div>
               {/* Wordmark */}
               <div
                 className="relative shrink-0 overflow-hidden hidden sm:block transition-all duration-500"
                 style={{
-                  width:  isScrolled ? "110px" : "130px",
-                  height: isScrolled ? "22px"  : "26px",
+                  width:  isScrolled ? "120px" : "155px",
+                  height: isScrolled ? "24px"  : "30px",
                 }}
               >
                 <Image
-                  src="/brand-wordmark.jpg"
+                  src="/brand/thunderfix-wordmark-transparent.png"
                   alt="Thunderfix"
                   fill
-                  sizes="130px"
+                  sizes="155px"
                   priority
-                  aria-hidden="true"
                   className="object-contain object-left"
-                  style={{ mixBlendMode: "multiply" }}
                 />
               </div>
             </a>

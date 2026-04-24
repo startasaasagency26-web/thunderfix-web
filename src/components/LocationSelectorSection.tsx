@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { MapPin, ExternalLink, ArrowRight } from "lucide-react";
+import { MapPin, ExternalLink, ArrowRight, Phone } from "lucide-react";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -35,20 +35,26 @@ const BRANCHES = [
     description:
       "Conveniently located for customers across the Seri Kembangan corridor and surrounding townships.",
     googleUrl: "https://share.google/W4kiym7rddhhE0Cli",
+    googleMapsUrl:
+      "https://www.google.com/maps/search/?api=1&query=Thunderfix+Seri+Kembangan",
     fullName: "Thunderfix Seri Kembangan",
+    phone: "017-700 5497",
+    telHref: "tel:+60177005497",
     dotColor: "bg-black",
-    accent: "group-hover:bg-black group-hover:text-white",
   },
   {
     area: "Shah Alam Seksyen 7",
     description:
       "Serving the Shah Alam Seksyen 7 community with expert smartphone repair and fast turnarounds.",
     googleUrl: "https://share.google/T02eW3oZMtksfE0pu",
+    googleMapsUrl:
+      "https://www.google.com/maps/search/?api=1&query=Thunderfix+Shah+Alam+Seksyen+7",
     fullName: "Thunderfix Shah Alam Seksyen 7",
-    dotColor: "bg-accent",
-    accent: "group-hover:bg-black group-hover:text-white",
+    phone: "014-400 8052",
+    telHref: "tel:+60144008052",
+    dotColor: "bg-amber-400",
   },
-];
+] as const;
 
 export default function LocationSelectorSection() {
   return (
@@ -105,22 +111,21 @@ export default function LocationSelectorSection() {
                 {/* Actions */}
                 <div className="flex flex-col sm:flex-row gap-3">
                   <a
-                    href={branch.googleUrl}
+                    href={branch.googleMapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Open ${branch.fullName} in Google Maps`}
-                    className="group/btn flex flex-1 items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-white border border-black/10 text-[10px] font-black uppercase tracking-[0.2em] text-black/70 transition-all duration-300 hover:border-black hover:bg-black hover:text-white active:scale-95 motion-reduce:transform-none"
+                    className="group/btn flex flex-1 items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-white border border-black/10 text-[10px] font-black uppercase tracking-[0.2em] text-black/70 transition-all duration-300 hover:border-black hover:bg-black hover:text-white active:scale-95 motion-reduce:transform-none min-h-[44px]"
                   >
                     <ExternalLink size={12} />
                     Open in Google Maps
                   </a>
                   <a
-                    href="https://wa.me/60144008052"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Start a repair at ${branch.fullName} via WhatsApp`}
-                    className="flex flex-1 items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-black text-white text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-300 hover:bg-zinc-800 active:scale-95 motion-reduce:transform-none"
+                    href={branch.telHref}
+                    aria-label={`Call ${branch.fullName}`}
+                    className="flex flex-1 items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-black text-white text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-300 hover:bg-zinc-800 active:scale-95 motion-reduce:transform-none min-h-[44px]"
                   >
+                    <Phone size={12} />
                     Start Repair
                     <ArrowRight size={12} />
                   </a>

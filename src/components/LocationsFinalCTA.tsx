@@ -3,6 +3,7 @@
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Navigation } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -30,6 +31,7 @@ function FadeUp({
 }
 
 export default function LocationsFinalCTA() {
+  const { t } = useLanguage();
   return (
     <section
       aria-labelledby="locations-cta-heading"
@@ -51,19 +53,18 @@ export default function LocationsFinalCTA() {
 
             <div className="relative z-10 flex flex-col items-center">
               <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 border border-white/10 text-[10px] font-black uppercase tracking-[0.22em] text-white/50 mb-10">
-                Ready to Repair
+                {t.common.readyToRepairBadge}
               </span>
 
               <h2
                 id="locations-cta-heading"
                 className="text-[clamp(2.2rem,5vw,4rem)] font-black leading-[1.05] tracking-[-0.04em] text-white max-w-2xl mx-auto mb-6"
               >
-                Ready to repair your device?
+                {t.common.readyToRepairHeading}
               </h2>
 
               <p className="text-[16px] leading-relaxed text-white/45 font-medium max-w-md mb-12">
-                Pick your nearest Thunderfix branch and let our team handle the
-                rest.
+                {t.common.readyToRepairSub}
               </p>
 
               <div className="flex flex-wrap items-center justify-center gap-5">
@@ -72,7 +73,7 @@ export default function LocationsFinalCTA() {
                   aria-label="Choose a Thunderfix branch to start your repair"
                   className="group flex items-center gap-3 px-10 py-5 rounded-full bg-white text-black text-[11px] font-black uppercase tracking-[0.2em] transition-all duration-400 hover:bg-zinc-100 hover:-translate-y-1 hover:shadow-elevated active:scale-95 motion-reduce:transform-none"
                 >
-                  Start Repair
+                  {t.common.startRepair}
                   <ArrowRight
                     size={16}
                     className="transition-transform duration-300 group-hover:translate-x-0.5"
@@ -85,7 +86,7 @@ export default function LocationsFinalCTA() {
                   className="flex items-center gap-3 px-10 py-5 rounded-full border-2 border-white/15 text-white text-[11px] font-black uppercase tracking-[0.2em] transition-all duration-400 hover:border-white/40 hover:bg-white/5 hover:-translate-y-1 active:scale-95 motion-reduce:transform-none"
                 >
                   <Navigation size={16} />
-                  Get Directions
+                  {t.common.getDirections}
                 </a>
               </div>
             </div>

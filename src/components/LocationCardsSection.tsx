@@ -12,6 +12,7 @@ import {
   X,
   Map,
 } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -27,8 +28,7 @@ const LOCATIONS = [
     googleMapsUrl:
       "https://www.google.com/maps/search/?api=1&query=Thunderfix+Seri+Kembangan",
     wazeUrl: "https://waze.com/ul?q=Thunderfix%20Seri%20Kembangan",
-    description:
-      "Smartphone repair services for customers around Seri Kembangan and nearby areas. Fast, reliable repairs with transparent pricing.",
+    descKey: "seriKembangan",
     image: "/branch-seri-kembangan.webp",
     imageAlt: "Thunderfix Seri Kembangan storefront",
     dotColor: "bg-black",
@@ -46,8 +46,7 @@ const LOCATIONS = [
       "https://www.google.com/maps/search/?api=1&query=Thunderfix+Shah+Alam+Seksyen+7",
     wazeUrl:
       "https://waze.com/ul?q=Thunderfix%20Shah%20Alam%20Seksyen%207",
-    description:
-      "Smartphone repair services for customers around Shah Alam Seksyen 7 and nearby areas. Trusted by local customers for quality repairs.",
+    descKey: "shahAlam",
     image: "/branch-shah-alam.webp",
     imageAlt: "Thunderfix Shah Alam Seksyen 7 storefront",
     dotColor: "bg-amber-400",
@@ -90,6 +89,7 @@ function DirectionsModal({
   loc: LocationEntry;
   onClose: () => void;
 }) {
+  const { t } = useLanguage();
   const reducedMotion = useReducedMotion();
   const overlayRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -125,9 +125,9 @@ function DirectionsModal({
   }, []);
 
   const navOptions = [
-    { label: "Google Maps", href: loc.googleMapsUrl, icon: Map, description: "Open in Google Maps", ariaLabel: `Open ${loc.name} in Google Maps` },
-    { label: "Waze", href: loc.wazeUrl, icon: Navigation, description: "Navigate with Waze", ariaLabel: `Navigate to ${loc.name} with Waze` },
-    { label: "View on Google", href: loc.googleUrl, icon: ExternalLink, description: "View Google Business listing", ariaLabel: `View ${loc.name} on Google` },
+    { label: t.common.googleMaps, href: loc.googleMapsUrl, icon: Map, description: "Open in Google Maps", ariaLabel: `Open ${loc.name} in Google Maps` },
+    { label: t.common.waze, href: loc.wazeUrl, icon: Navigation, description: "Navigate with Waze", ariaLabel: `Navigate to ${loc.name} with Waze` },
+    { label: t.common.viewOnGoogle, href: loc.googleUrl, icon: ExternalLink, description: "View Google Business listing", ariaLabel: `View ${loc.name} on Google` },
   ];
 
   return (
@@ -161,8 +161,8 @@ function DirectionsModal({
         <div className="pointer-events-auto w-full max-w-sm bg-white rounded-3xl border border-black/8 shadow-[0_32px_80px_-12px_rgba(0,0,0,0.18)] overflow-hidden">
           <div className="flex items-start justify-between p-6 pb-4">
             <div>
-              <p id="directions-modal-title" className="text-[13px] font-black uppercase tracking-[0.22em] text-black">Choose navigation app</p>
-              <p id="directions-modal-desc" className="mt-1 text-[12px] text-black/40 font-medium leading-relaxed">Directions to {loc.name}</p>
+              <p id="directions-modal-title" className="text-[13px] font-black uppercase tracking-[0.22em] text-black">{t.locationCards.chooseApp}</p>
+              <p id="directions-modal-desc" className="mt-1 text-[12px] text-black/40 font-medium leading-relaxed">{t.locationCards.directionsTo} {loc.name}</p>
             </div>
             <button ref={closeButtonRef} onClick={onClose} aria-label="Close directions chooser"
               className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-black/5 text-black/50 transition-all hover:bg-black/10 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20">
@@ -189,7 +189,7 @@ function DirectionsModal({
             })}
           </div>
           <div className="px-6 pb-5">
-            <p className="text-center text-[10px] text-black/25 font-medium">Opens in a new tab</p>
+            <p className="text-center text-[10px] text-black/25 font-medium">{t.locationCards.opensInNewTab}</p>
           </div>
         </div>
       </motion.div>
@@ -209,6 +209,7 @@ function LocationCard({
   onGetDirections: () => void;
   triggerRef: (el: HTMLButtonElement | null) => void;
 }) {
+  const { t } = useLanguage();
   return (
     <FadeUp delay={delay} className="flex">
       <article
@@ -262,7 +263,7 @@ function LocationCard({
 
           {/* Description — flex-1 pushes CTA to bottom */}
           <p className="flex-1 text-[13px] leading-relaxed text-black/45 font-medium mb-6">
-            {loc.description}
+            {t.locationCards.descriptions[loc.descKey]}
           </p>
 
           {/* Divider */}
@@ -279,7 +280,7 @@ function LocationCard({
               className="group/btn flex flex-1 items-center justify-center gap-2 px-4 py-3.5 rounded-2xl bg-black text-white text-[10px] font-black uppercase tracking-[0.18em] transition-all duration-300 hover:bg-zinc-800 hover:-translate-y-0.5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 motion-reduce:transform-none min-h-[44px]"
             >
               <Navigation size={12} />
-              Get Directions
+              {t.locationCards.getDirections}
               <ArrowRight size={11} className="transition-transform duration-300 group-hover/btn:translate-x-0.5" />
             </button>
 
@@ -288,7 +289,7 @@ function LocationCard({
               aria-label={`View ${loc.name} on Google`}
               className="flex flex-1 items-center justify-center gap-2 px-4 py-3.5 rounded-2xl border-2 border-black/10 text-black text-[10px] font-black uppercase tracking-[0.18em] transition-all duration-300 hover:border-black hover:bg-black hover:text-white hover:-translate-y-0.5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 motion-reduce:transform-none min-h-[44px]">
               <ExternalLink size={12} />
-              View on Google
+              {t.locationCards.viewOnGoogle}
             </a>
 
             {/* Start Repair — correct branch phone */}
@@ -296,7 +297,7 @@ function LocationCard({
               aria-label={`Call ${loc.name}`}
               className="flex flex-1 items-center justify-center gap-2 px-4 py-3.5 rounded-2xl border-2 border-black/10 text-black text-[10px] font-black uppercase tracking-[0.18em] transition-all duration-300 hover:border-black/25 hover:bg-surface-mid hover:-translate-y-0.5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 motion-reduce:transform-none min-h-[44px]">
               <Phone size={12} />
-              Start Repair
+              {t.locationCards.startRepair}
             </a>
           </div>
         </div>

@@ -4,21 +4,11 @@ import React, { useEffect, useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ExternalLink, MapPin, ShieldCheck, Smartphone, Star } from "lucide-react";
 import { GOOGLE_REVIEWS_URL } from "@/lib/constants";
+import { useLanguage } from "@/context/LanguageContext";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-const trustItems = [
-  "5.0 Google Rating",
-  "218 verified reviews",
-  "Trusted local repair team in Seri Kembangan",
-  "iPhone, iPad, Android & accessory repairs",
-];
-
-const testimonial = {
-  name: "Mark Doe",
-  quote:
-    "Thunderfix is incredible. My sleek iPhone was restored to perfection. They fit snugly into my premium lifestyle without any discomfort.",
-};
+const trustIcons = [Star, ShieldCheck, MapPin, Smartphone];
 
 function FadeUp({
   children,
@@ -43,20 +33,21 @@ function FadeUp({
   );
 }
 
-function StarRating({ className = "" }: { className?: string }) {
+function StarRating({ className = "", ratingLabel }: { className?: string, ratingLabel: string }) {
   return (
     <div className={`flex items-center gap-1 text-accent ${className}`}>
       {[1, 2, 3, 4, 5].map((i) => (
         <Star key={i} size={16} className="fill-current" aria-hidden="true" />
       ))}
       <span className="ml-2 text-[12px] font-bold text-black/60">
-        5.0 out of 5 on Google
+        {ratingLabel}
       </span>
     </div>
   );
 }
 
 export default function TestimonialSection() {
+  const { t } = useLanguage();
   const reducedMotion = useReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -105,13 +96,12 @@ export default function TestimonialSection() {
       <div className="container-width relative z-10">
         <div className="mb-16 flex flex-col items-center text-center md:mb-20">
           <FadeUp>
-            <span className="badge-pill mb-8">Real Repair Results</span>
+            <span className="badge-pill mb-8">{t.testimonials.badge}</span>
             <h2 className="mx-auto max-w-4xl text-[clamp(2rem,4vw,3.5rem)] font-black leading-[1.1] tracking-tight text-black">
-              See the repair quality before you trust us with your device.
+              {t.testimonials.titleTop} {t.testimonials.titleBottom}
             </h2>
             <p className="mx-auto mt-6 max-w-2xl text-[16px] font-medium leading-7 text-black/50 sm:text-[18px]">
-              Real customer devices. Real repair outcomes. Backed by verified
-              Google reviews.
+              {t.testimonials.subtitle}
             </p>
           </FadeUp>
         </div>
@@ -120,7 +110,7 @@ export default function TestimonialSection() {
           <FadeUp delay={0.1} className="h-full">
             <article className="flex h-full flex-col items-center justify-center py-2 sm:py-4 lg:py-6">
               <div className="mb-5 inline-flex items-center rounded-full border border-black/8 bg-[#F4F1EA] px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-black shadow-card">
-                Before &amp; After Repair
+                {t.testimonials.videoBadge}
               </div>
 
               <div className="w-full max-w-[360px] overflow-hidden rounded-[28px] bg-transparent shadow-[0_28px_80px_rgba(10,10,10,0.16)] ring-1 ring-black/6 sm:w-[clamp(280px,30vw,400px)] sm:max-w-[400px]">
@@ -149,7 +139,7 @@ export default function TestimonialSection() {
                   id="before-after-caption"
                   className="mx-auto text-[14px] font-medium leading-6 text-[#333333]"
                 >
-                  A real customer device restored by the Thunderfix repair team.
+                  {t.testimonials.videoCaption}
                 </p>
               </div>
             </article>
@@ -171,15 +161,14 @@ export default function TestimonialSection() {
                         5.0
                       </span>
                       <div className="flex flex-col">
-                        <StarRating />
+                        <StarRating ratingLabel={t.testimonials.ratingLabel} />
                         <span className="mt-2 text-[11px] font-black uppercase tracking-[0.22em] text-black/40">
-                          218 reviews
+                          {t.testimonials.reviewCount}
                         </span>
                       </div>
                     </div>
                     <p className="mt-5 max-w-lg text-[15px] font-medium leading-7 text-black/60">
-                      Verified Google feedback from customers who trusted the
-                      Thunderfix Seri Kembangan team with their device repairs.
+                      {t.testimonials.description}
                     </p>
                   </div>
 
@@ -188,35 +177,22 @@ export default function TestimonialSection() {
                   </div>
                 </div>
 
-                <div className="mt-8 grid gap-3 sm:grid-cols-2">
-                  {trustItems.map((item, i) => {
-                    const Icon =
-                      i === 0
-                        ? Star
-                        : i === 1
-                          ? ShieldCheck
-                          : i === 2
-                            ? MapPin
-                            : Smartphone;
-
-                    return (
-                      <div
-                        key={item}
-                        className="flex min-h-14 items-center gap-3 rounded-2xl border border-black/5 bg-white px-4 py-3 text-left text-[12px] font-black uppercase tracking-[0.12em] text-black/60"
-                      >
-                        <Icon
-                          size={16}
-                          className={i === 0 ? "fill-accent text-accent" : "text-black/35"}
-                          aria-hidden="true"
-                        />
-                        <span>{item}</span>
+                <ul className="mt-12 space-y-4">
+                {t.testimonials.stats.map((item, i) => {
+                  const Icon = trustIcons[i];
+                  return (
+                    <li key={i} className="flex items-center gap-4 text-[15px] font-medium text-black/60">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-card">
+                        <Icon size={14} className="text-accent" />
                       </div>
-                    );
-                  })}
-                </div>
+                      {item}
+                    </li>
+                  );
+                })}
+              </ul>
 
                 <span className="mt-8 inline-flex min-h-12 items-center justify-center rounded-full bg-black px-6 py-3 text-[11px] font-black uppercase tracking-[0.14em] text-white transition-colors duration-300 group-hover:bg-zinc-800">
-                  Read verified Google reviews
+                  {t.testimonials.cta}
                 </span>
               </a>
             </FadeUp>
@@ -230,28 +206,27 @@ export default function TestimonialSection() {
                 className="group block rounded-2xl border border-black/5 bg-white p-6 shadow-soft transition-all duration-500 hover:-translate-y-1 hover:border-black/10 hover:shadow-elevated focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4 motion-reduce:transform-none motion-reduce:transition-none sm:p-8"
               >
                 <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <span className="text-[16px] font-black tracking-tight text-black">
-                      {testimonial.name}
-                    </span>
-                    <StarRating className="mt-2 text-accent" />
+                  <StarRating ratingLabel={t.testimonials.ratingLabel} />
+                </div>
+                <blockquote className="mt-8">
+                  <p className="text-[20px] font-medium leading-relaxed tracking-[-0.01em] text-black sm:text-[22px]">
+                    "{t.testimonials.quote}"
+                  </p>
+                </blockquote>
+                <div className="mt-8 flex items-center gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-surface-low text-lg font-black text-black">
+                    {t.testimonials.name.charAt(0)}
                   </div>
-
-                  <div className="hidden h-16 w-16 shrink-0 overflow-hidden rounded-full border-4 border-white bg-zinc-200 shadow-premium sm:block">
-                    <img
-                      src="https://i.pravatar.cc/200?img=12"
-                      alt="Reviewer"
-                      className="h-full w-full object-cover"
-                    />
+                  <div className="flex flex-col">
+                    <span className="font-bold text-black">{t.testimonials.name}</span>
+                    <span className="text-[13px] font-medium text-black/40">
+                      Verified Customer
+                    </span>
                   </div>
                 </div>
 
-                <p className="mt-6 text-[18px] font-bold leading-snug tracking-tight text-black/70 italic lg:text-[20px]">
-                  &quot;{testimonial.quote}&quot;
-                </p>
-
                 <span className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-full border border-black/10 px-5 py-3 text-[10px] font-black uppercase tracking-[0.16em] text-black/50 transition-colors duration-300 group-hover:border-black/20 group-hover:text-black">
-                  View our Google reviews
+                  {t.testimonials.cta}
                   <ExternalLink size={14} aria-hidden="true" />
                 </span>
               </a>

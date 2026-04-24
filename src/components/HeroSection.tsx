@@ -3,6 +3,7 @@
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Star, Zap } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -29,6 +30,7 @@ function FadeUp({
 }
 
 export default function HeroSection() {
+  const { t } = useLanguage();
   return (
     <section id="home" className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-surface-low pt-40 pb-24 lg:pt-48 lg:pb-32">
       
@@ -44,22 +46,21 @@ export default function HeroSection() {
         <FadeUp>
           <div className="badge-pill mb-8">
             <Star size={12} className="fill-accent text-accent" />
-            One of the best repair labs in the region
+            {t.hero.badge}
           </div>
         </FadeUp>
 
         {/* Main Headline */}
         <FadeUp delay={0.1}>
           <h1 className="text-[clamp(2.5rem,8vw,6rem)] font-black leading-none tracking-[-0.05em] text-black max-w-5xl mx-auto">
-            Surgical Precision <br />
-            <span className="text-black/30">For Your Premium Tech</span>
+            {t.hero.titleTop} <br />
+            <span className="text-black/30">{t.hero.titleBottom}</span>
           </h1>
         </FadeUp>
 
         <FadeUp delay={0.2} className="mt-8 max-w-2xl">
           <p className="text-[18px] leading-relaxed text-black/50 font-medium">
-            We don't just fix devices; we restore them to factory standards. 
-            Experience the gold standard in laboratory-grade hardware restoration.
+            {t.hero.subtitle}
           </p>
         </FadeUp>
 
@@ -67,11 +68,11 @@ export default function HeroSection() {
         <FadeUp delay={0.25} className="mt-12 w-full max-w-sm sm:max-w-none mx-auto">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
             <a href="/locations" className="btn-premium btn-accent w-full sm:w-auto">
-              Start Your Repair
+              {t.common.startYourRepair}
               <ArrowRight size={16} />
             </a>
             <a href="#services" className="btn-premium btn-outline w-full sm:w-auto">
-              View Services
+              {t.common.viewServices}
             </a>
           </div>
         </FadeUp>
@@ -112,7 +113,7 @@ export default function HeroSection() {
               </div>
               <div>
                 <p className="text-[16px] font-black leading-none">5000+</p>
-                <p className="text-[10px] font-bold text-black/40 uppercase tracking-widest mt-1">Lab Successes</p>
+                <p className="text-[10px] font-bold text-black/40 uppercase tracking-widest mt-1">{t.hero.labSuccesses}</p>
               </div>
             </div>
           </motion.div>
@@ -127,7 +128,7 @@ export default function HeroSection() {
           >
             <div className="floating-card p-7! group">
               <p className="text-[42px] font-black leading-none tracking-tighter">10<span className="text-[20px] ml-1 opacity-40">%</span></p>
-              <p className="text-[11px] font-bold text-black/40 uppercase tracking-widest mt-2">New Client Offer</p>
+              <p className="text-[11px] font-bold text-black/40 uppercase tracking-widest mt-2">{t.hero.newClientOffer}</p>
               <div className="mt-6 flex h-10 w-10 items-center justify-center rounded-full bg-accent transition-transform group-hover:scale-110">
                 <ArrowRight size={16} />
               </div>
@@ -146,7 +147,7 @@ export default function HeroSection() {
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-black text-white">
                 <Zap size={14} className="fill-current" />
               </div>
-              <span className="text-[11px] font-black uppercase tracking-widest">Master Engineering</span>
+              <span className="text-[11px] font-black uppercase tracking-widest">{t.hero.masterEngineering}</span>
             </div>
           </motion.div>
 

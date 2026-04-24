@@ -3,6 +3,7 @@
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, MapPin } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -29,6 +30,7 @@ function FadeUp({
 }
 
 export default function LocationsHeroSection() {
+  const { t } = useLanguage();
   return (
     <section
       id="locations-hero"
@@ -48,23 +50,22 @@ export default function LocationsHeroSection() {
         <FadeUp>
           <div className="badge-pill mb-8">
             <MapPin size={12} className="text-black/50" />
-            Thunderfix Locations
+            {t.locationsHero.badge}
           </div>
         </FadeUp>
 
         {/* Headline */}
         <FadeUp delay={0.1}>
           <h1 className="text-[clamp(2.4rem,7.5vw,5.5rem)] font-black leading-[1.02] tracking-[-0.05em] text-black max-w-4xl mx-auto">
-            Visit the Thunderfix branch{" "}
-            <span className="text-black/25">nearest to you.</span>
+            {t.locationsHero.titleTop}{" "}
+            <span className="text-black/25">{t.locationsHero.titleBottom}</span>
           </h1>
         </FadeUp>
 
         {/* Supporting copy */}
         <FadeUp delay={0.2} className="mt-8 max-w-xl">
           <p className="text-[17px] leading-relaxed text-black/50 font-medium">
-            Choose your preferred Thunderfix location, check directions on
-            Google, and start your repair with a trusted local team.
+            {t.locationsHero.subtitle}
           </p>
         </FadeUp>
 
@@ -76,7 +77,7 @@ export default function LocationsHeroSection() {
               aria-label="Choose a Thunderfix branch to start your repair"
               className="btn-premium btn-primary"
             >
-              Start Repair
+              {t.common.startRepair}
               <ArrowRight size={16} />
             </a>
             <a
@@ -84,7 +85,7 @@ export default function LocationsHeroSection() {
               aria-label="Scroll to view Thunderfix branch locations"
               className="btn-premium btn-outline"
             >
-              View Locations
+              {t.locationsHero.viewLocations}
             </a>
           </div>
         </FadeUp>

@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { FACEBOOK_URL } from "@/lib/constants";
+import { useLanguage } from "@/context/LanguageContext";
 
 /**
  * Local SVG replacement for the Facebook icon to avoid brand-icon package drift
@@ -101,14 +102,15 @@ const items = [
 ] satisfies SocialItem[];
 
 export default function SocialGrid() {
+  const { t } = useLanguage();
   return (
     <section className="py-24 md:py-32 lg:py-48 bg-white overflow-hidden">
       <div className="container-width">
         <div className="flex flex-col items-center text-center mb-24">
           <FadeUp>
-            <span className="badge-pill mb-8">Stay Connected</span>
+            <span className="badge-pill mb-8">{t.social.badge}</span>
             <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[1.1] tracking-tight text-black">
-              Follow Us On <span className="text-black/30">Facebook</span>
+              {t.social.titleTop} <span className="text-black/30">{t.social.titleBottom}</span>
             </h2>
           </FadeUp>
         </div>
@@ -122,16 +124,16 @@ export default function SocialGrid() {
                 rel="noopener noreferrer"
                 aria-label={
                   item.type === "social"
-                    ? "Visit Thunderfix on Facebook"
-                    : "Open Thunderfix Facebook page in a new tab"
+                    ? t.social.visitText
+                    : t.common.viewOnFacebook
                 }
                 className="group relative block aspect-square overflow-hidden rounded-2xl border border-black/5 bg-surface-low focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4"
               >
                 {item.type === "social" ? (
                   <div className="h-full w-full bg-surface-mid flex flex-col items-center justify-center gap-4 transition-colors group-hover:bg-black group-hover:text-white">
                     <FacebookIcon size={32} className="text-black/20 group-hover:text-white/50" />
-                    <span className="max-w-[18ch] text-center text-[10px] font-black uppercase tracking-[0.16em]">
-                      Visit Thunderfix on Facebook
+                    <span className="text-[12px] font-black tracking-widest text-white/90 group-hover:text-white">
+                      {t.social.viewText}
                     </span>
                   </div>
                 ) : (
@@ -147,7 +149,7 @@ export default function SocialGrid() {
                     />
                     <div
                       aria-hidden="true"
-                      className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-white/5 opacity-60 transition-opacity duration-500 group-hover:opacity-80"
+                      className="absolute inset-0 bg-linear-to-t from-black/35 via-black/0 to-white/5 opacity-60 transition-opacity duration-500 group-hover:opacity-80"
                     />
                     <div className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-500 group-hover:bg-black/10 group-hover:opacity-100">
                       <FacebookIcon size={24} className="text-white" />

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -30,26 +31,8 @@ function FadeUp({
   );
 }
 
-const faqs = [
-  {
-    question: "How long does a typical iPhone repair take?",
-    answer: "Most standard restorations, such as screen or battery replacements, are completed within 45 to 60 minutes in our laboratory while you wait.",
-  },
-  {
-    question: "Do you use original Apple components?",
-    answer: "We prioritize surgical-grade OEM components that maintain the exact performance fidelity and structural integrity of your premium device.",
-  },
-  {
-    question: "Is there a warranty on the restoration?",
-    answer: "Yes, every Thunderfix restoration comes with a comprehensive laboratory warranty, covering both the components and the expert craftsmanship.",
-  },
-  {
-    question: "Can you fix logic board issues others have rejected?",
-    answer: "Our engineers specialize in micro-soldering and deep-level hardware diagnostics, handling complex board failures that generic repair shops cannot.",
-  },
-];
-
 export default function FAQSection() {
+  const { t } = useLanguage();
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
@@ -60,23 +43,23 @@ export default function FAQSection() {
           <div className="order-2 lg:order-1">
             <FadeUp>
               <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[1.1] tracking-tight text-black mb-16">
-                Frequently Asked <br />
-                <span className="text-black/30">Questions</span>
+                {t.faq.titleTop} <br />
+                <span className="text-black/30">{t.faq.titleBottom}</span>
               </h2>
             </FadeUp>
 
             <div className="space-y-4">
-              {faqs.map((faq, i) => (
+              {t.faq.items.map((faq, i) => (
                 <FadeUp key={i} delay={0.1 * i}>
                   <div 
                     className="border-b border-black/5 pb-4 last:border-0"
                   >
                     <button
                       onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                      className="flex w-full items-center justify-between py-6 text-left group"
+                      className="flex w-full items-center justify-between py-6 text-left group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
                     >
                       <span className={`text-[17px] font-black tracking-tight transition-colors ${openIndex === i ? "text-black" : "text-black/40 group-hover:text-black"}`}>
-                        {faq.question}
+                        {faq.q}
                       </span>
                       <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-black/5 transition-all ${openIndex === i ? "bg-black text-white border-black" : "text-black/20 group-hover:text-black group-hover:border-black/20"}`}>
                         {openIndex === i ? <Minus size={14} /> : <Plus size={14} />}
@@ -93,7 +76,7 @@ export default function FAQSection() {
                           className="overflow-hidden"
                         >
                           <p className="pb-8 text-[15px] leading-relaxed text-black/50 font-medium max-w-lg">
-                            {faq.answer}
+                            {faq.a}
                           </p>
                         </motion.div>
                       )}

@@ -9,19 +9,45 @@ import React, {
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { Menu, X, ArrowRight } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
-const navLinks = [
-  { name: "Services",     href: "/#services"     },
-  { name: "Why Us",       href: "/#why-us"       },
-  { name: "Testimonials", href: "/#testimonials" },
-  { name: "FAQ",          href: "/#faq"          },
-  { name: "Locations",    href: "/locations"     },
-];
+const navKeys = [
+  { key: "services",     href: "/#services"     },
+  { key: "whyUs",       href: "/#why-us"       },
+  { key: "testimonials", href: "/#testimonials" },
+  { key: "faq",          href: "/#faq"          },
+  { key: "locations",    href: "/locations"     },
+] as const;
 
 const SCROLL_THRESHOLD = 24;
 const premiumEase = [0.16, 1, 0.3, 1] as const;
 const CTA_HREF = "/locations";
+
+// ─── Language Toggle ──────────────────────────────────────────────────────────
+function LanguageToggle({ mobile = false }: { mobile?: boolean }) {
+  const { locale, setLocale } = useLanguage();
+  return (
+    <div className={`flex items-center rounded-full bg-black/5 p-1 shrink-0 ${mobile ? "mx-auto mb-6 w-max" : "hidden sm:flex"}`}>
+      <button 
+        onClick={() => setLocale("en")}
+        aria-pressed={locale === "en"}
+        aria-label="Switch language to English"
+        className={`px-3 py-1 text-[10px] font-black uppercase tracking-widest rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 ${locale === "en" ? "bg-white text-black shadow-sm" : "text-black/40 hover:text-black"}`}
+      >
+        EN
+      </button>
+      <button 
+        onClick={() => setLocale("ms")}
+        aria-pressed={locale === "ms"}
+        aria-label="Tukar bahasa ke Bahasa Melayu"
+        className={`px-3 py-1 text-[10px] font-black uppercase tracking-widest rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 ${locale === "ms" ? "bg-white text-black shadow-sm" : "text-black/40 hover:text-black"}`}
+      >
+        BM
+      </button>
+    </div>
+  );
+}
 
 // ─── Mobile Drawer ─────────────────────────────────────────────────────────────
 function MobileDrawer({
@@ -32,6 +58,7 @@ function MobileDrawer({
   onClose: () => void;
 }) {
   const reducedMotion = useReducedMotion();
+  const { t } = useLanguage();
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
 
@@ -165,10 +192,10 @@ function MobileDrawer({
             </div>
 
             {/* Nav Links */}
-            <nav aria-label="Mobile navigation" className="flex flex-col px-3 py-4 flex-1">
-              {navLinks.map((link, i) => (
+            <nav aria-label={t.nav.menu} className="flex flex-col px-3 py-4 flex-1">
+              {navKeys.map((link, i) => (
                 <motion.a
-                  key={link.name}
+                  key={link.key}
                   href={link.href}
                   custom={i}
                   variants={reducedMotion ? {} : itemVariants}
@@ -177,7 +204,7 @@ function MobileDrawer({
                   onClick={onClose}
                   className="group flex items-center justify-between rounded-2xl px-5 py-5 text-[13px] font-black tracking-[0.18em] uppercase text-black/50 transition-all duration-300 hover:bg-black/4 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
                 >
-                  {link.name}
+                  {t.nav[link.key]}
                   <ArrowRight
                     size={14}
                     className="opacity-0 -translate-x-1 transition-all duration-300 group-hover:opacity-50 group-hover:translate-x-0"
@@ -186,15 +213,16 @@ function MobileDrawer({
               ))}
             </nav>
 
-            {/* Drawer CTA */}
-            <div className="px-6 pb-8 pt-2">
+            {/* Drawer CTA & Language Toggle */}
+            <div className="px-6 pb-8 pt-2 flex flex-col items-center">
+              <LanguageToggle mobile />
               <a
                 href={CTA_HREF}
                 onClick={onClose}
-                aria-label="Choose a Thunderfix branch to start your repair"
+                aria-label={t.common.selectBranch}
                 className="flex w-full items-center justify-center gap-2 rounded-full bg-black px-6 py-4 text-[11px] font-black uppercase tracking-[0.2em] text-white transition-all duration-300 hover:bg-zinc-800 hover:-translate-y-0.5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
               >
-                Start Repair
+                {t.nav.startRepair}
                 <ArrowRight size={12} />
               </a>
             </div>
@@ -247,6 +275,7 @@ function HamburgerButton({
 
 // ─── Navbar ────────────────────────────────────────────────────────────────────
 export default function Navbar() {
+  const { t } = useLanguage();
   const reducedMotion = useReducedMotion();
   const [isOpen,     setIsOpen]     = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -371,16 +400,16 @@ export default function Navbar() {
 
             {/* Desktop nav */}
             <nav
-              aria-label="Primary navigation"
+              aria-label={t.nav.menu}
               className="hidden lg:flex items-center gap-6 absolute left-1/2 -translate-x-1/2 whitespace-nowrap"
             >
-              {navLinks.map((link) => (
+              {navKeys.map((link) => (
                 <a
-                  key={link.name}
+                  key={link.key}
                   href={link.href}
                   className="relative text-[11px] font-black tracking-[0.2em] uppercase text-black/35 transition-colors duration-300 hover:text-black group focus-visible:outline-none focus-visible:text-black"
                 >
-                  {link.name}
+                  {t.nav[link.key]}
                   {/* Hover underline dot */}
                   <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-px w-0 rounded-full bg-black transition-all duration-300 group-hover:w-full" />
                 </a>
@@ -388,10 +417,11 @@ export default function Navbar() {
             </nav>
 
             {/* Right: CTA + hamburger */}
-            <div className="flex items-center gap-3 shrink-0 justify-self-end">
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0 justify-self-end">
+              <LanguageToggle />
               <a
                 href={CTA_HREF}
-                aria-label="Choose a Thunderfix branch to start your repair"
+                aria-label={t.common.selectBranch}
                 className="hidden sm:flex items-center gap-1.5 font-black uppercase text-white bg-black transition-all duration-500 hover:bg-zinc-800 hover:-translate-y-0.5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
                 style={{
                   fontSize:     "10px",
@@ -401,7 +431,7 @@ export default function Navbar() {
                   transition:    "all 500ms cubic-bezier(0.16,1,0.3,1)",
                 }}
               >
-                Start Repair
+                {t.nav.startRepair}
               </a>
 
               <HamburgerButton

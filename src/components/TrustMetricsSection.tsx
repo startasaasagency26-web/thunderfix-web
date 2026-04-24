@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { ShieldCheck, Smartphone, Users, MapPin } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -28,36 +29,13 @@ function FadeUp({
   );
 }
 
-const stats = [
-  {
-    icon: Smartphone,
-    value: "5,000+",
-    label: "Devices Repaired",
-    subtext: "Across phones, tablets, and essential repairs",
-  },
-  {
-    icon: Users,
-    value: "98%",
-    label: "Customer Satisfaction",
-    subtext: "Built through trust, speed, and consistency",
-  },
-  {
-    icon: MapPin,
-    value: "4",
-    label: "Service Centers",
-    subtext: "Convenient support across multiple locations",
-  },
-  {
-    icon: ShieldCheck,
-    value: "99.9%",
-    label: "Repair Success Rate",
-    subtext: "Reliable results with a transparent process",
-  },
-];
+const statIcons = [Smartphone, Users, MapPin, ShieldCheck];
+const statValues = ["5,000+", "98%", "4", "99.9%"];
 
 const brands = ["Apple", "Samsung", "Google", "Huawei", "Xiaomi", "Oppo"];
 
 export default function TrustMetricsSection() {
+  const { t } = useLanguage();
   return (
     <section
       aria-labelledby="trust-metrics-heading"
@@ -67,27 +45,26 @@ export default function TrustMetricsSection() {
         <div className="mx-auto max-w-3xl text-center">
           <FadeUp>
             <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.32em] text-text-muted">
-              Trusted by Thousands
+              {t.proof.badge}
             </p>
 
             <h2
               id="trust-metrics-heading"
               className="text-3xl font-semibold tracking-[-0.04em] text-text sm:text-4xl lg:text-5xl"
             >
-              Proof that your device is in the right hands
+              {t.proof.title}
             </h2>
 
             <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-[#666666] sm:text-base">
-              We combine repair volume, customer satisfaction, and operational
-              consistency to give customers one thing that matters most:
-              confidence before they even book.
+              {t.proof.subtitle}
             </p>
           </FadeUp>
         </div>
 
         <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
-          {stats.map((stat, i) => {
-            const Icon = stat.icon;
+          {t.proof.stats.map((stat, i) => {
+            const Icon = statIcons[i];
+            const value = statValues[i];
 
             return (
               <FadeUp key={stat.label} delay={0.1 * i}>
@@ -100,7 +77,7 @@ export default function TrustMetricsSection() {
 
                   <div className="mt-8">
                     <div className="text-4xl font-semibold leading-none tracking-[-0.06em] text-text sm:text-5xl">
-                      {stat.value}
+                      {value}
                     </div>
 
                     <h3 className="mt-4 text-[12px] font-semibold uppercase tracking-[0.28em] text-[#7A7A7A]">
@@ -121,7 +98,7 @@ export default function TrustMetricsSection() {
           <div>
             <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
               <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-text-muted">
-                Supported Brands
+                {t.proof.supportedBrands}
               </p>
 
               <div
@@ -141,7 +118,7 @@ export default function TrustMetricsSection() {
 
             <div className="mt-10 text-center">
               <p className="text-sm text-[#666666]">
-                Fast diagnostics. Genuine care. Transparent repair process.
+                {t.proof.footerText}
               </p>
             </div>
           </div>

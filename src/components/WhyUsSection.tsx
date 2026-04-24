@@ -59,7 +59,7 @@ export default function WhyUsSection() {
         <div className="flex flex-col items-center text-center mb-24">
           <FadeUp>
             <span className="badge-pill mb-8">The Difference</span>
-            <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-black leading-[1] tracking-[-0.04em] text-black">
+            <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-black leading-none tracking-[-0.04em] text-black">
               The <span className="text-black/30">Thunderfix</span> Standard
             </h2>
           </FadeUp>
@@ -85,7 +85,7 @@ export default function WhyUsSection() {
 
         {/* Brand Promise Card */}
         <FadeUp delay={0.4} className="mt-24">
-          <div className="floating-card !bg-black !border-none p-12 lg:p-20 text-center relative overflow-hidden group">
+          <div className="floating-card bg-black! border-none! p-8 sm:p-12 lg:p-20 text-center relative overflow-hidden group">
             <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_center,rgba(255,255,255,0.1)_0%,transparent_70%)] opacity-50 pointer-events-none" />
             <h3 className="text-[clamp(2rem,4vw,3.5rem)] font-black leading-tight tracking-tight text-white mb-8 relative z-10">
               "We handle what others can't. <br /> That is our promise."

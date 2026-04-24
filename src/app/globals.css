@@ -41,10 +41,20 @@
 @layer base {
   * {
     @apply border-black/5;
+    box-sizing: border-box;
+  }
+  html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
   }
   body {
+    position: relative;
     @apply bg-background text-foreground antialiased selection:bg-black selection:text-white;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02";
+  }
+  img, video, canvas, svg {
+    max-width: 100%;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-editorial tracking-tight text-balance;
@@ -82,7 +92,7 @@
 
 /* Floating Card Base */
 .floating-card {
-  @apply bg-white rounded-[2.5rem] p-8 border border-black/5 shadow-premium transition-all duration-700;
+  @apply bg-white rounded-3xl p-8 border border-black/5 shadow-premium transition-all duration-700;
 }
 
 .floating-card:hover {
@@ -116,7 +126,7 @@
 
 /* ── Animation Framing Utilities ── */
 .hero-focal-wrap {
-  @apply relative rounded-[3rem] overflow-hidden shadow-premium bg-surface-low border-[8px] border-white;
+  @apply relative rounded-[3rem] overflow-hidden shadow-premium bg-surface-low border-8 border-white;
 }
 
 @layer utilities {

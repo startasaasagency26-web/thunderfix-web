@@ -80,13 +80,13 @@ export default function ProductHighlight({
                 ))}
               </ul>
 
-              <div className="flex flex-wrap items-center gap-6">
-                <button className="btn-premium btn-primary">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mt-8">
+                <button className="btn-premium btn-primary w-full sm:w-auto">
                   {ctaText}
                   <ArrowRight size={16} />
                 </button>
                 {ctaSecondaryText && (
-                  <button className="text-[13px] font-black uppercase tracking-widest text-black/30 hover:text-black transition-colors">
+                  <button className="text-[13px] font-black uppercase tracking-widest text-black/30 hover:text-black transition-colors w-full sm:w-auto text-left sm:text-center mt-2 sm:mt-0">
                     {ctaSecondaryText}
                   </button>
                 )}
@@ -101,7 +101,7 @@ export default function ProductHighlight({
                 {/* Decorative shape similar to Podly reference */}
                 <div className="absolute -inset-10 bg-accent/10 blur-[80px] rounded-full opacity-50 group-hover:opacity-80 transition-opacity duration-700" />
                 
-                <div className="relative rounded-[3rem] overflow-hidden border border-black/5 shadow-premium aspect-[4/5] lg:aspect-square bg-surface-low">
+                <div className="relative rounded-[3rem] overflow-hidden border border-black/5 shadow-premium aspect-4/5 lg:aspect-square bg-surface-low">
                   {videoSrc ? (
                     <video 
                       autoPlay 
@@ -129,7 +129,7 @@ export default function ProductHighlight({
                   )}
                   
                   {/* Subtle highlight */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-linear-to-tr from-white/10 to-transparent pointer-events-none" />
                 </div>
               </div>
             </FadeUp>

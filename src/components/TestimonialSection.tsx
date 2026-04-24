@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ExternalLink, MapPin, ShieldCheck, Smartphone, Star } from "lucide-react";
 import { GOOGLE_REVIEWS_URL } from "@/lib/constants";
@@ -57,6 +57,75 @@ function StarRating({ className = "" }: { className?: string }) {
 }
 
 export default function TestimonialSection() {
+  const reducedMotion = useReducedMotion();
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const userPausedRef = useRef(false);
+  const observerPausedRef = useRef(false);
+  const hasAutoPlayedRef = useRef(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+
+    if (!video || reducedMotion) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const isVisible = entry.isIntersecting && entry.intersectionRatio >= 0.45;
+
+        if (isVisible) {
+          if (!userPausedRef.current && !video.ended) {
+            video.muted = true;
+
+            if (!hasAutoPlayedRef.current || observerPausedRef.current) {
+              const playAttempt = video.play();
+              hasAutoPlayedRef.current = true;
+              observerPausedRef.current = false;
+
+              if (playAttempt !== undefined) {
+                playAttempt.catch(() => {
+                  // Browser autoplay can still be blocked; native controls remain available.
+                });
+              }
+            }
+          }
+
+          return;
+        }
+
+        if (!video.paused) {
+          observerPausedRef.current = true;
+          video.pause();
+        }
+      },
+      { threshold: [0, 0.45, 0.75] },
+    );
+
+    observer.observe(video);
+
+    return () => observer.disconnect();
+  }, [reducedMotion]);
+
+  const handleVideoPlay = () => {
+    userPausedRef.current = false;
+    observerPausedRef.current = false;
+  };
+
+  const handleVideoPause = () => {
+    const video = videoRef.current;
+
+    if (observerPausedRef.current || video?.ended) {
+      return;
+    }
+
+    userPausedRef.current = true;
+  };
+
+  const handleVideoEnded = () => {
+    userPausedRef.current = true;
+  };
+
   return (
     <section
       id="testimonials"
@@ -78,28 +147,34 @@ export default function TestimonialSection() {
 
         <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-stretch">
           <FadeUp delay={0.1} className="h-full">
-            <article className="group flex h-full flex-col items-center justify-center overflow-hidden rounded-[2rem] border border-white/10 bg-[#141414] bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_48%)] p-5 shadow-[0_28px_90px_rgba(10,10,10,0.18)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_36px_100px_rgba(10,10,10,0.24)] motion-reduce:transform-none motion-reduce:transition-none sm:p-6 lg:p-8">
-              <div className="mb-5 inline-flex items-center rounded-full border border-white/[0.12] bg-white/[0.08] px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-[#E7D7B2]">
+            <article className="flex h-full flex-col items-center justify-center py-2 sm:py-4 lg:py-6">
+              <div className="mb-5 inline-flex items-center rounded-full border border-black/[0.08] bg-[#F4F1EA] px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-black shadow-card">
                 Before & After Repair
               </div>
 
-              <div className="w-full max-w-[360px] overflow-hidden rounded-[1.75rem] bg-[#F7F5F0] p-1 shadow-[0_24px_70px_rgba(0,0,0,0.28)] ring-1 ring-black/[0.06] sm:w-[clamp(280px,30vw,400px)] sm:max-w-[400px]">
+              <div className="w-full max-w-[360px] overflow-hidden rounded-[28px] bg-transparent shadow-[0_28px_80px_rgba(10,10,10,0.16)] ring-1 ring-black/[0.06] sm:w-[clamp(280px,30vw,400px)] sm:max-w-[400px]">
                 <video
+                  ref={videoRef}
                   src="/before-after-repair.mp4"
                   title="Before and after Thunderfix repair result"
                   aria-label="Before and after repair video showing a real customer device restored by Thunderfix"
                   aria-describedby="before-after-caption"
+                  autoPlay={reducedMotion === false}
+                  muted
                   playsInline
                   controls
                   preload="metadata"
-                  className="aspect-[9/16] w-full rounded-[1.5rem] bg-[#0f0f0f] object-contain focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-[#141414]"
+                  onPlay={handleVideoPlay}
+                  onPause={handleVideoPause}
+                  onEnded={handleVideoEnded}
+                  className="aspect-[9/16] w-full rounded-[28px] bg-transparent object-contain focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4"
                 />
               </div>
 
-              <div className="mt-5 w-full max-w-[360px] rounded-[1.35rem] border border-white/[0.12] bg-white/[0.08] px-5 py-3 text-center text-white sm:mt-6 sm:max-w-[400px] sm:rounded-full">
+              <div className="mt-5 w-full max-w-[360px] rounded-2xl border border-black/[0.08] bg-[#F7F5F0] px-5 py-3 text-center shadow-card sm:mt-6 sm:max-w-[400px] sm:rounded-full">
                 <p
                   id="before-after-caption"
-                  className="mx-auto text-[14px] font-medium leading-6 text-white/70"
+                  className="mx-auto text-[14px] font-medium leading-6 text-[#333333]"
                 >
                   A real customer device restored by the Thunderfix repair team.
                 </p>

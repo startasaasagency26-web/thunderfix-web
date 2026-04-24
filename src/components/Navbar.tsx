@@ -21,7 +21,7 @@ const navLinks = [
 
 const SCROLL_THRESHOLD = 24;
 const premiumEase = [0.16, 1, 0.3, 1] as const;
-const CTA_HREF = "https://wa.me/60144008052";
+const CTA_HREF = "/locations";
 
 // ─── Mobile Drawer ─────────────────────────────────────────────────────────────
 function MobileDrawer({
@@ -190,9 +190,8 @@ function MobileDrawer({
             <div className="px-6 pb-8 pt-2">
               <a
                 href={CTA_HREF}
-                target="_blank"
-                rel="noreferrer"
                 onClick={onClose}
+                aria-label="Choose a Thunderfix branch to start your repair"
                 className="flex w-full items-center justify-center gap-2 rounded-full bg-black px-6 py-4 text-[11px] font-black uppercase tracking-[0.2em] text-white transition-all duration-300 hover:bg-zinc-800 hover:-translate-y-0.5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
               >
                 Start Repair
@@ -309,7 +308,7 @@ export default function Navbar() {
               : "all 600ms cubic-bezier(0.16,1,0.3,1)",
           }}
         >
-          <div className="flex items-center justify-between">
+          <div className="grid grid-cols-[44px_1fr_44px] items-center sm:flex sm:justify-between w-full">
 
             {/* Logo */}
             <a
@@ -334,7 +333,7 @@ export default function Navbar() {
                   className="object-contain"
                 />
               </div>
-              {/* Wordmark */}
+              {/* Wordmark (Desktop only) */}
               <div
                 className="relative shrink-0 overflow-hidden hidden sm:block transition-all duration-500"
                 style={{
@@ -351,6 +350,23 @@ export default function Navbar() {
                   className="object-contain object-left"
                 />
               </div>
+            </a>
+
+            {/* Mobile Center Wordmark */}
+            <a 
+              href="/" 
+              className="sm:hidden justify-self-center relative overflow-hidden" 
+              style={{ width: "clamp(110px, 32vw, 150px)", height: "24px" }}
+              aria-label="Go to Thunderfix homepage"
+            >
+              <Image
+                src="/brand/thunderfix-wordmark-transparent.png"
+                alt="Thunderfix"
+                fill
+                sizes="150px"
+                priority
+                className="object-contain"
+              />
             </a>
 
             {/* Desktop nav */}
@@ -372,11 +388,10 @@ export default function Navbar() {
             </nav>
 
             {/* Right: CTA + hamburger */}
-            <div className="flex items-center gap-3 shrink-0">
+            <div className="flex items-center gap-3 shrink-0 justify-self-end">
               <a
                 href={CTA_HREF}
-                target="_blank"
-                rel="noreferrer"
+                aria-label="Choose a Thunderfix branch to start your repair"
                 className="hidden sm:flex items-center gap-1.5 font-black uppercase text-white bg-black transition-all duration-500 hover:bg-zinc-800 hover:-translate-y-0.5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
                 style={{
                   fontSize:     "10px",

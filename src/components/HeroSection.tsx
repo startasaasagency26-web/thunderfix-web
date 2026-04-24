@@ -3,6 +3,7 @@
 import React from "react";
 import { ArrowRight, Star, Zap } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import Link from "next/link";
 import Reveal from "./Reveal";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -45,13 +46,13 @@ export default function HeroSection() {
         {/* CTAs */}
         <Reveal delay={0.25} className="mt-12 w-full max-w-sm sm:max-w-none mx-auto">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
-            <a href="/locations" className="btn-premium btn-accent w-full sm:w-auto">
+            <Link href="/locations" className="btn-premium btn-accent w-full sm:w-auto">
               {t.common.startYourRepair}
               <ArrowRight size={16} />
-            </a>
-            <a href="#services" className="btn-premium btn-outline w-full sm:w-auto">
+            </Link>
+            <Link href="#services" className="btn-premium btn-outline w-full sm:w-auto">
               {t.common.viewServices}
-            </a>
+            </Link>
           </div>
         </Reveal>
 

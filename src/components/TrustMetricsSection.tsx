@@ -30,7 +30,7 @@ function FadeUp({
 }
 
 const statIcons = [Smartphone, Users, MapPin, ShieldCheck];
-const statValues = ["5,000+", "98%", "4", "99.9%"];
+const statValues = ["5,000+", "98%", "2", "99.9%"];
 
 const brands = ["Apple", "Samsung", "Google", "Huawei", "Xiaomi", "Oppo"];
 

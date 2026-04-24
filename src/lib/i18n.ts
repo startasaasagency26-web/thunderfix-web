@@ -100,7 +100,7 @@ export const translations = {
       stats: [
         { label: "Devices Repaired", subtext: "Across phones, tablets, and essential repairs" },
         { label: "Customer Satisfaction", subtext: "Built through trust, speed, and consistency" },
-        { label: "Service Centers", subtext: "Convenient support across multiple locations" },
+        { label: "Outlets", subtext: "Convenient support across both Thunderfix outlets" },
         { label: "Repair Success Rate", subtext: "Reliable results with a transparent process" },
       ],
       supportedBrands: "Supported Brands",
@@ -279,7 +279,7 @@ export const translations = {
       stats: [
         { label: "Peranti Dibaiki", subtext: "Meliputi telefon, tablet, dan pembaikan penting" },
         { label: "Kepuasan Pelanggan", subtext: "Dibina melalui kepercayaan, kelajuan, dan ketekalan" },
-        { label: "Pusat Servis", subtext: "Sokongan mudah di pelbagai lokasi" },
+        { label: "Cawangan", subtext: "Sokongan mudah di kedua-dua cawangan Thunderfix" },
         { label: "Kadar Kejayaan Pembaikan", subtext: "Hasil yang boleh dipercayai dengan proses telus" },
       ],
       supportedBrands: "Jenama Disokong",

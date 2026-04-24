@@ -31,8 +31,10 @@
   --radius-2xl: 2rem;
   --radius-3xl: 2.5rem;
   --radius-4xl: 3.5rem;
+}
 
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
+  :root {
     --shadow-premium: 0 10px 30px -10px rgba(10, 10, 10, 0.08);
     --shadow-elevated: 0 15px 40px -12px rgba(10, 10, 10, 0.1);
     --shadow-soft: 0 8px 20px -8px rgba(10, 10, 10, 0.06);

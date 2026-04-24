@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
 
@@ -107,10 +108,15 @@ export default function FAQSection() {
             <FadeUp delay={0.2}>
               <div className="relative group">
                 <div className="absolute -inset-10 bg-accent/10 blur-[80px] rounded-full opacity-50" />
-                <div className="relative rounded-[3rem] overflow-hidden border border-black/5 aspect-square bg-surface-low">
-                  <div className="h-full w-full bg-zinc-100 flex items-center justify-center">
-                    <span className="text-black/10 font-black uppercase tracking-widest">FAQ Visual</span>
-                  </div>
+                <div className="relative rounded-[3rem] overflow-hidden border border-black/6 aspect-square bg-white"
+                     style={{ boxShadow: "0 24px 80px rgba(0,0,0,0.06)" }}>
+                  <Image
+                    src="/faq-visual.png"
+                    alt="Thunderfix repair tools and brand visual"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-contain"
+                  />
                 </div>
               </div>
             </FadeUp>

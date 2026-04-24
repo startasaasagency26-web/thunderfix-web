@@ -108,7 +108,7 @@ function MobileDrawer({
             animate="visible"
             exit="hidden"
             transition={{ duration: reducedMotion ? 0 : 0.3 }}
-            className="fixed inset-0 z-[998]"
+            className="fixed inset-0 z-998"
             style={{ backgroundColor: "rgba(0,0,0,0.45)", backdropFilter: "blur(6px)" }}
             onClick={onClose}
             aria-hidden="true"
@@ -127,7 +127,7 @@ function MobileDrawer({
             animate="visible"
             exit={reducedMotion ? "hidden" : "exit"}
             transition={{ duration: reducedMotion ? 0.15 : 0.5, ease: premiumEase }}
-            className="fixed right-0 top-0 z-[999] h-full w-full max-w-[420px] bg-white shadow-[−32px_0_80px_rgba(0,0,0,0.12)] flex flex-col overflow-y-auto"
+            className="fixed right-0 top-0 z-999 h-full w-full max-w-[420px] bg-white shadow-[−32px_0_80px_rgba(0,0,0,0.12)] flex flex-col overflow-y-auto"
           >
             {/* Drawer Header */}
             <div className="flex items-center justify-between px-6 py-5 border-b border-black/5">
@@ -160,7 +160,7 @@ function MobileDrawer({
                   initial="hidden"
                   animate="visible"
                   onClick={onClose}
-                  className="group flex items-center justify-between rounded-2xl px-5 py-5 text-[13px] font-black tracking-[0.18em] uppercase text-black/50 transition-all duration-300 hover:bg-black/[0.04] hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
+                  className="group flex items-center justify-between rounded-2xl px-5 py-5 text-[13px] font-black tracking-[0.18em] uppercase text-black/50 transition-all duration-300 hover:bg-black/4 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20"
                 >
                   {link.name}
                   <ArrowRight
@@ -282,7 +282,7 @@ export default function Navbar() {
         initial={reducedMotion ? {} : { opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: premiumEase }}
-        className="fixed inset-x-0 top-0 z-[100] flex justify-center px-4 pt-4"
+        className="fixed inset-x-0 top-0 z-100 flex justify-center px-4 pt-4"
       >
         {/* ── Inner pill — transitions between states ── */}
         <div

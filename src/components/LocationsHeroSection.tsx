@@ -72,10 +72,8 @@ export default function LocationsHeroSection() {
         <FadeUp delay={0.3} className="mt-12">
           <div className="flex flex-wrap items-center justify-center gap-5">
             <a
-              href="https://wa.me/60144008052"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Start a repair inquiry with Thunderfix via WhatsApp"
+              href="#location-cards"
+              aria-label="Choose a Thunderfix branch to start your repair"
               className="btn-premium btn-primary"
             >
               Start Repair

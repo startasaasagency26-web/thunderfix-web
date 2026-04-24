@@ -66,7 +66,7 @@ export default function HeroSection() {
         {/* CTAs */}
         <FadeUp delay={0.25} className="mt-12 w-full max-w-sm sm:max-w-none mx-auto">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
-            <a href="https://wa.me/60144008052" className="btn-premium btn-accent w-full sm:w-auto">
+            <a href="/locations" className="btn-premium btn-accent w-full sm:w-auto">
               Start Your Repair
               <ArrowRight size={16} />
             </a>

@@ -93,8 +93,8 @@ export default function WhyUsSection() {
             <p className="text-[12px] font-black uppercase tracking-[0.4em] text-white/40 mb-12 relative z-10">
               — The Thunderfix Guarantee
             </p>
-            <a href="https://wa.me/60144008052" className="btn-premium btn-accent relative z-10">
-              Consult an Expert
+            <a href="/locations" className="btn-premium btn-accent relative z-10">
+              Start Your Repair
             </a>
           </div>
         </FadeUp>

@@ -31,7 +31,7 @@ function FadeUp({
 const stats = [
   {
     icon: Smartphone,
-    value: "15,000+",
+    value: "5,000+",
     label: "Devices Repaired",
     subtext: "Across phones, tablets, and essential repairs",
   },

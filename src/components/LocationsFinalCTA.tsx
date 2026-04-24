@@ -68,10 +68,8 @@ export default function LocationsFinalCTA() {
 
               <div className="flex flex-wrap items-center justify-center gap-5">
                 <a
-                  href="https://wa.me/60144008052"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Start a repair inquiry with Thunderfix via WhatsApp"
+                  href="#location-cards"
+                  aria-label="Choose a Thunderfix branch to start your repair"
                   className="group flex items-center gap-3 px-10 py-5 rounded-full bg-white text-black text-[11px] font-black uppercase tracking-[0.2em] transition-all duration-400 hover:bg-zinc-100 hover:-translate-y-1 hover:shadow-elevated active:scale-95 motion-reduce:transform-none"
                 >
                   Start Repair

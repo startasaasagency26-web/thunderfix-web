@@ -13,6 +13,7 @@ import {
   Map,
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import Reveal from "./Reveal";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -64,30 +65,6 @@ const LOCATIONS = [
 ] as const;
 
 type LocationEntry = (typeof LOCATIONS)[number];
-
-// ─── FadeUp ───────────────────────────────────────────────────────────────────
-function FadeUp({
-  children,
-  delay = 0,
-  className = "",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
-  const reducedMotion = useReducedMotion();
-  return (
-    <motion.div
-      initial={reducedMotion ? {} : { opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.8, ease, delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
 
 // ─── Directions Modal ─────────────────────────────────────────────────────────
 function DirectionsModal({
@@ -219,7 +196,7 @@ function LocationCard({
 }) {
   const { t, locale } = useLanguage();
   return (
-    <FadeUp delay={delay} className="flex h-full">
+    <Reveal delay={delay} className="flex h-full">
       <article
         className="group relative flex flex-col w-full bg-white rounded-3xl border border-black/[0.07] shadow-card transition-all duration-700 hover:-translate-y-2 hover:shadow-elevated hover:border-black/12 overflow-hidden focus-within:-translate-y-1 focus-within:shadow-elevated motion-reduce:transform-none motion-reduce:transition-none"
         aria-label={`Thunderfix branch at ${loc.area}`}
@@ -316,7 +293,7 @@ function LocationCard({
           </div>
         </div>
       </article>
-    </FadeUp>
+    </Reveal>
   );
 }
 
@@ -343,7 +320,7 @@ export default function LocationCardsSection() {
         <div className="container-width">
 
           {/* Section header */}
-          <FadeUp>
+          <Reveal>
             <div className="flex flex-col items-center text-center mb-20">
               <span className="badge-pill mb-8">Our Branches</span>
               <h2
@@ -358,7 +335,7 @@ export default function LocationCardsSection() {
                 repairs, transparent pricing, and a team you can trust.
               </p>
             </div>
-          </FadeUp>
+          </Reveal>
 
           {/* Cards — items-stretch keeps both at equal height */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
@@ -374,7 +351,7 @@ export default function LocationCardsSection() {
           </div>
 
           {/* Visual map area */}
-          <FadeUp delay={0.3} className="mt-16">
+          <Reveal delay={0.3} className="mt-16">
             <div className="relative rounded-3xl overflow-hidden border border-black/[0.07] bg-white shadow-card">
               <div className="relative flex flex-col items-center justify-center py-20 px-8 bg-linear-to-br from-surface-low via-white to-surface-mid overflow-hidden">
                 {/* Radial rings */}
@@ -418,7 +395,7 @@ export default function LocationCardsSection() {
                 </p>
               </div>
             </div>
-          </FadeUp>
+          </Reveal>
         </div>
       </section>
 

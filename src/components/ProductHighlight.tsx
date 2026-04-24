@@ -2,33 +2,8 @@
 
 import React from "react";
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
-
-const ease = [0.16, 1, 0.3, 1] as const;
-
-function FadeUp({
-  children,
-  delay = 0,
-  className = "",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
-  const reducedMotion = useReducedMotion();
-  return (
-    <motion.div
-      initial={reducedMotion ? {} : { opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.8, ease, delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
+import Reveal from "./Reveal";
 
 interface HighlightProps {
   title: string;
@@ -62,7 +37,7 @@ export default function ProductHighlight({
           
           {/* Text Content */}
           <div className={`${reverse ? "lg:order-2" : "lg:order-1"}`}>
-            <FadeUp>
+            <Reveal>
               <span className="badge-pill mb-8">{subtitle}</span>
               <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[1.1] tracking-tight text-black mb-8">
                 {title}
@@ -91,12 +66,12 @@ export default function ProductHighlight({
                   </button>
                 )}
               </div>
-            </FadeUp>
+            </Reveal>
           </div>
 
           {/* Visual Content */}
           <div className={`${reverse ? "lg:order-1" : "lg:order-2"}`}>
-            <FadeUp delay={0.2}>
+            <Reveal delay={0.2}>
               <div className="relative group">
                 {/* Decorative shape similar to Podly reference */}
                 <div className="absolute -inset-10 bg-accent/10 blur-[80px] rounded-full opacity-50 group-hover:opacity-80 transition-opacity duration-700" />
@@ -108,6 +83,7 @@ export default function ProductHighlight({
                       loop 
                       muted 
                       playsInline 
+                      preload="none"
                       className="h-full w-full object-cover"
                     >
                       <source src={videoSrc} type="video/mp4" />
@@ -118,7 +94,7 @@ export default function ProductHighlight({
                       alt={imageAlt}
                       fill
                       loading="lazy"
-                      quality={90}
+                      quality={75}
                       sizes="(min-width: 1024px) 50vw, 100vw"
                       className="object-cover"
                     />
@@ -132,7 +108,7 @@ export default function ProductHighlight({
                   <div className="absolute inset-0 bg-linear-to-tr from-white/10 to-transparent pointer-events-none" />
                 </div>
               </div>
-            </FadeUp>
+            </Reveal>
           </div>
 
         </div>

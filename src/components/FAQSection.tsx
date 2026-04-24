@@ -5,31 +5,10 @@ import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import Reveal from "./Reveal";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-function FadeUp({
-  children,
-  delay = 0,
-  className = "",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
-  const reducedMotion = useReducedMotion();
-  return (
-    <motion.div
-      initial={reducedMotion ? {} : { opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.8, ease, delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
 
 export default function FAQSection() {
   const { t } = useLanguage();
@@ -41,16 +20,16 @@ export default function FAQSection() {
         <div className="grid lg:grid-cols-2 gap-24 items-center">
           
           <div className="order-2 lg:order-1">
-            <FadeUp>
+            <Reveal>
               <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[1.1] tracking-tight text-black mb-16">
                 {t.faq.titleTop} <br />
                 <span className="text-black/30">{t.faq.titleBottom}</span>
               </h2>
-            </FadeUp>
+            </Reveal>
 
             <div className="space-y-4">
               {t.faq.items.map((faq, i) => (
-                <FadeUp key={i} delay={0.1 * i}>
+                <Reveal key={i} delay={0.1 * i}>
                   <div 
                     className="border-b border-black/5 pb-4 last:border-0"
                   >
@@ -82,13 +61,13 @@ export default function FAQSection() {
                       )}
                     </AnimatePresence>
                   </div>
-                </FadeUp>
+                </Reveal>
               ))}
             </div>
           </div>
 
           <div className="order-1 lg:order-2">
-            <FadeUp delay={0.2}>
+            <Reveal delay={0.2}>
               <div className="relative group">
                 <div className="absolute -inset-10 bg-accent/10 blur-[80px] rounded-full opacity-50" />
                 <div className="relative rounded-[3rem] overflow-hidden border border-black/6 aspect-4/3 bg-white"
@@ -102,7 +81,7 @@ export default function FAQSection() {
                   />
                 </div>
               </div>
-            </FadeUp>
+            </Reveal>
           </div>
 
         </div>

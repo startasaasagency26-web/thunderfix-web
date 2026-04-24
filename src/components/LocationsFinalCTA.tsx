@@ -1,34 +1,11 @@
 "use client";
 
 import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Navigation } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import Reveal from "./Reveal";
 
 const ease = [0.16, 1, 0.3, 1] as const;
-
-function FadeUp({
-  children,
-  delay = 0,
-  className = "",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
-  const reducedMotion = useReducedMotion();
-  return (
-    <motion.div
-      initial={reducedMotion ? {} : { opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.8, ease, delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
 
 export default function LocationsFinalCTA() {
   const { t } = useLanguage();
@@ -38,7 +15,7 @@ export default function LocationsFinalCTA() {
       className="bg-surface-low py-24 md:py-32 lg:py-40 border-t border-black/5"
     >
       <div className="container-width">
-        <FadeUp>
+        <Reveal>
           <div className="relative rounded-3xl overflow-hidden bg-black p-12 lg:p-20 text-center">
             {/* Subtle radial highlight */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.08)_0%,transparent_65%)] pointer-events-none" />
@@ -91,7 +68,7 @@ export default function LocationsFinalCTA() {
               </div>
             </div>
           </div>
-        </FadeUp>
+        </Reveal>
       </div>
     </section>
   );

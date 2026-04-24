@@ -281,10 +281,21 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
 
-  // Scroll detection
+  // Scroll detection with state guard to prevent redundant re-renders
   useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > SCROLL_THRESHOLD);
-    onScroll(); // initialise on mount
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrolled = window.scrollY > SCROLL_THRESHOLD;
+          setIsScrolled((prev) => (prev !== scrolled ? scrolled : prev));
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    
+    onScroll(); 
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -299,9 +310,9 @@ export default function Navbar() {
   const pillStyle: React.CSSProperties = isScrolled
     ? {
         maxWidth: "1120px",
-        background: "rgba(255,255,255,0.82)",
-        backdropFilter: "blur(24px)",
-        WebkitBackdropFilter: "blur(24px)",
+        background: "rgba(255,255,255,0.85)",
+        backdropFilter: "blur(12px)", // Reduced from 24px for better mobile perf
+        WebkitBackdropFilter: "blur(12px)",
         border: "1px solid rgba(0,0,0,0.08)",
         borderRadius: "9999px",
         boxShadow: "0 20px 60px rgba(0,0,0,0.08)",
@@ -310,8 +321,8 @@ export default function Navbar() {
     : {
         maxWidth: "1240px",
         background: "rgba(255,255,255,0.70)",
-        backdropFilter: "blur(0px)",
-        WebkitBackdropFilter: "blur(0px)",
+        backdropFilter: "none", // Avoid filter on initial state
+        WebkitBackdropFilter: "none",
         border: "1px solid transparent",
         borderRadius: "0px",
         boxShadow: "none",

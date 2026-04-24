@@ -5,33 +5,12 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ExternalLink, MapPin, ShieldCheck, Smartphone, Star } from "lucide-react";
 import { GOOGLE_REVIEWS_URL } from "@/lib/constants";
 import { useLanguage } from "@/context/LanguageContext";
+import Reveal from "./Reveal";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
 const trustIcons = [Star, ShieldCheck, MapPin, Smartphone];
 
-function FadeUp({
-  children,
-  delay = 0,
-  className = "",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
-  const reducedMotion = useReducedMotion();
-  return (
-    <motion.div
-      initial={reducedMotion ? {} : { opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.8, ease, delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
 
 function StarRating({ className = "", ratingLabel }: { className?: string, ratingLabel: string }) {
   return (
@@ -95,7 +74,7 @@ export default function TestimonialSection() {
     >
       <div className="container-width relative z-10">
         <div className="mb-16 flex flex-col items-center text-center md:mb-20">
-          <FadeUp>
+          <Reveal>
             <span className="badge-pill mb-8">{t.testimonials.badge}</span>
             <h2 className="mx-auto max-w-4xl text-[clamp(2rem,4vw,3.5rem)] font-black leading-[1.1] tracking-tight text-black">
               {t.testimonials.titleTop} {t.testimonials.titleBottom}
@@ -103,11 +82,11 @@ export default function TestimonialSection() {
             <p className="mx-auto mt-6 max-w-2xl text-[16px] font-medium leading-7 text-black/50 sm:text-[18px]">
               {t.testimonials.subtitle}
             </p>
-          </FadeUp>
+          </Reveal>
         </div>
 
         <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-stretch">
-          <FadeUp delay={0.1} className="h-full">
+          <Reveal delay={0.1} className="h-full">
             <article className="flex h-full flex-col items-center justify-center py-2 sm:py-4 lg:py-6">
               <div className="mb-5 inline-flex items-center rounded-full border border-black/8 bg-[#F4F1EA] px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-black shadow-card">
                 {t.testimonials.videoBadge}
@@ -120,7 +99,6 @@ export default function TestimonialSection() {
                 */}
                 <video
                   ref={videoRef}
-                  src="/before-after-repair.mp4"
                   title="Before and after Thunderfix repair result"
                   aria-label="Before and after repair video showing a real customer device restored by Thunderfix"
                   aria-describedby="before-after-caption"
@@ -128,10 +106,12 @@ export default function TestimonialSection() {
                   muted
                   loop={!reducedMotion}
                   playsInline
-                  preload="metadata"
-                  className="aspect-9/16 w-full rounded-[28px] bg-transparent object-contain focus:outline-none"
+                  preload="none"
+                  className="aspect-9/16 w-full rounded-[28px] bg-[#111] object-contain focus:outline-none"
                   style={{ display: "block" }}
-                />
+                >
+                  <source src="/before-after-repair.mp4" type="video/mp4" />
+                </video>
               </div>
 
               <div className="mt-5 w-full max-w-[360px] rounded-2xl border border-black/8 bg-[#F7F5F0] px-5 py-3 text-center shadow-card sm:mt-6 sm:max-w-[400px] sm:rounded-full">
@@ -143,10 +123,10 @@ export default function TestimonialSection() {
                 </p>
               </div>
             </article>
-          </FadeUp>
+          </Reveal>
 
           <div className="flex flex-col gap-6">
-            <FadeUp delay={0.18} className="h-full">
+            <Reveal delay={0.18} className="h-full">
               <a
                 href={GOOGLE_REVIEWS_URL}
                 target="_blank"
@@ -195,9 +175,9 @@ export default function TestimonialSection() {
                   {t.testimonials.cta}
                 </span>
               </a>
-            </FadeUp>
+            </Reveal>
 
-            <FadeUp delay={0.26}>
+            <Reveal delay={0.26}>
               <a
                 href={GOOGLE_REVIEWS_URL}
                 target="_blank"
@@ -230,7 +210,7 @@ export default function TestimonialSection() {
                   <ExternalLink size={14} aria-hidden="true" />
                 </span>
               </a>
-            </FadeUp>
+            </Reveal>
           </div>
         </div>
       </div>

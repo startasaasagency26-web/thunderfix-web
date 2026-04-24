@@ -1,33 +1,9 @@
 "use client";
 
 import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, MapPin } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-
-const ease = [0.16, 1, 0.3, 1] as const;
-
-function FadeUp({
-  children,
-  delay = 0,
-  className = "",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
-  const reducedMotion = useReducedMotion();
-  return (
-    <motion.div
-      initial={reducedMotion ? {} : { opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease, delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
+import Reveal from "./Reveal";
 
 export default function LocationsHeroSection() {
   const { t } = useLanguage();
@@ -47,30 +23,30 @@ export default function LocationsHeroSection() {
       <div className="container-width relative z-10 flex flex-col items-center text-center">
 
         {/* Eyebrow pill */}
-        <FadeUp>
+        <Reveal>
           <div className="badge-pill mb-8">
             <MapPin size={12} className="text-black/50" />
             {t.locationsHero.badge}
           </div>
-        </FadeUp>
+        </Reveal>
 
         {/* Headline */}
-        <FadeUp delay={0.1}>
+        <Reveal delay={0.1}>
           <h1 className="text-[clamp(2.4rem,7.5vw,5.5rem)] font-black leading-[1.02] tracking-[-0.05em] text-black max-w-4xl mx-auto">
             {t.locationsHero.titleTop}{" "}
             <span className="text-black/25">{t.locationsHero.titleBottom}</span>
           </h1>
-        </FadeUp>
+        </Reveal>
 
         {/* Supporting copy */}
-        <FadeUp delay={0.2} className="mt-8 max-w-xl">
+        <Reveal delay={0.2} className="mt-8 max-w-xl">
           <p className="text-[17px] leading-relaxed text-black/50 font-medium">
             {t.locationsHero.subtitle}
           </p>
-        </FadeUp>
+        </Reveal>
 
         {/* CTAs */}
-        <FadeUp delay={0.3} className="mt-12">
+        <Reveal delay={0.3} className="mt-12">
           <div className="flex flex-wrap items-center justify-center gap-5">
             <a
               href="#location-cards"
@@ -88,10 +64,10 @@ export default function LocationsHeroSection() {
               {t.locationsHero.viewLocations}
             </a>
           </div>
-        </FadeUp>
+        </Reveal>
 
         {/* Decorative branch indicator pills */}
-        <FadeUp delay={0.45} className="mt-16">
+        <Reveal delay={0.45} className="mt-16">
           <div className="flex flex-wrap items-center justify-center gap-4">
             {[
               { label: "Seri Kembangan", dot: "bg-black" },
@@ -106,7 +82,7 @@ export default function LocationsHeroSection() {
               </div>
             ))}
           </div>
-        </FadeUp>
+        </Reveal>
       </div>
     </section>
   );

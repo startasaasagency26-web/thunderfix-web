@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import Reveal from "./Reveal";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -40,28 +41,6 @@ const serviceMeta = [
   },
 ];
 
-function FadeUp({
-  children,
-  delay = 0,
-  className = "",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
-  const reducedMotion = useReducedMotion();
-  return (
-    <motion.div
-      initial={reducedMotion ? {} : { opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.8, ease, delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
 
 function ServiceImage({ src, alt }: { src: string; alt: string }) {
   return (
@@ -71,7 +50,7 @@ function ServiceImage({ src, alt }: { src: string; alt: string }) {
         alt={alt}
         fill
         loading="lazy"
-        quality={90}
+        quality={75}
         sizes="(min-width: 1024px) 520px, (min-width: 768px) 45vw, 100vw"
         className="object-cover transition duration-700 ease-out group-hover:scale-[1.035] group-hover:brightness-105 group-hover:contrast-105 motion-reduce:transform-none motion-reduce:transition-none"
       />
@@ -90,18 +69,18 @@ export default function ServiceGrid() {
       <div className="container-width relative z-10">
         {/* Header */}
         <div className="mb-24 flex flex-col items-center text-center">
-          <FadeUp>
+          <Reveal>
             <span className="badge-pill mb-8">{t.services.badge}</span>
             <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-black leading-[1.1] tracking-[-0.04em] text-black">
               {t.services.titleTop} <br />
               <span className="text-black/30">{t.services.titleBottom}</span>
             </h2>
-          </FadeUp>
+          </Reveal>
         </div>
 
         <div className="grid gap-6 md:grid-cols-[1.2fr_0.8fr] lg:gap-12">
           {/* Top Left — Large */}
-          <FadeUp delay={0.1}>
+          <Reveal delay={0.1}>
             <div className="floating-card group flex h-full min-h-[520px] flex-col p-6! sm:p-8! lg:p-10!">
               <ServiceImage
                 src={serviceMeta[0].imageSrc}
@@ -116,10 +95,10 @@ export default function ServiceGrid() {
                 </p>
               </div>
             </div>
-          </FadeUp>
+          </Reveal>
 
           {/* Top Right — Small */}
-          <FadeUp delay={0.2}>
+          <Reveal delay={0.2}>
             <div className="floating-card group flex h-full min-h-[520px] flex-col p-6! sm:p-8! lg:p-10!">
               <ServiceImage
                 src={serviceMeta[1].imageSrc}
@@ -134,10 +113,10 @@ export default function ServiceGrid() {
                 </p>
               </div>
             </div>
-          </FadeUp>
+          </Reveal>
 
           {/* Bottom Left — Small */}
-          <FadeUp delay={0.3}>
+          <Reveal delay={0.3}>
             <div className="floating-card group flex h-full min-h-[520px] flex-col p-6! sm:p-8! lg:p-10!">
               <ServiceImage
                 src={serviceMeta[2].imageSrc}
@@ -152,10 +131,10 @@ export default function ServiceGrid() {
                 </p>
               </div>
             </div>
-          </FadeUp>
+          </Reveal>
 
           {/* Bottom Right — Large w/ CTA */}
-          <FadeUp delay={0.4}>
+          <Reveal delay={0.4}>
             <div className="floating-card group flex h-full min-h-[520px] flex-col bg-surface-low! p-6! sm:p-8! lg:p-10!">
               <ServiceImage
                 src={serviceMeta[3].imageSrc}
@@ -179,7 +158,7 @@ export default function ServiceGrid() {
                 </a>
               </div>
             </div>
-          </FadeUp>
+          </Reveal>
         </div>
       </div>
     </section>

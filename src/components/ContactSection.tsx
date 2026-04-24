@@ -1,32 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
-
-const ease = [0.16, 1, 0.3, 1] as const;
-
-function FadeUp({
-  children,
-  delay = 0,
-  className = "",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
-  const reducedMotion = useReducedMotion();
-  return (
-    <motion.div
-      initial={reducedMotion ? {} : { opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.8, ease, delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
+import Reveal from "./Reveal";
 
 export default function ContactSection() {
   return (
@@ -35,22 +10,22 @@ export default function ContactSection() {
         
         {/* Newsletter Section */}
         <div className="flex flex-col items-center text-center mb-32">
-          <FadeUp>
+          <Reveal>
             <h2 className="text-[clamp(1.5rem,4vw,2.5rem)] font-black leading-tight tracking-tight mb-12">
               Subscribe to Our Newsletter
             </h2>
-          </FadeUp>
+          </Reveal>
           
-          <FadeUp delay={0.2} className="w-full max-w-4xl">
+          <Reveal delay={0.2} className="w-full max-w-4xl">
             <form className="flex flex-col md:flex-row items-end gap-8" onSubmit={(e) => e.preventDefault()}>
-              <div className="flex-grow w-full space-y-3">
+              <div className="grow w-full space-y-3">
                 <input 
                   type="text" 
                   placeholder="Full Name*"
                   className="w-full bg-transparent border-b border-white/20 py-4 text-[14px] font-medium text-white outline-none focus:border-white transition-colors"
                 />
               </div>
-              <div className="flex-grow w-full space-y-3">
+              <div className="grow w-full space-y-3">
                 <input 
                   type="email" 
                   placeholder="Email Here*"
@@ -59,12 +34,12 @@ export default function ContactSection() {
               </div>
               <button 
                 type="submit"
-                className="btn-premium !bg-white !text-black !px-10 !py-4 !rounded-none w-full md:w-auto shrink-0 uppercase text-[12px] font-black tracking-widest"
+                className="btn-premium bg-white! text-black! px-10! py-4! rounded-none! w-full md:w-auto shrink-0 uppercase text-[12px] font-black tracking-widest"
               >
                 Subscribe Now
               </button>
             </form>
-          </FadeUp>
+          </Reveal>
         </div>
 
         {/* Footer Links & Branding */}

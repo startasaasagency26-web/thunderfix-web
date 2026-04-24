@@ -1,37 +1,12 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import React from "react";
 import { ShieldCheck, Smartphone, Users, MapPin } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-
-const ease = [0.16, 1, 0.3, 1] as const;
-
-function FadeUp({
-  children,
-  delay = 0,
-  className = "",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
-  const reducedMotion = useReducedMotion();
-  return (
-    <motion.div
-      initial={reducedMotion ? {} : { opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.8, ease, delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
+import Reveal from "./Reveal";
 
 const statIcons = [Smartphone, Users, MapPin, ShieldCheck];
 const statValues = ["5,000+", "98%", "2", "99.9%"];
-
 const brands = ["Apple", "Samsung", "Google", "Huawei", "Xiaomi", "Oppo"];
 
 export default function TrustMetricsSection() {
@@ -43,7 +18,7 @@ export default function TrustMetricsSection() {
     >
       <div className="mx-auto max-w-[1280px] px-6 py-24 sm:px-10 lg:px-16 lg:py-32">
         <div className="mx-auto max-w-3xl text-center">
-          <FadeUp>
+          <Reveal>
             <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.32em] text-text-muted">
               {t.proof.badge}
             </p>
@@ -58,7 +33,7 @@ export default function TrustMetricsSection() {
             <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-[#666666] sm:text-base">
               {t.proof.subtitle}
             </p>
-          </FadeUp>
+          </Reveal>
         </div>
 
         <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
@@ -67,7 +42,7 @@ export default function TrustMetricsSection() {
             const value = statValues[i];
 
             return (
-              <FadeUp key={stat.label} delay={0.1 * i}>
+              <Reveal key={stat.label} delay={0.1 * i}>
                 <article
                   className="group rounded-[28px] border border-border bg-white p-7 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-[#CFC8BA] hover:shadow-[0_20px_60px_rgba(10,10,10,0.06)] focus-within:-translate-y-1 focus-within:border-[#CFC8BA] focus-within:shadow-[0_20px_60px_rgba(10,10,10,0.06)] motion-reduce:transform-none motion-reduce:transition-none h-full"
                 >
@@ -89,12 +64,12 @@ export default function TrustMetricsSection() {
                     </p>
                   </div>
                 </article>
-              </FadeUp>
+              </Reveal>
             );
           })}
         </div>
 
-        <FadeUp delay={0.4} className="mt-16 border-t border-border pt-10">
+        <Reveal delay={0.4} className="mt-16 border-t border-border pt-10">
           <div>
             <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
               <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-text-muted">
@@ -122,7 +97,7 @@ export default function TrustMetricsSection() {
               </p>
             </div>
           </div>
-        </FadeUp>
+        </Reveal>
       </div>
     </section>
   );

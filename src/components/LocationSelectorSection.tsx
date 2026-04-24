@@ -1,33 +1,8 @@
 "use client";
 
 import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
 import { MapPin, ExternalLink, ArrowRight, Phone } from "lucide-react";
-
-const ease = [0.16, 1, 0.3, 1] as const;
-
-function FadeUp({
-  children,
-  delay = 0,
-  className = "",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
-  const reducedMotion = useReducedMotion();
-  return (
-    <motion.div
-      initial={reducedMotion ? {} : { opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.8, ease, delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
+import Reveal from "./Reveal";
 
 const BRANCHES = [
   {
@@ -64,7 +39,7 @@ export default function LocationSelectorSection() {
     >
       <div className="container-width">
         {/* Header */}
-        <FadeUp>
+        <Reveal>
           <div className="flex flex-col items-center text-center mb-16">
             <span className="badge-pill mb-8">Choose Your Branch</span>
             <h2
@@ -75,12 +50,12 @@ export default function LocationSelectorSection() {
               <span className="text-black/25">easiest for you.</span>
             </h2>
           </div>
-        </FadeUp>
+        </Reveal>
 
         {/* Selector cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {BRANCHES.map((branch, i) => (
-            <FadeUp key={branch.area} delay={0.1 + i * 0.1}>
+            <Reveal key={branch.area} delay={0.1 + i * 0.1}>
               <article
                 className="group flex flex-col rounded-2xl border border-black/[0.07] bg-surface-low p-8 transition-all duration-500 hover:-translate-y-2 hover:shadow-elevated hover:border-black/12 hover:bg-white motion-reduce:transform-none motion-reduce:transition-none"
                 aria-label={`Select ${branch.fullName}`}
@@ -131,7 +106,7 @@ export default function LocationSelectorSection() {
                   </a>
                 </div>
               </article>
-            </FadeUp>
+            </Reveal>
           ))}
         </div>
       </div>

@@ -31,7 +31,7 @@ const LOCATIONS = [
       "https://www.google.com/maps/search/?api=1&query=Thunderfix+Seri+Kembangan",
     wazeUrl: "https://waze.com/ul?q=Thunderfix%20Seri%20Kembangan",
     descKey: "seriKembangan",
-    image: "/branch-seri-kembangan.webp",
+    image: "/branch-seri-kembangan-new.jpg",
     imageAlt: "Thunderfix Seri Kembangan storefront",
     dotColor: "bg-black",
     bandClass: "from-zinc-200 via-zinc-100 to-white",
